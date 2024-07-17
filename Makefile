@@ -1,0 +1,128 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/20 12:33:00 by lvicino           #+#    #+#              #
+#    Updated: 2024/07/17 15:27:35 by lvicino          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME		=	minishell
+
+LIBFT		=	libft/libft.a
+
+
+BUILD_DIR	=	build
+
+
+SRC_DIR		=	src
+
+MAIN		=	minishell.c
+
+MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
+MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+MAIN_DEP			=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+BUILTIN_DIR	=	src/builtin
+
+BUILTIN		=
+
+BUILTIN		:=	$(BUILTIN:%=$(BUILTIN_DIR)/%)
+BUILTIN_OBJ	=	$(BUILTIN:$(BUILTIN_DIR)/%.c=$(BUILD_DIR)/%.o)
+BUILTIN_DEP			=	$(BUILTIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+EXEC_DIR	=	src/exec
+
+EXEC		=
+
+EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
+EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)
+EXEC_DEP			=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+PARSING_DIR	=	src/parsing
+
+PARSING		=	
+
+PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
+PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
+PARSING_DEP			=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+
+
+
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror -g3 -MMD -MP -I include
+INCLUDE		=	-I include \
+				-I libft/include \
+				-I libft/ft_printf/include \
+				-I libft/get_next_line/include
+
+MAKEFLAGS	+=	--no-print-directory
+DIR_DUP		=	mkdir -p $(@D)
+
+
+all		:	$(NAME)
+
+$(NAME)		:	$(MAIN_OBJ) $(BUILTIN_OBJ) $(EXEC_OBJ) $(PARSING_OBJ)
+	@if [ ! -e "$(LIBFT)" ]; then \
+		make -C libft; \
+	fi
+	$(CC) $(MAIN_OBJ) $(BUILTIN_OBJ) $(EXEC_OBJ) $(PARSING_OBJ) $(LIBFT) -lreadline -o $(NAME)
+
+
+$(BUILD_DIR)/%.o		:	$(SRC_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+$(BUILD_DIR)/%.o		:	$(BUILTIN_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+$(BUILD_DIR)/%.o		:	$(EXEC_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+$(BUILD_DIR)/%.o		:	$(PARSING_DIR)/%.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $<
+
+
+-include $(MAIN_DEP) $(BUILTIN_DEP) $(EXEC_DEP) $(PARSING_DEP)
+
+clean	:
+	if [ -d "$(BUILD_DIR)" ]; then \
+		rm -f $(MAIN_OBJ); \
+		rm -f $(MAIN_DEP); \
+		rm -f $(BUILTIN_OBJ); \
+		rm -f $(BUILTIN_DEP); \
+		rm -f $(EXEC_OBJ); \
+		rm -f $(EXEC_DEP); \
+		rm -f $(PARSING_OBJ); \
+		rm -f $(PARSING_DEP); \
+		rmdir $(BUILD_DIR); \
+		make clean -C libft; \
+	fi
+
+fclean	:	clean
+	if [ -e "$(NAME)" ]; then \
+		rm -f $(NAME); \
+	fi
+	if [ -e "$(LIBFT)" ]; then \
+		make fclean -C libft; \
+	fi
+
+re		:	fclean all
+
+.PHONY	:	clean fclean re
+.SILENT	:	clean fclean
