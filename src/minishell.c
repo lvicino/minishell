@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/17 15:27:59 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/07/18 13:37:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	main(int ac, char **ar, char **env)
 {
-	
+	(void)ar;
+	(void)env;
+	if (ac != 1)
+		perror("just launch ./minishell only");
+	while (1)
+		prompt();
 	return (0);
 }

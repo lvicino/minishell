@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 14:11:09 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/18 13:47:49 by rgallien         ###   ########.fr       */
+/*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
+/*   Updated: 2024/07/18 15:04:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft.h"
-
-# include "builtin.h"
-# include "exec.h"
-# include "parsing.h"
-
-# include <stdio.h>
-# include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-#endif
+int prompt(void)
+{
+	char *str;
+	str = readline(">> ");
+	if (!str)
+		return (ft_printf("exit\n"), free(str), exit(0), 0);
+	ft_printf("%s", str);
+	free(str);
+	return (0);
+}
