@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:11:09 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/18 13:47:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:18:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # include <stdio.h>
 # include <stdbool.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

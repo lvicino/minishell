@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 12:33:00 by lvicino           #+#    #+#              #
-#    Updated: 2024/07/18 13:51:32 by rgallien         ###   ########.fr        #
+#    Updated: 2024/07/22 11:07:34 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ EXEC_DEP			=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 PARSING_DIR	=	src/parsing
 
-PARSING		=	loop.c
+PARSING		=	loop.c \
+				utils.c
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
