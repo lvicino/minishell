@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/07/22 16:40:46 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:20:13 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ t_token	*tokenize(char *str, t_token **head, int c)
 			insert_token(head, IN, "<");
 		else if (str[c] == '|')
 			insert_token(head, PIPE, "|");
-		if (ft_isalpha(str[c]) || str[c] == '"')
+		if (ft_isalpha(str[c]) || str[c] == '"' || str[c] == '/' \
+		|| str[c] == '_' || str[c] == 39 || str[c] == '.')
 			c = tokenize_word(str, head, c);
 		else
 			c++;
@@ -77,19 +78,44 @@ static int	bigger(char *str, char *exit)
 	return (len_exit);
 }
 
+void parser(t_token *token, t_token *previous, t_token *current)
+{
+	if (current && current->type == WORD && (previous == NULL || previous->type == PIPE))
+	{
+		current->type = CMD;
+		parser(token, previous, current);
+		return ;
+	}
+	else if (current && current->type == WORD && previous && (previous->type == CMD || previous->type == CMD_SUFFIX))
+	{
+		current->type = CMD_SUFFIX;
+		parser(token, previous, current);
+		return ;
+	}
+	previous = current;
+	if (current && current->next)
+		current = current->next;
+	if (current)
+		parser(token, previous, current);
+}
+
 int	prompt(void)
 {
 	char	*str;
+	char	*pr;
 	t_token	*token;
 
+	pr = ft_strjoin(getcwd(NULL, 0), "$ ");
 	while (1)
 	{
 		token = NULL;
-		str = readline(">> ");
+		str = readline(pr);
 		if (!str || !ft_strncmp(str, "exit", bigger(str, "exit")))
 			return (free(str), rl_clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
+		print_tokens(token);
+		parser(token, NULL, token);
 		print_tokens(token);
 		freelist(token);
 		free(str);

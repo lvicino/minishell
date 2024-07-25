@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/07/22 16:13:23 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:59:36 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,24 @@ void	print_tokens(t_token *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("type = %d\n", current->type);
-		printf("char *  = %s\n", current->str);
+		if (current->type == PIPE)
+			printf("PIPE");
+		else if (current->type == OUT)
+			printf("OUT");
+		else if (current->type == IN)
+			printf("IN");
+		else if (current->type == H_D)
+			printf("H_D");
+		else if (current->type == APPEND)
+			printf("APPEND");
+		else if (current->type == WORD)
+			printf("WORD");
+		else if (current->type == CMD)
+			printf("CMD");
+		printf(" ");
 		current = current->next;
 	}
+	printf("\n");
 }
 
 void	insert_token(t_token **head, t_token_type type, char *str)
