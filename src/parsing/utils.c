@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/07/25 16:59:36 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:18:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_tokens(t_token *head)
 			printf("OUT");
 		else if (current->type == IN)
 			printf("IN");
-		else if (current->type == H_D)
+		else if (current->type == HERE)
 			printf("H_D");
 		else if (current->type == APPEND)
 			printf("APPEND");

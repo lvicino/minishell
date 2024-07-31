@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/25 17:11:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:56:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ typedef enum s_token_type
 {
 	WORD,
 	IN,
-	H_D,
+	HERE,
 	OUT,
 	APPEND,
 	PIPE,
+	CMD_SUFIX,
 	CMD,
-	CMD_SUFFIX
+	SIMPLE_COMMAND,
+	CMD_SUFFIX,
+	IO_REDIRECT,
+	IO_FILE,
+	IO_HERE,
+	FILENAME,
+	EOF
 }	t_token_type;
 
 typedef struct s_token
