@@ -1,0 +1,67 @@
+>hihi ls > out -a
+
+STACK                                            |    TOKENS
+
+VIDE                                            |    ->OUT WORD WORD OUT WORD WORD END
+
+
+OUT shift, and go to state 2
+->OUT                                            |    WORD WORD OUT WORD WORD END
+
+WORD shift, and go to state 13
+OUT ->WORD                                        |    WORD OUT WORD WORD END
+
+$default  reduce using rule 20 (filename)
+OUT ->filename                                    |    WORD OUT WORD WORD END
+
+return to state 0
+OUT, shift and go to state 2
+OUT ->filename                                    |    WORD OUT WORD WORD END
+
+go to state 14
+reduce using rule 17 (io_file)
+go to state 0
+->io_file                                   |    WORD OUT WORD WORD END
+
+go to state 11
+reduce using rule 15
+go to state 0
+->io_redirect	|    WORD OUT WORD WORD END
+
+go to state 10
+reduce using rule 9
+go to state 0
+->cmd_prefix	|    WORD OUT WORD WORD END
+
+go to state 9
+WORD    shift, and go to state 1
+->cmd_prefix  WORD |	OUT WORD WORD END
+
+reduce using rule 8
+go to state 0
+->cmd_prefix cmd_name |	OUT WORD WORD END
+
+go to state 9
+go to state 24
+shift, and go to state 2
+->cmd_prefix cmd_name OUT |	WORD WORD END
+
+shift, and go to state 13
+->cmd_prefix cmd_name OUT WORD |WORD END
+
+reduce using rule 20
+go to state 0
+->cmd_prefix cmd_name OUT filename | WORD END
+
+->cmd_prefix cmd_name io_file | WORD END
+
+cmd_prefix cmd_name io_redirect | WORD END
+
+cmd_prefix cmd_name cmd_suffix | WORD END
+
+WORD    shift, and go to state 27
+cmd_prefix cmd_name cmd_suffix WORD | END
+
+cmd_prefix cmd_name cmd_suffix | END
+
+simple_command | END

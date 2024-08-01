@@ -1,0 +1,46 @@
+                 ls -l -a
+
+STACK				|	TOKENS
+					|
+VIDE				|	WORD WORD WORD
+
+shift WORD
+go to state 1
+WORD				|	WORD WORD
+
+reduce using rule 8
+go to state 0
+cmd_name				|	WORD WORD
+
+go to state 8
+shift WORD
+cmd_name WORD			|	WORD
+
+go to state 21
+reduce using rule 13
+go to state 0
+cmd_name cmd_suffix		| WORD
+
+go to state 8
+go to state 22
+shift WORD and go to state 27
+cmd_name cmd_suffix WORD |
+
+reduce using rule 14
+go to state 0
+cmd_name cmd_suffix
+
+go to state 8
+go to state 22
+reduce using rule 6
+go to state 0
+simple_command
+
+go to state 7
+reduce using rule 1
+go to state 0
+pipe_sequence
+
+go to state 6
+go to state 19
+accept
