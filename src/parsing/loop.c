@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/07/31 16:54:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:11:00 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,13 @@ t_token	*tokenize(char *str, t_token **head, int c)
 	return (*head);
 }
 
-static int	bigger(char *str, char *exit)
-{
-	int	len_str;
-	int	len_exit;
+// void parser(t_token *tokens)
+// {
+// 	t_token *stack;
+// 	t_token *first;
 
-	len_str = ft_strlen(str);
-	len_exit = ft_strlen(exit);
-	if (len_str > len_exit)
-		return (len_str);
-	return (len_exit);
-}
-
-void parser(t_token *tokens)
-{
-	t_token *stack;
-	t_token *first;
-
-	stack = NULL;
-}
+// 	stack = NULL;
+// }
 
 int	prompt(void)
 {
@@ -99,9 +87,10 @@ int	prompt(void)
 			return (free(str), rl_clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
+		insert_token(&token, END, NULL);
 		print_tokens(token);
-		parser(token);
-		print_tokens(token);
+		// parser(token);
+		// print_tokens(token);
 		freelist(token);
 		free(str);
 	}

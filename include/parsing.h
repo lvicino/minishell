@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/31 14:56:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:10:40 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef enum s_token_type
 	IO_FILE,
 	IO_HERE,
 	FILENAME,
-	EOF
+	EOF,
+	END,
 }	t_token_type;
 
 typedef struct s_token
@@ -41,6 +42,7 @@ typedef struct s_token
 	struct s_token		*next;
 }				t_token;
 
+int	bigger(char *s1, char *s2);
 int		prompt(void);
 void	freelist(t_token *head);
 void	print_tokens(t_token *head);

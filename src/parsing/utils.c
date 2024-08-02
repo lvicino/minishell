@@ -6,11 +6,23 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/07/31 16:18:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:11:56 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	bigger(char *s1, char *s2)
+{
+	int	len_s1;
+	int	len_s2;
+
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	if (len_s1 > len_s2)
+		return (len_s1);
+	return (len_s2);
+}
 
 void	freelist(t_token *head)
 {
@@ -34,6 +46,8 @@ void	print_tokens(t_token *head)
 	{
 		if (current->type == PIPE)
 			printf("PIPE");
+		if (current->type == END)
+			printf("END");
 		else if (current->type == OUT)
 			printf("OUT");
 		else if (current->type == IN)

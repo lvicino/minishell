@@ -1,0 +1,12 @@
+build
+cat
+doc.txt
+>hihils>out-a.txt
+include
+libft
+ls-l-a.txt
+ls-l|cat-e.txt
+Makefile
+minishell
+src
+truc.html
