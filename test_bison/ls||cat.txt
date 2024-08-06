@@ -1,0 +1,29 @@
+ls | | cat
+
+WORD PIPE PIPE WORD END
+
+STACK			|	TOKENS
+
+				|	WORD PIPE PIPE WORD END
+
+shift, and go to state 1
+WORD			|	PIPE PIPE WORD END
+
+reduce using rule 8
+go to state 0
+cmd_name		|	PIPE PIPE WORD END
+
+go to state 8
+reduce using rule 7
+go to state 0
+simple_command		|	PIPE PIPE WORD END
+
+go to state 7
+reduce using rule 1
+go to state 0
+pipe_sequence		|	PIPE PIPE WORD END
+
+go to state 6
+shift, and go to state 20
+pipe_sequence PIPE		|	PIPE WORD END
+

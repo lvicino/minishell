@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/02 15:11:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:47:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	print_tokens(t_token *head)
 			printf("WORD");
 		else if (current->type == CMD)
 			printf("CMD");
+		else if (current->type == S_AND)
+			printf("S_AND");
+		else if (current->type == DIEZ)
+			printf("DIEZcl");
 		printf(" ");
 		current = current->next;
 	}
