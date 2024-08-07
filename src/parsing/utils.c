@@ -6,11 +6,19 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/06 15:47:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:26:36 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_word(char c)
+{
+	if (ft_isalpha(c) || c == '"' || c == '/' \
+		|| c == '_' || c == 39 || c == '.' || c == '~')
+		return (1);
+	return (0);
+}
 
 int	bigger(char *s1, char *s2)
 {
@@ -37,11 +45,17 @@ void	freelist(t_token *head)
 	}
 }
 
-void	print_tokens(t_token *head)
+void	print_tokens(t_token *head, int whois)
 {
 	t_token	*current;
 
 	current = head;
+	if (whois == 1)
+		printf("STACK = ");
+	else if (whois == 2)
+		printf("BUFFER = ");
+	else
+		printf("START = ");
 	while (current != NULL)
 	{
 		if (current->type == PIPE)

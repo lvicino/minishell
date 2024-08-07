@@ -6,12 +6,19 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/06 15:46:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:25:57 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	automate(t_token **buffer)
+{
+	t_token	*stack;
+
+	stack = NULL;
+	state_0(buffer, &stack);
+}
 int	tokenize_word(char *str, t_token **head, int c)
 {
 	int		start;
@@ -51,14 +58,6 @@ int	is_token(char *str, const char **list, int *c, int *i)
 	return (0);
 }
 
-int	is_word(char c)
-{
-	if (ft_isalpha(c) || c == '"' || c == '/' \
-		|| c == '_' || c == 39 || c == '.' || c == '~')
-		return (1);
-	return (0);
-}
-
 t_token	*tokenize(char *str, t_token **head, int c)
 {
 	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
@@ -91,7 +90,8 @@ int	prompt(void)
 		add_history(str);
 		token = tokenize(str, &token, 0);
 		insert_token(&token, END, NULL);
-		print_tokens(token);
+		print_tokens(token, 3);
+		automate(&token);
 		freelist(token);
 		free(str);
 	}
