@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/07 17:17:11 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:52:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum s_token_type
 	WORD,
 	CMD_SUFIX,
 	CMD,
+	CMD_NAME,
 	SIMPLE_COMMAND,
 	CMD_SUFFIX,
 	IO_REDIRECT,
@@ -35,6 +36,9 @@ typedef enum s_token_type
 	IO_HERE,
 	FILENAME,
 	eof,
+	PIPE_SEQUENCE,
+	CMD_PREFIX,
+	NUMBER_OF_TOKENS,
 }	t_token_type;
 
 typedef struct s_token
@@ -47,17 +51,49 @@ typedef struct s_token
 typedef struct s_assoc
 {
 	t_token_type type;
-	void (*func)(int);
+	void (*func)(t_token **, t_token *);
 }t_assoc;
 
-int		is_word(char c);
-int		bigger(char *s1, char *s2);
-int		prompt(void);
-void	freelist(t_token *head);
-void	print_tokens(t_token *head, int whois);
-void	insert_token(t_token **head, t_token_type type, char *str);
+int			is_word(char c);
+int			bigger(char *s1, char *s2);
+int			prompt(void);
+void		freelist(t_token *head);
+void		print_tokens(t_token *head, int whois);
+void		insert_token(t_token **head, t_token_type type, char *str);
 
 // states
-void	state_0(t_token **buffer, t_token **stack);
+t_assoc	*get_tab(int state);
+void		state_0(t_token **buffer, t_token **stack);
+void		state_1(t_token **buffer, t_token *head);
+void		state_2(t_token **buffer, t_token *head);
+void		state_3(t_token **buffer, t_token *head);
+void		state_4(t_token **buffer, t_token *head);
+void		state_5(t_token **buffer, t_token *head);
+void		state_6(t_token **buffer, t_token *head);
+void		state_7(t_token **buffer, t_token *head);
+void		state_8(t_token **buffer, t_token *head);
+void		state_9(t_token **buffer, t_token *head);
+void		state_10(t_token **buffer, t_token *head);
+void		state_11(t_token **buffer, t_token *head);
+void		state_12(t_token **buffer, t_token *head);
+void		state_13(t_token **buffer, t_token *head);
+void		state_14(t_token **buffer, t_token *head);
+void		state_15(t_token **buffer, t_token *head);
+void		state_16(t_token **buffer, t_token *head);
+void		state_17(t_token **buffer, t_token *head);
+void		state_18(t_token **buffer, t_token *head);
+void		state_19(t_token **buffer, t_token *head);
+void		state_20(t_token **buffer, t_token *head);
+void		state_21(t_token **buffer, t_token *head);
+void		state_22(t_token **buffer, t_token *head);
+void		state_23(t_token **buffer, t_token *head);
+void		state_24(t_token **buffer, t_token *head);
+void		state_25(t_token **buffer, t_token *head);
+void		state_26(t_token **buffer, t_token *head);
+void		state_27(t_token **buffer, t_token *head);
+void		state_28(t_token **buffer, t_token *head);
+void		state_29(t_token **buffer, t_token *head);
+t_token		*add_to_stack(t_token **buffer, t_token **stack);
+void		ft_del_token(t_token **lst, void (*del)(void*));
 
 #endif

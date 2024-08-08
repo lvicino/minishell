@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/07 14:25:57 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:03:30 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	automate(t_token **buffer)
 	stack = NULL;
 	state_0(buffer, &stack);
 }
+
 int	tokenize_word(char *str, t_token **head, int c)
 {
 	int		start;
@@ -61,7 +62,7 @@ int	is_token(char *str, const char **list, int *c, int *i)
 t_token	*tokenize(char *str, t_token **head, int c)
 {
 	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
-	int	i;
+	int			i;
 
 	while (str[c])
 	{
@@ -80,6 +81,7 @@ int	prompt(void)
 {
 	char	*str;
 	t_token	*token;
+	t_token	*stack;
 
 	while (1)
 	{
@@ -91,7 +93,8 @@ int	prompt(void)
 		token = tokenize(str, &token, 0);
 		insert_token(&token, END, NULL);
 		print_tokens(token, 3);
-		automate(&token);
+		stack = NULL;
+		state_0(&token, &stack);
 		freelist(token);
 		free(str);
 	}

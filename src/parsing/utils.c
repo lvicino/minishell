@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/07 14:26:36 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:07:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	freelist(t_token *head)
 
 void	print_tokens(t_token *head, int whois)
 {
-	t_token	*current;
+	t_token			*current;
+	const char		*tab[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND", \
+	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD_NAME", "SIMPLE_COMMAND", \
+	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
+	"PIPE_SEQUENCE", "CMD_PREFIX"};
 
 	current = head;
 	if (whois == 1)
@@ -58,27 +62,10 @@ void	print_tokens(t_token *head, int whois)
 		printf("START = ");
 	while (current != NULL)
 	{
-		if (current->type == PIPE)
-			printf("PIPE");
-		if (current->type == END)
-			printf("END");
-		else if (current->type == OUT)
-			printf("OUT");
-		else if (current->type == IN)
-			printf("IN");
-		else if (current->type == HERE)
-			printf("H_D");
-		else if (current->type == APPEND)
-			printf("APPEND");
-		else if (current->type == WORD)
-			printf("WORD");
-		else if (current->type == CMD)
-			printf("CMD");
-		else if (current->type == S_AND)
-			printf("S_AND");
-		else if (current->type == DIEZ)
-			printf("DIEZcl");
-		printf(" ");
+		if (current->type >= 0 && current->type < NUMBER_OF_TOKENS)
+			printf("%s ", tab[current->type]);
+		else
+			printf("UNKNOWN ");
 		current = current->next;
 	}
 	printf("\n");

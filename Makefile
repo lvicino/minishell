@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 12:33:00 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/07 17:44:17 by rgallien         ###   ########.fr        #
+#    Updated: 2024/08/08 17:02:54 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,16 @@ EXEC_DEP			=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 PARSING_DIR	=	src/parsing
 
-PARSING		=	state_0_5.c \
+PARSING		=	state/state.c \
 				loop.c \
-				utils.c
+				utils.c \
+				state/state_utils.c \
+				state/state_1_5.c \
+				state/state_6_10.c \
+				state/state_11_15.c \
+				state/state_16_20.c \
+				state/state_21_25.c \
+				state/state_26_29.c
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -61,7 +68,7 @@ PARSING_DEP			=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g3 -MMD -MP -I include
+CFLAGS		=	-Wall -Wextra  -g3 -MMD -MP -I include
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
@@ -112,7 +119,7 @@ clean	:
 		rm -f $(EXEC_DEP); \
 		rm -f $(PARSING_OBJ); \
 		rm -f $(PARSING_DEP); \
-		rmdir $(BUILD_DIR); \
+		rm -rf $(BUILD_DIR); \
 		make clean -C libft; \
 	fi
 
