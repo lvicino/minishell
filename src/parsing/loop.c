@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/08 17:03:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:23:24 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_token(char *str, const char **list, int *c, int *i)
 {
 	while (*i < END)
 	{
-		if (!strncmp(str + *c, list[*i], ft_strlen(list[*i])))
+		if (!ft_strncmp(str + *c, list[*i], ft_strlen(list[*i])))
 		{
 			*c += ft_strlen(list[*i]);
 			return (1);
@@ -88,7 +88,7 @@ int	prompt(void)
 		token = NULL;
 		str = readline(">> ");
 		if (!str || !ft_strncmp(str, "exit", bigger(str, "exit")))
-			return (free(str), rl_clear_history(), ft_printf("exit\n"), 0);
+			return (free(str), clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
 		insert_token(&token, END, NULL);

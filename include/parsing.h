@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/08 17:52:02 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:58:15 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
 
 // states
-t_assoc	*get_tab(int state);
 void		state_0(t_token **buffer, t_token **stack);
 void		state_1(t_token **buffer, t_token *head);
 void		state_2(t_token **buffer, t_token *head);
@@ -93,6 +92,7 @@ void		state_26(t_token **buffer, t_token *head);
 void		state_27(t_token **buffer, t_token *head);
 void		state_28(t_token **buffer, t_token *head);
 void		state_29(t_token **buffer, t_token *head);
+t_assoc		*get_tab(int state);
 t_token		*add_to_stack(t_token **buffer, t_token **stack);
 void		ft_del_token(t_token **lst, void (*del)(void*));
 

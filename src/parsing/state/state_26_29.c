@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_26_29.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:36:59 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/08 17:09:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/09 12:32:17 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ void	state_28(t_token	**buffer, t_token *head)
 
 void	state_29(t_token	**buffer, t_token *head)
 {
-	printf("state_29\n");
-	const t_assoc	tab[] = {{WORD, state_27}, {OUT, state_2}, {IN, state_3}, \
-	{HERE, state_4}, {APPEND, state_5}, {IO_REDIRECT, state_28}, \
-	{IO_FILE, state_11}, {IO_HERE, state_12}};
+	t_assoc			*tab;
 	int				i;
 
+	printf("state_29\n");
 	i = 0;
+	tab = get_tab(29);
 	while (i < 8)
 	{
 		if (head->type == tab[i].type)
@@ -57,7 +56,7 @@ void	state_29(t_token	**buffer, t_token *head)
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
 			head = add_to_stack(buffer, &head);
-				return (tab[i].func(buffer, head));
+			return (tab[i].func(buffer, head));
 		}
 		i++;
 	}

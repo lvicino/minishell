@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/08 15:07:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:58:06 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print_tokens(t_token *head, int whois)
 {
 	t_token			*current;
 	const char		*tab[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND", \
-	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD_NAME", "SIMPLE_COMMAND", \
+	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND", \
 	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
 	"PIPE_SEQUENCE", "CMD_PREFIX"};
 
