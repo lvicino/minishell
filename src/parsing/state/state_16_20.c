@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_16_20.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 15:36:27 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/10 18:39:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	state_16(t_token	**buffer, t_token *head)
 {
-	printf("16\n");
+	printf("state 16\n");
 	if (head->type == WORD)
 		head->type = eof;
 	else
@@ -27,7 +27,7 @@ void	state_16(t_token	**buffer, t_token *head)
 
 void	state_17(t_token	**buffer, t_token *head)
 {
-	printf("17\n");
+	printf("state 17\n");
 	if (head->type == HERE && head->next->type == eof)
 	{
 		ft_del_token(&head, &free);
@@ -43,7 +43,7 @@ void	state_17(t_token	**buffer, t_token *head)
 
 void	state_18(t_token	**buffer, t_token *head)
 {
-	printf("18\n");
+	printf("state 18\n");
 	if (head->type == APPEND && head->next->type == FILENAME)
 	{
 		ft_del_token(&head, &free);
@@ -59,15 +59,10 @@ void	state_18(t_token	**buffer, t_token *head)
 
 void	state_19(t_token	**buffer, t_token *head)
 {
-	print_tokens(head, 1);
-	print_tokens(*buffer, 2);
-	printf("19\n");
+	(void)buffer;
+	printf("state 19\n");
 	if (head->type == END)
-	{
-		freelist(*buffer);
-		freelist(head);
 		printf("GOOD !!\n");
-	}
 	else
 		printf("state 19 error\n");
 	prompt();
@@ -80,7 +75,7 @@ void	state_20(t_token	**buffer, t_token *head)
 
 	i = 0;
 	tab = get_tab(20);
-	printf("20\n");
+	printf("state 20\n");
 	while (i < 11)
 	{
 		if (head->type == tab[i].type)
@@ -97,6 +92,6 @@ void	state_20(t_token	**buffer, t_token *head)
 		}
 		i++;
 	}
-	printf("big erreur state 20");
+	printf("WRONG COMMAND\n");
 	exit(0);
 }

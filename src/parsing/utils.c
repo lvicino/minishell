@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 14:58:06 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/10 21:52:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,19 @@ void	freelist(t_token *head)
 void	print_tokens(t_token *head, int whois)
 {
 	t_token			*current;
+	const char		*str[4] = {"RIEN", "STACK = ", "BUFFER = ", "START = "};
 	const char		*tab[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND", \
 	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND", \
 	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
 	"PIPE_SEQUENCE", "CMD_PREFIX"};
 
 	current = head;
-	if (whois == 1)
-		printf("STACK = ");
-	else if (whois == 2)
-		printf("BUFFER = ");
-	else
-		printf("START = ");
+	if (current)
+	{
+		while (current->prev)
+			current = current->prev;
+	}
+	printf("%s", str[whois]);
 	while (current != NULL)
 	{
 		if (current->type >= 0 && current->type < NUMBER_OF_TOKENS)
@@ -82,6 +83,7 @@ void	insert_token(t_token **head, t_token_type type, char *str)
 	token->str = ft_strdup(str);
 	token->type = type;
 	token->next = NULL;
+	token->prev = NULL;
 	if (*head == NULL)
 	{
 		*head = token;
@@ -91,4 +93,5 @@ void	insert_token(t_token **head, t_token_type type, char *str)
 	while (current->next != NULL)
 		current = current->next;
 	current->next = token;
+	token->prev = current;
 }

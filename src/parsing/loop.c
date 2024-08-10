@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 13:23:24 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/09 20:48:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	automate(t_token **buffer)
-{
-	t_token	*stack;
-
-	stack = NULL;
-	state_0(buffer, &stack);
-}
 
 int	tokenize_word(char *str, t_token **head, int c)
 {

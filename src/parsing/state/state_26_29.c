@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_26_29.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:36:59 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 12:32:17 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/10 16:01:30 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,23 @@ void	state_26(t_token	**buffer, t_token *head)
 
 void	state_27(t_token	**buffer, t_token *head)
 {
+	int		i;
+	t_token	*tmp;
+
+	tmp = head;
+	i = 0;
 	printf("state_27\n");
-	ft_del_token(&head, &free);
+	while (i < 2 && head)
+	{
+		tmp = head->prev;
+		if (tmp)
+			tmp->next = NULL;
+		head->prev->next = NULL;
+		free(head->str);
+		free(head);
+		head = tmp;
+		i++;
+	}
 	insert_token(&head, CMD_SUFFIX, NULL);
 	state_0(buffer, &head);
 }

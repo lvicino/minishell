@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_11_15.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:54:24 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 13:40:15 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/10 02:43:47 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	state_11(t_token	**buffer, t_token *head)
 {
-	printf("11\n");
+	printf("state 11\n");
 	if (head->type == IO_FILE)
 		head->type = IO_REDIRECT;
 	else
@@ -27,7 +27,7 @@ void	state_11(t_token	**buffer, t_token *head)
 
 void	state_12(t_token	**buffer, t_token *head)
 {
-	printf("12\n");
+	printf("state 12\n");
 	if (head->type == IO_HERE)
 		head->type = IO_REDIRECT;
 	else
@@ -40,7 +40,7 @@ void	state_12(t_token	**buffer, t_token *head)
 
 void	state_13(t_token	**buffer, t_token *head)
 {
-	printf("13\n");
+	printf("state 13\n");
 	if (head->type == WORD)
 		head->type = FILENAME;
 	else
@@ -53,7 +53,7 @@ void	state_13(t_token	**buffer, t_token *head)
 
 void	state_14(t_token	**buffer, t_token *head)
 {
-	printf("14\n");
+	printf("state 14\n");
 	if (head->type == OUT && head->next->type == FILENAME)
 	{
 		ft_del_token(&head, &free);
@@ -69,7 +69,7 @@ void	state_14(t_token	**buffer, t_token *head)
 
 void	state_15(t_token	**buffer, t_token *head)
 {
-	printf("15\n");
+	printf("state 15\n");
 	if (head->type == IN && head->next->type == FILENAME)
 	{
 		ft_del_token(&head, &free);

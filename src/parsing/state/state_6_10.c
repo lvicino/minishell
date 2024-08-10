@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_6_10.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/09 16:50:17 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/10 21:55:05 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	state_6(t_token **buffer, t_token *head)
 {
-	printf("6\n");
-	if (!head->next){
+	printf("state 6\n");
+	if (!head->next)
 		head = add_to_stack(buffer, &head);
-	}
 	if (head->type == END)
 		state_19(buffer, head);
 	else if (head->type == PIPE)
+	{
+		if (head->next)
+			head = head->next;
 		state_20(buffer, head);
+	}
 	else
 	{
 		printf("error state_6\n");
@@ -31,7 +34,7 @@ void	state_6(t_token **buffer, t_token *head)
 
 void	state_7(t_token	**buffer, t_token *head)
 {
-	printf("7\n");
+	printf("state 7\n");
 	if (head->type == SIMPLE_COMMAND)
 	{
 		head->type = PIPE_SEQUENCE;
@@ -51,8 +54,8 @@ void	state_8(t_token **buffer, t_token *head)
 
 	i = 0;
 	tab = get_tab(8);
-	printf("8\n");
-	while (i < 9)
+	printf("state 8\n");
+	while (head && i < 9)
 	{
 		if (head->type == tab[i].type)
 			return (tab[i].func(buffer, head));
@@ -80,7 +83,7 @@ void	state_9(t_token	**buffer, t_token *head)
 
 	tab = get_tab(9);
 	i = 0;
-	printf("9\n");
+	printf("state 9\n");
 	while (i < 9)
 	{
 		if (head->type == tab[i].type)
@@ -104,7 +107,7 @@ void	state_9(t_token	**buffer, t_token *head)
 
 void	state_10(t_token	**buffer, t_token *head)
 {
-	printf("10\n");
+	printf("state 10\n");
 	if (head->type == IO_REDIRECT)
 		head->type = CMD_PREFIX;
 	else
