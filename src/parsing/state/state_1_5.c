@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/10 02:44:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:21:55 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,10 @@ void	state_3(t_token **buffer, t_token *head)
 void	state_2(t_token **buffer, t_token *head)
 {
 	printf("state 2\n");
+	print_tokens(head, 1);
+	print_tokens(*buffer, 2);
 	if (head->type == FILENAME)
-		return (state_14(buffer, head->next));
+		return (state_14(buffer, head));
 	else if (head->type == WORD)
 		return (state_13(buffer, head->next));
 	else if (!head->next && (*buffer)->type == WORD)

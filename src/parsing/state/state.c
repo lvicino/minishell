@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/10 21:56:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:47:42 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,36 +62,37 @@ t_assoc	*get_tab(int state)
 		return (get_tab_2(state));
 }
 
-void	state_0(t_token **buffer, t_token **stack)
+int	state_0(t_token **buffer, t_token **stack)
 {
-	t_token			*head;
 	t_assoc			*tab;
 	int				i;
 
 	tab = get_tab(0);
 	printf("state 0\n");
-	head = *stack;
-	if (head)
+	print_tokens(*stack, 1);
+	print_tokens(*buffer, 2);
+	if (*stack)
 	{
-		while (head->prev)
-			head = head->prev;
+		while ((*stack)->prev)
+			*stack = (*stack)->prev;
 	}
 	i = -1;
 	while (++i < 12)
 	{
-		if (head && head->type == tab[i].type)
+		if (*stack && (*stack)->type == tab[i].type)
 		{
-			if (head->next)
-				head = head->next;
-			return (tab[i].func(buffer, head));
+			if ((*stack)->next)
+				*stack = (*stack)->next;
+			return (tab[i].func(buffer, *stack), 1);
 		}
 	}
-	head = add_to_stack(buffer, stack);
+	*stack = add_to_stack(buffer, stack);
 	i = -1;
 	while (++i < 12)
 	{
-		if (head->type == tab[i].type)
-			return (tab[i].func(buffer, head));
+		if ((*stack)->type == tab[i].type)
+			return (tab[i].func(buffer, *stack), 1);
 	}
-	printf("Error state 0\n");
+	printf("Unexpected token \n");
+	return (0);
 }

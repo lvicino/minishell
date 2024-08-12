@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/09 21:18:57 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:55:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_token
 	char				*str;
 	struct s_token		*next;
 	struct s_token		*prev;
-
 }				t_token;
 
 typedef struct s_assoc
@@ -58,13 +57,13 @@ typedef struct s_assoc
 
 int			is_word(char c);
 int			bigger(char *s1, char *s2);
-int			prompt(void);
+int			prompt(char **env);
 void		freelist(t_token *head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
 
 // states
-void		state_0(t_token **buffer, t_token **stack);
+int			state_0(t_token **buffer, t_token **stack);
 void		state_1(t_token **buffer, t_token *head);
 void		state_2(t_token **buffer, t_token *head);
 void		state_3(t_token **buffer, t_token *head);
@@ -96,7 +95,6 @@ void		state_28(t_token **buffer, t_token *head);
 void		state_29(t_token **buffer, t_token *head);
 t_assoc		*get_tab(int state);
 t_token		*starter(t_token *stack);
-void	ft_del_before_token(t_token **lst, t_token *target, void (*del)(void*));
 t_token		*add_to_stack(t_token **buffer, t_token **stack);
 void		ft_del_token(t_token **lst, void (*del)(void*));
 
