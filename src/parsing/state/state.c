@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/16 15:59:35 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/18 14:44:50 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	state_error(char *str)
 {
-	write(2, " minishell : syntax error near unexpected token ", 48);
+	write(2, "minishell : syntax error near unexpected token ", 48);
 	write(2, "` ", 1);
 	ft_putstr_fd(str, 2);
-	write(2, "'", 1);
+	write(2, "'\n", 2);
 	prompt(NULL);
 }
 

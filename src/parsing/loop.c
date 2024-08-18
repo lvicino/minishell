@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/16 13:31:13 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/18 21:55:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	tokenize_word(char *str, t_token **head, int c)
 	{
 		start = c;
 		while (ft_isalpha(str[c]) || str[c] == '/' \
-		|| str[c] == '_' || str[c] == '.')
+		|| str[c] == '_' || str[c] == '.' || ft_isalnum(str[c]))
 			c++;
 	}
 	word = ft_substr(str, start, c - start);
@@ -76,6 +76,7 @@ int	prompt(char **env)
 	t_token	*token;
 	t_token	*stack;
 
+	(void)env;
 	while (1)
 	{
 		token = NULL;
@@ -88,7 +89,7 @@ int	prompt(char **env)
 		print_tokens(token, 3);
 		stack = NULL;
 		state_0(&token, &stack);
-		//exec(tokens, env);
+		//exec(token, env);
 		freelist(token);
 		free(str);
 	}

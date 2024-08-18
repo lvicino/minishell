@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_16_20.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/16 15:57:03 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/18 22:54:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	state_16(t_token	**buffer, t_token *head)
 void	state_17(t_token	**buffer, t_token *head)
 {
 	printf("state 17\n");
-	if (head->type == HERE && head->next->type == eof)
+	print_tokens(head, 1);
+	if (head->type == eof)
 	{
 		ft_del_token(&head, &free);
 		insert_token(&head, IO_HERE, NULL);
@@ -62,7 +63,7 @@ void	state_19(t_token	**buffer, t_token *head)
 	(void)buffer;
 	printf("state 19\n");
 	if (head->type == END)
-		printf("GOOD !!\n");
+		printf("OK\n");
 	else
 		printf("state 19 error\n");
 }
@@ -72,25 +73,26 @@ void	state_20(t_token	**buffer, t_token *head)
 	t_assoc			*tab;
 	int				i;
 
-	i = 0;
+	i = -1;
 	tab = get_tab(20);
 	printf("state 20\n");
-	while (i < 11)
+	while (++i < 11)
 	{
 		if (head->type == tab[i].type)
+		{
+			if (head->next)
+				head = head->next;
 			return (tab[i].func(buffer, head));
-		i++;
+		}
 	}
-	i = 0;
-	while (i < 5)
+	i = -1;
+	while (++i < 5)
 	{
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
 			head = add_to_stack(buffer, &head);
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
 	state_error(head->str);
-	exit(0);
 }

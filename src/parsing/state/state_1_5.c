@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/12 13:21:55 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/18 22:41:40 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	state_5(t_token **buffer, t_token *head)
 void	state_4(t_token **buffer, t_token *head)
 {
 	printf("state 4\n");
+	printf("%d\n", head->type);
 	if (head->type == eof)
-		state_17(buffer, head->next);
+		state_17(buffer, head);
 	else if (head->type == WORD)
-		state_16(buffer, head->next);
+		state_16(buffer, head);
 	else if (!head->next && (*buffer)->type == WORD)
 	{
 		add_to_stack(buffer, &head);
