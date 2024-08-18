@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_16_20.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/12 13:58:16 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:57:03 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ void	state_20(t_token	**buffer, t_token *head)
 		}
 		i++;
 	}
-	printf("WRONG COMMAND\n");
+	state_error(head->str);
 	exit(0);
 }

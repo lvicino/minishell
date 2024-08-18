@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/12 14:47:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:59:35 by rubengallie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+void	state_error(char *str)
+{
+	write(2, " minishell : syntax error near unexpected token ", 48);
+	write(2, "` ", 1);
+	ft_putstr_fd(str, 2);
+	write(2, "'", 1);
+	prompt(NULL);
+}
 
 t_assoc	*get_tab_2(int state)
 {
@@ -93,6 +102,6 @@ int	state_0(t_token **buffer, t_token **stack)
 		if ((*stack)->type == tab[i].type)
 			return (tab[i].func(buffer, *stack), 1);
 	}
-	printf("Unexpected token \n");
+	state_error((*stack)->str);
 	return (0);
 }
