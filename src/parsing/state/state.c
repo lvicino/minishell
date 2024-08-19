@@ -6,19 +6,21 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/18 14:44:50 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:24:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	state_error(char *str)
+void	state_error(t_token *head, t_token *buffer)
 {
 	write(2, "minishell : syntax error near unexpected token ", 48);
 	write(2, "` ", 1);
-	ft_putstr_fd(str, 2);
+	ft_putstr_fd(head->str, 2);
 	write(2, "'\n", 2);
-	prompt(NULL);
+	freelist(head);
+	freelist(buffer);
+	return ;
 }
 
 t_assoc	*get_tab_2(int state)
@@ -102,6 +104,6 @@ int	state_0(t_token **buffer, t_token **stack)
 		if ((*stack)->type == tab[i].type)
 			return (tab[i].func(buffer, *stack), 1);
 	}
-	state_error((*stack)->str);
+	state_error(*stack, *buffer);
 	return (0);
 }

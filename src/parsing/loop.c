@@ -6,11 +6,36 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/18 21:55:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:55:45 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	tokenize_cpy(t_token *tmp, int i)
+{
+	while (tmp)
+	{
+		if (!i && tmp->type == WORD && (!tmp->prev || tmp->prev->type == PIPE \
+		|| tmp->prev->type == FILENAME))
+		{
+			i = 1;
+			tmp->type = CMD;
+		}
+		else if (i && tmp->type == WORD && tmp->prev && (tmp->prev->type \
+		== CMD || tmp->prev->type == CMD_SUFFIX || tmp->prev->type == FILENAME \
+		|| tmp->prev->type == eof))
+			tmp->type = CMD_SUFFIX;
+		else if (tmp->type == WORD && tmp->prev && (tmp->prev->type == IN || \
+		tmp->prev->type == APPEND || tmp->prev->type == OUT))
+			tmp->type = FILENAME;
+		else if (tmp->type == WORD && tmp->prev && tmp->prev->type == HERE)
+			tmp->type = eof;
+		else if (tmp->type == PIPE)
+			i = 0;
+		tmp = tmp->next;
+	}
+}
 
 int	tokenize_word(char *str, t_token **head, int c)
 {
@@ -72,25 +97,29 @@ t_token	*tokenize(char *str, t_token **head, int c)
 int	prompt(char **env)
 {
 	char	*str;
-
 	t_token	*token;
 	t_token	*stack;
+	t_token	*cpy;
 
 	(void)env;
 	while (1)
 	{
 		token = NULL;
+		cpy = NULL;
 		str = readline(">> ");
 		if (!str || !ft_strncmp(str, "exit", bigger(str, "exit")))
 			return (free(str), clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
+		cpy = tokenize(str, &cpy, 0);
+		tokenize_cpy(cpy, 0);
+		print_tokens(cpy, 4);
+		exit(0);
 		insert_token(&token, END, NULL);
-		print_tokens(token, 3);
 		stack = NULL;
+		print_tokens(cpy, 3);
 		state_0(&token, &stack);
-		//exec(token, env);
-		freelist(token);
+		print_tokens(cpy, 4);
 		free(str);
 	}
 	return (0);

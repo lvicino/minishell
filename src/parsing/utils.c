@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/18 15:43:37 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:52:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	is_word(char c)
 {
-	printf("%c\n", c);
 	if (ft_isalpha(c) || c == '"' || c == '/' \
 		|| c == '_' || c == 39 || c == '.' || c == '~' \
 		|| ft_isalnum(c))
@@ -38,6 +37,11 @@ void	freelist(t_token *head)
 {
 	t_token	*tmp;
 
+	if (head->prev)
+	{
+		while (head->prev)
+			head = head->prev;
+	}
 	while (head != NULL)
 	{
 		tmp = head;
@@ -50,7 +54,11 @@ void	freelist(t_token *head)
 void	print_tokens(t_token *head, int whois)
 {
 	t_token			*current;
-	const char		*str[4] = {"RIEN", "STACK = ", "BUFFER = ", "START = "};
+	const char		*str[5] = {"RIEN", "STACK = ", "BUFFER = ", "START = ", "CPY = "};
+	const char		*tab2[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND"\
+	, "DIEZ", "END", "WORD", "CMD_SUFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND",\
+	 "CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
+	 "PIPE_SEQUENCE", "CMD_PREFIX", "NUMBER_OF_TOKENS"};
 	const char		*tab[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND", \
 	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND", \
 	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
@@ -65,7 +73,11 @@ void	print_tokens(t_token *head, int whois)
 	printf("%s", str[whois]);
 	while (current != NULL)
 	{
-		if (current->type >= 0 && current->type < NUMBER_OF_TOKENS)
+		if (current->type >= 0 && current->type < NUMBER_OF_TOKENS && whois == 3)
+			printf("%s=%s ", tab[current->type], current->str);
+		else if (current->type >= 0 && current->type < NUMBER_OF_TOKENS && whois == 4)
+			printf("%s ", tab2[current->type]);
+		else if (current->type >= 0 && current->type < NUMBER_OF_TOKENS)
 			printf("%s ", tab[current->type]);
 		else
 			printf("UNKNOWN ");
@@ -76,24 +88,27 @@ void	print_tokens(t_token *head, int whois)
 
 void	insert_token(t_token **head, t_token_type type, char *str)
 {
-	t_token	*token;
-	t_token	*current ;
+    t_token	*token;
+    t_token	*current ;
 
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return ;
-	token->str = ft_strdup(str);
-	token->type = type;
-	token->next = NULL;
-	token->prev = NULL;
-	if (*head == NULL)
-	{
-		*head = token;
-		return ;
-	}
-	current = *head;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = token;
-	token->prev = current;
+    token = malloc(sizeof(t_token));
+    if (!token)
+        return ;
+    if (str)
+        token->str = ft_strdup(str);
+    else
+        token->str = NULL;
+    token->type = type;
+    token->next = NULL;
+    token->prev = NULL;
+    if (*head == NULL)
+    {
+        *head = token;
+        return ;
+    }
+    current = *head;
+    while (current->next != NULL)
+        current = current->next;
+    current->next = token;
+    token->prev = current;
 }

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/18 14:43:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:53:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	state_8(t_token **buffer, t_token *head)
 	i = 0;
 	tab = get_tab(8);
 	printf("state 8\n");
+	print_tokens(head, 1);
 	while (head && i < 9)
 	{
 		if (head->type == tab[i].type)

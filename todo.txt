@@ -8,6 +8,7 @@ OUT
 APPEND
 HERE
 filename
+eof
 PIPE
 
 echo bonjour

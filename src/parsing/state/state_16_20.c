@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/18 22:54:39 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:20:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	state_19(t_token	**buffer, t_token *head)
 	(void)buffer;
 	printf("state 19\n");
 	if (head->type == END)
+	{
+		freelist(head);
 		printf("OK\n");
+	}
 	else
 		printf("state 19 error\n");
 }
@@ -94,5 +97,5 @@ void	state_20(t_token	**buffer, t_token *head)
 			return (tab[i].func(buffer, head));
 		}
 	}
-	state_error(head->str);
+	state_error(head, *buffer);
 }

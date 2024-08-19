@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:30:48 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/12 14:26:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:11:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,15 @@ void	state_23(t_token	**buffer, t_token *head)
 
 void	state_24(t_token	**buffer, t_token *head)
 {
-	const t_assoc	tab[] = {{WORD, state_21}, {OUT, state_2}, {IN, state_3}, \
-	{HERE, state_4}, {APPEND, state_5}, {CMD_SUFFIX, state_29}, \
-	{IO_REDIRECT, state_23}, {IO_FILE, state_11}, {IO_HERE, state_12}};
+	const t_assoc	*tab;
 	int				i;
 
 	printf("state 24\n");
 	print_tokens(head, 1);
-	printf("type = %d\n", head->type);
 	print_tokens(*buffer, 2);
-	i = 0;
-	while (i < 9)
+	tab = get_tab(24);
+	i = -1;
+	while (++i < 9)
 	{
 		if (head->type == tab[i].type)
 		{
@@ -89,7 +87,6 @@ void	state_24(t_token	**buffer, t_token *head)
 				head = head->next;
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
 	i = -1;
 	while (++i < 5)

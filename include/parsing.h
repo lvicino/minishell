@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rubengallien <rubengallien@student.42.f    +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/16 15:57:59 by rubengallie      ###   ########.fr       */
+/*   Updated: 2024/08/19 17:32:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "minishell.h"
+
 
 typedef enum s_token_type
 {
@@ -51,8 +52,8 @@ typedef struct s_token
 
 typedef struct s_assoc
 {
-	t_token_type type;
-	void (*func)(t_token **, t_token *);
+	t_token_type	type;
+	void			(*func)(t_token **, t_token *);
 }t_assoc;
 
 int			is_word(char c);
@@ -61,9 +62,10 @@ int			prompt(char **env);
 void		freelist(t_token *head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
+t_token		*duplicate_lst(t_token *token);
 
 // states
-void		state_error(char *str);
+void		state_error(t_token *head, t_token *buffer);
 int			state_0(t_token **buffer, t_token **stack);
 void		state_1(t_token **buffer, t_token *head);
 void		state_2(t_token **buffer, t_token *head);
@@ -95,8 +97,8 @@ void		state_27(t_token **buffer, t_token *head);
 void		state_28(t_token **buffer, t_token *head);
 void		state_29(t_token **buffer, t_token *head);
 t_assoc		*get_tab(int state);
-t_token		*starter(t_token *stack);
 t_token		*add_to_stack(t_token **buffer, t_token **stack);
 void		ft_del_token(t_token **lst, void (*del)(void*));
+void		ft_del_token_test(t_token *head, void (*del)(void*), int max);
 
 #endif
