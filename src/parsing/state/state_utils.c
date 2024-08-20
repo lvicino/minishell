@@ -6,30 +6,24 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/19 13:21:35 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:03:44 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	ft_del_token_test(t_token *head, void (*del)(void*), int max)
+void	ft_del_token_test(t_token **head, void (*del)(void*))
 {
 	t_token	*tmp;
-	int		i;
 
 	(void)(*del);
-	i = 0;
-	while (i < max && head)
+	while (*head)
 	{
-		tmp = head->prev;
-		if (tmp)
-			tmp->next = NULL;
-		if (head->prev)
-			head->prev->next = NULL;
-		free(head->str);
+		tmp = (*head)->next;
+		
+		free((*head)->str);
 		free(head);
-		head = tmp;
-		i++;
+		*head = tmp;
 	}
 }
 

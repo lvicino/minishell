@@ -6,11 +6,28 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/19 17:55:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:22:48 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_token(char *str, int *c, int *i)
+{
+	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
+
+	*i = 0;
+	while (*i < END)
+	{
+		if (!ft_strncmp(str + *c, list[*i], ft_strlen(list[*i])))
+		{
+			*c += ft_strlen(list[*i]);
+			return (1);
+		}
+		(*i)++;
+	}
+	return (0);
+}
 
 void	tokenize_cpy(t_token *tmp, int i)
 {
@@ -37,7 +54,7 @@ void	tokenize_cpy(t_token *tmp, int i)
 	}
 }
 
-int	tokenize_word(char *str, t_token **head, int c)
+int	tokenize_word(char *str, t_token **head, int c, int *i)
 {
 	int		start;
 	char	*word;
@@ -52,8 +69,7 @@ int	tokenize_word(char *str, t_token **head, int c)
 	else
 	{
 		start = c;
-		while (ft_isalpha(str[c]) || str[c] == '/' \
-		|| str[c] == '_' || str[c] == '.' || ft_isalnum(str[c]))
+		while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c]))
 			c++;
 	}
 	word = ft_substr(str, start, c - start);
@@ -62,34 +78,20 @@ int	tokenize_word(char *str, t_token **head, int c)
 	return (insert_token(head, WORD, word), free(word), c);
 }
 
-int	is_token(char *str, const char **list, int *c, int *i)
-{
-	while (*i < END)
-	{
-		if (!ft_strncmp(str + *c, list[*i], ft_strlen(list[*i])))
-		{
-			*c += ft_strlen(list[*i]);
-			return (1);
-		}
-		(*i)++;
-	}
-	return (0);
-}
-
 t_token	*tokenize(char *str, t_token **head, int c)
 {
-	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
 	int			i;
+	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
 
 	while (str[c])
 	{
 		i = 0;
-		if (is_token(str, list, &c, &i))
-			insert_token(head, i, (char *)list[i]);
-		else if (is_word(str[c]))
-			c = tokenize_word(str, head, c);
-		else
+		while (ft_isspace(str[c]))
 			c++;
+		if (is_token(str, &c, &i))
+			insert_token(head, i, (char *)list[i]);
+		else
+			c = tokenize_word(str, head, c, &i);
 	}
 	return (*head);
 }
@@ -113,14 +115,13 @@ int	prompt(char **env)
 		token = tokenize(str, &token, 0);
 		cpy = tokenize(str, &cpy, 0);
 		tokenize_cpy(cpy, 0);
-		print_tokens(cpy, 4);
-		exit(0);
 		insert_token(&token, END, NULL);
 		stack = NULL;
-		print_tokens(cpy, 3);
+		print_tokens(token, 2);
 		state_0(&token, &stack);
-		print_tokens(cpy, 4);
+		print_tokens(token, 2);
+		print_tokens(stack, 1);
+		// exec(cpy, env)
 		free(str);
 	}
-	return (0);
 }

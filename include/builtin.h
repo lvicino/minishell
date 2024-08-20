@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:13:30 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/17 14:14:01 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/20 15:03:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 # define BUILTIN_H
 
 # include "minishell.h"
+
+typedef struct s_env
+{
+	char			*var;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
 
 #endif

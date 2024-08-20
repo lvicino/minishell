@@ -6,23 +6,25 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/19 12:53:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:47:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	state_6(t_token **buffer, t_token *head)
+void	state_6(t_token **buffer, t_token **head)
 {
 	printf("state 6\n");
-	if (!head->next)
-		head = add_to_stack(buffer, &head);
-	if (head->type == END)
+	print_tokens(*head, 1);
+	print_tokens(*buffer, 2);
+	if (!(*head)->next)
+		*head = add_to_stack(buffer, head);
+	if ((*head)->type == END)
 		state_19(buffer, head);
-	else if (head->type == PIPE)
+	else if ((*head)->type == PIPE)
 	{
-		if (head->next)
-			head = head->next;
+		if ((*head)->next)
+			head = &((*head)->next);
 		state_20(buffer, head);
 	}
 	else
@@ -32,13 +34,13 @@ void	state_6(t_token **buffer, t_token *head)
 	}
 }
 
-void	state_7(t_token	**buffer, t_token *head)
+void	state_7(t_token	**buffer, t_token **head)
 {
 	printf("state 7\n");
-	if (head->type == SIMPLE_COMMAND)
+	if ((*head)->type == SIMPLE_COMMAND)
 	{
-		head->type = PIPE_SEQUENCE;
-		state_0(buffer, &head);
+		(*head)->type = PIPE_SEQUENCE;
+		state_0(buffer, head);
 	}
 	else
 	{
@@ -47,18 +49,17 @@ void	state_7(t_token	**buffer, t_token *head)
 	}
 }
 
-void	state_8(t_token **buffer, t_token *head)
+void	state_8(t_token **buffer, t_token **head)
 {
 	const t_assoc	*tab;
 	int				i;
 
+	printf("state 8, type = %d, str = %s\n", (*head)->type, (*head)->str);
 	i = 0;
 	tab = get_tab(8);
-	printf("state 8\n");
-	print_tokens(head, 1);
 	while (head && i < 9)
 	{
-		if (head->type == tab[i].type)
+		if ((*head)->type == tab[i].type)
 			return (tab[i].func(buffer, head));
 		i++;
 	}
@@ -67,60 +68,55 @@ void	state_8(t_token **buffer, t_token *head)
 	{
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
-			head = add_to_stack(buffer, &head);
+			*head = add_to_stack(buffer, head);
 			return (tab[i].func(buffer, head));
 		}
 		i++;
 	}
-	ft_del_token(&head, &free);
-	insert_token(&head, SIMPLE_COMMAND, NULL);
-	state_0(buffer, &head);
+	ft_del_token(head, &free);
+	insert_token(head, SIMPLE_COMMAND, NULL);
+	state_0(buffer, head);
 }
 
-void	state_9(t_token	**buffer, t_token *head)
+void	state_9(t_token	**buffer, t_token **head)
 {
 	const t_assoc	*tab;
 	int				i;
 
-	tab = get_tab(9);
-	i = 0;
 	printf("state 9\n");
-	print_tokens(head, 1);
-	print_tokens(*buffer, 2);
-	while (i < 9)
+	tab = get_tab(9);
+	i = -1;
+	while (++i < 9)
 	{
-		if (head->type == tab[i].type)
+		if ((*head)->type == tab[i].type)
 		{
-			if (head->next)
-				head = head->next;
+			if ((*head)->next)
+				head = &((*head)->next);
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
-	i = 0;
-	while (i < 5)
+	i = -1;
+	while (++i < 5)
 	{
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
-			head = add_to_stack(buffer, &head);
+			*head = add_to_stack(buffer, head);
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
-	ft_del_token(&head, &free);
-	insert_token(&head, SIMPLE_COMMAND, NULL);
-	state_0(buffer, &head);
+	ft_del_token(head, &free);
+	(insert_token(head, SIMPLE_COMMAND, NULL), state_0(buffer, head));
 }
 
-void	state_10(t_token	**buffer, t_token *head)
+void	state_10(t_token	**buffer, t_token **head)
 {
 	printf("state 10\n");
-	if (head->type == IO_REDIRECT)
-		head->type = CMD_PREFIX;
+	if ((*head)->type == IO_REDIRECT)
+		(*head)->type = CMD_PREFIX;
 	else
 	{
 		printf("state 10 error\n");
 		exit(0);
 	}
-	state_0(buffer, &head);
+	state_0(buffer, head);
 }

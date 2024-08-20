@@ -1,15 +1,1 @@
-write error and return the token goes wrong
-
-to return:
-CMD
-CMD_SUFFIX
-IN
-OUT
-APPEND
-HERE
-filename
-eof
-PIPE
-
-echo bonjour
-echo bonjour
+add_to_stack err ?

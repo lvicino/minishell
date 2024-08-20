@@ -6,17 +6,26 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/19 13:24:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:12:13 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	state_error(t_token *head, t_token *buffer)
+void	ret_to_start(t_token **head)
+{
+	if (head == NULL || *head == NULL)
+		return;
+
+	while (*head && (*head)->prev)
+		*head = (*head)->prev;
+}
+
+void	state_error(t_token **head, t_token **buffer)
 {
 	write(2, "minishell : syntax error near unexpected token ", 48);
 	write(2, "` ", 1);
-	ft_putstr_fd(head->str, 2);
+	ft_putstr_fd((*head)->str, 2);
 	write(2, "'\n", 2);
 	freelist(head);
 	freelist(buffer);
@@ -78,15 +87,11 @@ int	state_0(t_token **buffer, t_token **stack)
 	t_assoc			*tab;
 	int				i;
 
-	tab = get_tab(0);
 	printf("state 0\n");
 	print_tokens(*stack, 1);
 	print_tokens(*buffer, 2);
-	if (*stack)
-	{
-		while ((*stack)->prev)
-			*stack = (*stack)->prev;
-	}
+	tab = get_tab(0);
+	ret_to_start(stack);
 	i = -1;
 	while (++i < 12)
 	{
@@ -94,7 +99,7 @@ int	state_0(t_token **buffer, t_token **stack)
 		{
 			if ((*stack)->next)
 				*stack = (*stack)->next;
-			return (tab[i].func(buffer, *stack), 1);
+			return (tab[i].func(buffer, stack), 1);
 		}
 	}
 	*stack = add_to_stack(buffer, stack);
@@ -102,8 +107,8 @@ int	state_0(t_token **buffer, t_token **stack)
 	while (++i < 12)
 	{
 		if ((*stack)->type == tab[i].type)
-			return (tab[i].func(buffer, *stack), 1);
+			return (tab[i].func(buffer, stack), 1);
 	}
-	state_error(*stack, *buffer);
+	state_error(stack, buffer);
 	return (0);
 }
