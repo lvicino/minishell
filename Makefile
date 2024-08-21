@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/20 12:33:00 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/19 15:12:14 by rgallien         ###   ########.fr        #
+#    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
+#    Updated: 2024/08/21 17:03:42 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MAIN		=	minishell.c
 
 MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
 MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-MAIN_DEP			=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
@@ -34,13 +34,17 @@ BUILTIN		=
 
 BUILTIN		:=	$(BUILTIN:%=$(BUILTIN_DIR)/%)
 BUILTIN_OBJ	=	$(BUILTIN:$(BUILTIN_DIR)/%.c=$(BUILD_DIR)/%.o)
-BUILTIN_DEP			=	$(BUILTIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+BUILTIN_DEP	=	$(BUILTIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
 EXEC_DIR	=	src/exec
 
-EXEC		=
+EXEC		=	exec.c \
+				exec_utils.c \
+				choose_pipe.c \
+				here_doc.c
+
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)

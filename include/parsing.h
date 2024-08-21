@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 16:05:06 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:15:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSING_H
 
 # include "minishell.h"
-
 
 typedef enum s_token_type
 {
@@ -61,7 +60,7 @@ void		ret_to_start(t_token **head);
 int			ft_isspace(int c);
 int			is_word(char c);
 int			bigger(char *s1, char *s2);
-int			prompt(char **env);
+int			prompt(t_env **env);
 void		freelist(t_token **head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
