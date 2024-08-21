@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 16:22:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:06:38 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	tokenize_cpy(t_token *tmp, int i)
 		}
 		else if (i && tmp->type == WORD && tmp->prev && (tmp->prev->type \
 		== CMD || tmp->prev->type == CMD_SUFFIX || tmp->prev->type == FILENAME \
-		|| tmp->prev->type == eof))
+		|| tmp->prev->type == END_F))
 			tmp->type = CMD_SUFFIX;
 		else if (tmp->type == WORD && tmp->prev && (tmp->prev->type == IN || \
 		tmp->prev->type == APPEND || tmp->prev->type == OUT))
 			tmp->type = FILENAME;
 		else if (tmp->type == WORD && tmp->prev && tmp->prev->type == HERE)
-			tmp->type = eof;
+			tmp->type = END_F;
 		else if (tmp->type == PIPE)
 			i = 0;
 		tmp = tmp->next;
@@ -116,11 +116,11 @@ int	prompt(char **env)
 		cpy = tokenize(str, &cpy, 0);
 		tokenize_cpy(cpy, 0);
 		insert_token(&token, END, NULL);
+		print_tokens(token, 2);
 		stack = NULL;
-		print_tokens(token, 2);
 		state_0(&token, &stack);
-		print_tokens(token, 2);
-		print_tokens(stack, 1);
+		freelist(&cpy);
+		freelist(&stack);
 		// exec(cpy, env)
 		free(str);
 	}

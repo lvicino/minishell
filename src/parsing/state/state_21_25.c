@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:30:48 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:26:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:04:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	state_22(t_token	**buffer, t_token **head)
 			return (tab[i].func(buffer, head));
 		}
 	}
-	ft_del_token(head, &free);
-	insert_token(head, SIMPLE_COMMAND, NULL);
+	(ft_del_token(head, &free), insert_token(head, SIMPLE_COMMAND, NULL));
 	state_0(buffer, head);
 }
 

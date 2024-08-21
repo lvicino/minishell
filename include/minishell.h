@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:11:09 by lvicino           #+#    #+#             */
-/*   Updated: 2024/07/19 14:18:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:00:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+// # include <string.h>
+// # include <error.h>
 
 #endif

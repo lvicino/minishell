@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 16:44:57 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:04:51 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ int	bigger(char *s1, char *s2)
 	return (len_s2);
 }
 
-void	freelist(t_token **head)
+void freelist(t_token **head)
 {
-	t_token	*tmp;
+	t_token *tmp;
 
 	ret_to_start(head);
+	if (head == NULL || *head == NULL)
+		return;
 	while (*head)
 	{
 		tmp = *head;
 		*head = (*head)->next;
 		free(tmp->str);
 		free(tmp);
-		tmp = NULL;
 	}
 }
 
@@ -62,11 +63,11 @@ void	print_tokens(t_token *head, int whois)
 	"CPY = "};
 	const char		*tab2[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND"\
 	, "DIEZ", "END", "WORD", "CMD_SUFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND"\
-	, "CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof"\
+	, "CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "END_F"\
 	, "PIPE_SEQUENCE", "CMD_PREFIX", "NUMBER_OF_TOKENS"};
 	const char		*tab[] = {"HERE", "APPEND", "IN", "OUT", "PIPE", "S_AND", \
 	"DIEZ", "END", "WORD", "CMD_SUFFIX", "CMD", "CMD_NAME", "SIMPLE_COMMAND", \
-	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "eof", \
+	"CMD_SUFFIX", "IO_REDIRECT", "IO_FILE", "IO_HERE", "FILENAME", "END_F", \
 	"PIPE_SEQUENCE", "CMD_PREFIX", "OK"};
 
 	ret_to_start(&head);
@@ -88,16 +89,23 @@ void	print_tokens(t_token *head, int whois)
 	printf("\n");
 }
 
-void	insert_token(t_token **head, t_token_type type, char *str)
+void insert_token(t_token **head, t_token_type type, char *str)
 {
-	t_token	*token;
-	t_token	*current ;
+	t_token *token;
+	t_token *current;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return ;
+		return;
 	if (str)
+	{
 		token->str = ft_strdup(str);
+		if (!token->str)
+		{
+			free(token);
+			return;
+		}
+	}
 	else
 		token->str = NULL;
 	token->type = type;
@@ -106,7 +114,7 @@ void	insert_token(t_token **head, t_token_type type, char *str)
 	if (*head == NULL)
 	{
 		*head = token;
-		return ;
+		return;
 	}
 	current = *head;
 	while (current->next != NULL)
@@ -114,3 +122,4 @@ void	insert_token(t_token **head, t_token_type type, char *str)
 	current->next = token;
 	token->prev = current;
 }
+

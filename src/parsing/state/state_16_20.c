@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:39:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:07:04 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	state_16(t_token	**buffer, t_token **head)
 {
 	printf("state 16\n");
 	if ((*head)->type == WORD)
-		(*head)->type = eof;
+		(*head)->type = END_F;
 	else
 	{
 		printf("state 16 error\n");
@@ -28,7 +28,7 @@ void	state_16(t_token	**buffer, t_token **head)
 void	state_17(t_token	**buffer, t_token **head)
 {
 	printf("state 17\n");
-	if ((*head)->type == eof)
+	if ((*head)->type == END_F)
 	{
 		ft_del_token(head, &free);
 		insert_token(head, IO_HERE, NULL);
@@ -59,11 +59,20 @@ void	state_18(t_token	**buffer, t_token **head)
 
 void	state_19(t_token	**buffer, t_token **head)
 {
+	t_token	*tmp;
+
 	printf("state 19\n");
-	(void)buffer;
+	*buffer = NULL;
 	if ((*head)->type == END)
 	{
-		// freelist(head);
+		while (*head)
+		{
+			tmp = (*head)->prev;
+			free((*head)->str);
+			free(*head);
+			*head = tmp;
+		}
+		insert_token(head, OK, NULL);
 		printf("OK\n");
 	}
 	else
@@ -76,8 +85,6 @@ void	state_20(t_token	**buffer, t_token **head)
 	int				i;
 
 	printf("state 20, type = %d\n", (*head)->type);
-	// print_tokens(*head, 1);
-	// print_tokens(*buffer, 2);
 	i = -1;
 	tab = get_tab(20);
 	while (++i < 11)

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/20 17:00:16 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:05:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef enum s_token_type
 	IO_FILE,
 	IO_HERE,
 	FILENAME,
-	eof,
+	END_F,
 	PIPE_SEQUENCE,
 	CMD_PREFIX,
 	OK,

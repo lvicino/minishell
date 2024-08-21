@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:03:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:04:04 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_del_token_test(t_token **head, void (*del)(void*))
 	while (*head)
 	{
 		tmp = (*head)->next;
-		
+
 		free((*head)->str);
 		free(head);
 		*head = tmp;
@@ -35,10 +35,9 @@ void	ft_del_token(t_token **lst, void (*del)(void*))
 		return ;
 	while (*lst)
 	{
-		tmp = (*lst)->next;
-		(del)((*lst)->str);
-		if (*lst)
-			free(*lst);
+		tmp = (*lst)->prev;
+		free((*lst)->str);
+		free(*lst);
 		*lst = tmp;
 	}
 }

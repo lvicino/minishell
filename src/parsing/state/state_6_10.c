@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:47:06 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:19:38 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	state_6(t_token **buffer, t_token **head)
 {
-	printf("state 6\n");
-	print_tokens(*head, 1);
-	print_tokens(*buffer, 2);
+	printf("state 6, type = %d\n", (*head)->type);
 	if (!(*head)->next)
 		*head = add_to_stack(buffer, head);
 	if ((*head)->type == END)
@@ -24,7 +22,7 @@ void	state_6(t_token **buffer, t_token **head)
 	else if ((*head)->type == PIPE)
 	{
 		if ((*head)->next)
-			head = &((*head)->next);
+			*head = (*head)->next;
 		state_20(buffer, head);
 	}
 	else
@@ -54,7 +52,7 @@ void	state_8(t_token **buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
-	printf("state 8, type = %d, str = %s\n", (*head)->type, (*head)->str);
+	printf("state 8\n");
 	i = 0;
 	tab = get_tab(8);
 	while (head && i < 9)
@@ -91,7 +89,7 @@ void	state_9(t_token	**buffer, t_token **head)
 		if ((*head)->type == tab[i].type)
 		{
 			if ((*head)->next)
-				head = &((*head)->next);
+				*head = (*head)->next;
 			return (tab[i].func(buffer, head));
 		}
 	}

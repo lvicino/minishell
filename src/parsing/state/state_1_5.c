@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:07:55 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:05:59 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ void	state_5(t_token **buffer, t_token **head)
 void	state_4(t_token **buffer, t_token **head)
 {
 	printf("state 4\n");
-	if ((*head)->type == eof)
+	if ((*head)->type == END_F)
 		state_17(buffer, head);
 	else if ((*head)->type == WORD)
 		state_16(buffer, head);
 	else if (!(*head)->next && (*buffer)->type == WORD)
 	{
 		add_to_stack(buffer, head);
-		state_16(buffer, &((*head)->next));
+		*head = (*head)->next;
+		state_16(buffer, head);
 	}
 	else
 	{
@@ -56,33 +57,38 @@ void	state_3(t_token **buffer, t_token **head)
 	if ((*head)->type == FILENAME)
 	{
 		if ((*head)->prev)
-			head = &((*head)->prev);
+			*head = (*head)->prev;
 		state_15(buffer, head);
 	}
 	else if ((*head)->type == WORD)
 	{
-		if (&((*head)->next))
-			head = &((*head)->next);
+		if ((*head)->next)
+			*head = (*head)->next;
 		state_13(buffer, head);
 	}
 	else if (!(*head)->next && (*buffer)->type == WORD)
 	{
 		add_to_stack(buffer, head);
-		state_13(buffer, &((*head)->next));
+		*head = (*head)->next;
+		state_13(buffer, head);
 	}
 }
 
 void	state_2(t_token **buffer, t_token **head)
 {
-	printf("state 2\n");
+	printf("state 2 type = %d\n", (*head)->type);
 	if ((*head)->type == FILENAME)
+	{
+		*head = (*head)->prev;
 		return (state_14(buffer, head));
+	}
 	else if ((*head)->type == WORD)
 		return (state_13(buffer, &((*head)->next)));
 	else if (!(*head)->next && (*buffer)->type == WORD)
 	{
 		add_to_stack(buffer, head);
-		return (state_13(buffer, &((*head)->next)));
+		*head = (*head)->next;
+		return (state_13(buffer, head));
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:54:24 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/20 17:08:43 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:40:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,10 @@ void	state_13(t_token	**buffer, t_token **head)
 
 void	state_14(t_token	**buffer, t_token **head)
 {
-	int		i;
-	t_token	*tmp;
-
 	printf("state 14\n");
-	i = -1;
-	if ((*head)->type == FILENAME)
+	if ((*head)->type == OUT && (*head)->next->type == FILENAME)
 	{
-		while (++i < 2 && head)
-		{
-			tmp = (*head)->prev;
-			if (tmp)
-				tmp->next = NULL;
-			free((*head)->str);
-			free(head);
-			*head = tmp;
-		}
+		ft_del_token(head, &free);
 		insert_token(head, IO_FILE, NULL);
 	}
 	else
