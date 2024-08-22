@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 15:19:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:51:28 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	state_9(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
-	printf("state 9\n");
 	tab = get_tab(9);
 	i = -1;
 	while (++i < 9)

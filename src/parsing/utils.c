@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 16:04:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:49:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	bigger(char *s1, char *s2)
 	return (len_s2);
 }
 
-void freelist(t_token **head)
+void	freelist(t_token **head)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	ret_to_start(head);
 	if (head == NULL || *head == NULL)
-		return;
+		return ;
 	while (*head)
 	{
 		tmp = *head;
@@ -89,32 +89,24 @@ void	print_tokens(t_token *head, int whois)
 	printf("\n");
 }
 
-void insert_token(t_token **head, t_token_type type, char *str)
+void	insert_token(t_token **head, t_token_type type, char *str)
 {
-	t_token *token;
-	t_token *current;
+	t_token	*token;
+	t_token	*current;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return;
-	if (str)
-	{
-		token->str = ft_strdup(str);
-		if (!token->str)
-		{
-			free(token);
-			return;
-		}
-	}
-	else
-		token->str = NULL;
+		return ;
+	token->str = ft_strdup(str);
+	if (!token->str)
+		free(token);
 	token->type = type;
 	token->next = NULL;
 	token->prev = NULL;
 	if (*head == NULL)
 	{
 		*head = token;
-		return;
+		return ;
 	}
 	current = *head;
 	while (current->next != NULL)
@@ -122,4 +114,3 @@ void insert_token(t_token **head, t_token_type type, char *str)
 	current->next = token;
 	token->prev = current;
 }
-
