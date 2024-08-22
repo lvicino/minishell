@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 15:56:40 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/22 14:29:00 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static int	choose_infile(t_info *var, t_token **token)
 {
 	*token = (*token)->next;
-	if ((*token)->previous->type == HERE)
+	if ((*token)->prev->type == HERE)
 		var->cmd.in = fd[m_id][0];
-	else if ((*token)->previous->type == IN)
+	else if ((*token)->prev->type == IN)
 		var->cmd.in = open((*token)->next->str, O_RDONLY);
 }
 
 static int	choose_outfile(t_info *var, t_token **token)
 {
 	*token = (*token)->next;
-	if ((*token)->previous->type == APPEND)
+	if ((*token)->prev->type == APPEND)
 		var->cmd.out = open((*token)->next->str, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	else if ((*token)->previous->type == OUT)
+	else if ((*token)->prev->type == OUT)
 		var->cmd.out = open((*token)->next->str, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 }
 
@@ -58,10 +58,10 @@ int	choose_pipe(t_info	*var, t_token **token)
 	set_token(var, token);
 	while (*token && (*token)->type != PIPE)
 	{
-		if (((*token)->type == IN && choose_infile(var, token)) || \
-		((*token)->type == HERE && choose_infile(var, token)) || \
-		((*token)->type == OUT && choose_outfile(var, token)) || \
-		((*token)->type == APPEND && choose_outfile(var, token)))
+		if ((((*token)->type == IN || (*token)->type == HERE) && \
+		choose_infile(var, token)) || \
+		(((*token)->type == OUT || (*token)->type == APPEND) && \
+		choose_outfile(var, token)))
 			return (var->r);
 		token = (*token)->next;
 	}
