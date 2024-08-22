@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 16:06:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:36:00 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_token	*tokenize(char *str, t_token **head, int c)
 	return (*head);
 }
 
-int	prompt(char **env)
+int	prompt(t_env	**env)
 {
 	char	*str;
 	t_token	*token;
@@ -121,7 +121,7 @@ int	prompt(char **env)
 		state_0(&token, &stack);
 		freelist(&cpy);
 		freelist(&stack);
-		// exec(cpy, env)
+		//exec(cpy, env);
 		free(str);
 	}
 }
