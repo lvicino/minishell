@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/22 13:45:16 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:29:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	set_signal_action(void)
 	struct sigaction act;
 
 	ft_bzero(&act, sizeof(act));
-
 }
 
 void	print_env(t_env *env)
@@ -84,5 +83,6 @@ int	main(int ac, char **ar, char **envp)
 	make_env(&env, envp);
 	print_env(env);
 	prompt(&env);
+	// check expand
 	return (0);
 }

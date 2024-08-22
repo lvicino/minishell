@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 12:36:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:40:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 {
 	int		start;
 	char	*word;
+	char	b;
 
 	if (str[c] == '"' || str[c] == 39)
 	{
-		c++;
+		b = str[c];
 		start = c;
-		while (str[c] && str[c] != '"')
+		while (str[c] && str[c] != b)
 			c++;
+		if (!str[c])
+			exit(c);
 	}
 	else
 	{
@@ -72,7 +75,7 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 		while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c]))
 			c++;
 	}
-	word = ft_substr(str, start, c - start);
+	word = ft_substr(str, start, (c - start) + 1);
 	if (str[c] == '"' || str[c] == 39)
 		c++;
 	return (insert_token(head, WORD, word), free(word), c);
@@ -117,11 +120,13 @@ int	prompt(t_env	**env)
 		tokenize_cpy(cpy, 0);
 		insert_token(&token, END, NULL);
 		print_tokens(token, 2);
+		exit(0);
 		stack = NULL;
 		state_0(&token, &stack);
 		freelist(&cpy);
 		freelist(&stack);
-		//exec(cpy, env);
+		// if (stack->type == OK && )
+		// 	exec(cpy, env);
 		free(str);
 	}
 }

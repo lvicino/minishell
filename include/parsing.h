@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 17:05:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:59:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_token
 {
 	t_token_type		type;
 	char				*str;
+	int					guillemet;
 	struct s_token		*next;
 	struct s_token		*prev;
 }				t_token;
