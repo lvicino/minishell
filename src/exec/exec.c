@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 16:45:57 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/23 17:48:47 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	get_process(t_info	*var)
 	p = 0;
 	var->id = -1;
 	var->pid = 1;
+	var->r = 0;
 	while (var->pid && var->id < var->n_pipe)
 	{
 		var->pid = fork();
@@ -71,10 +72,7 @@ int	exec(t_token *token, t_env **env)
 		wait_process(var.pid, var.id, &(var.r));
 	}
 	if (!var.pid)
-	{
 		var.r = choose_pipe(&var, &token); //! in progress
-		// redirection from left to right
-	}
 	if (!var.pid && !var.r)
 		var.r = exec_cmd(token, env, var);
 	return (var.r);
