@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/20 12:33:00 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/19 15:12:14 by rgallien         ###   ########.fr        #
+#    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
+#    Updated: 2024/08/27 14:23:06 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ MAIN		=	minishell.c
 
 MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
 MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-MAIN_DEP			=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
@@ -34,13 +34,19 @@ BUILTIN		=
 
 BUILTIN		:=	$(BUILTIN:%=$(BUILTIN_DIR)/%)
 BUILTIN_OBJ	=	$(BUILTIN:$(BUILTIN_DIR)/%.c=$(BUILD_DIR)/%.o)
-BUILTIN_DEP			=	$(BUILTIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+BUILTIN_DEP	=	$(BUILTIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
 EXEC_DIR	=	src/exec
 
-EXEC		=
+EXEC		=	exec.c \
+				exec_utils.c \
+				choose_pipe.c \
+				here_doc.c \
+				error.c \
+				get_cmd.c
+
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
 EXEC_OBJ	=	$(EXEC:$(EXEC_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -51,7 +57,6 @@ EXEC_DEP			=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 PARSING_DIR	=	src/parsing
 
 PARSING		=	state/state.c \
-				utils_other.c \
 				loop.c \
 				utils.c \
 				state/state_utils.c \
@@ -64,12 +69,12 @@ PARSING		=	state/state.c \
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
-PARSING_DEP			=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra  -g3 -MMD -MP -I include
+CFLAGS		=	-Wall -Wextra -g3 -MMD -MP -I include
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
