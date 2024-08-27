@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/27 14:21:09 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 15:11:27 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	state_3(t_token **buffer, t_token **head)
 
 void	state_2(t_token **buffer, t_token **head)
 {
-	printf("state 2 type = %d\n", (*head)->type);
+	printf("state 2\n");
 	if ((*head)->type == FILENAME)
 	{
 		*head = (*head)->prev;

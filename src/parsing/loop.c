@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 12:36:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:38:20 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,21 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 {
 	int		start;
 	char	*word;
+	char	b;
 
 	if (str[c] == '"' || str[c] == 39)
 	{
-		c++;
+		b = str[c];
 		start = c;
-		while (str[c] && str[c] != '"')
+		c++;
+		while (str[c] && str[c] != b)
 			c++;
+		if (!str[c])
+		{
+			c = -1;
+			ft_putstr_fd("Error : Unclosed quotes\n", 2);
+			return (free(str), c);
+		}
 	}
 	else
 	{
@@ -72,7 +80,7 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 		while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c]))
 			c++;
 	}
-	word = ft_substr(str, start, c - start);
+	word = ft_substr(str, start, (c - start) + 1);
 	if (str[c] == '"' || str[c] == 39)
 		c++;
 	return (insert_token(head, WORD, word), free(word), c);
@@ -91,7 +99,11 @@ t_token	*tokenize(char *str, t_token **head, int c)
 		if (is_token(str, &c, &i))
 			insert_token(head, i, (char *)list[i]);
 		else
+		{
 			c = tokenize_word(str, head, c, &i);
+			if (c == -1)
+				return (NULL);
+		}
 	}
 	return (*head);
 }
@@ -103,7 +115,6 @@ int	prompt(t_env	**env)
 	t_token	*stack;
 	t_token	*cpy;
 
-	(void)env;
 	while (1)
 	{
 		token = NULL;
@@ -113,15 +124,21 @@ int	prompt(t_env	**env)
 			return (free(str), clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
+		if (!token)
+			return (clear_history(), 0);
 		cpy = tokenize(str, &cpy, 0);
 		tokenize_cpy(cpy, 0);
 		insert_token(&token, END, NULL);
-		print_tokens(token, 2);
 		stack = NULL;
 		state_0(&token, &stack);
+		if (stack->type == OK)
+		{
+			ft_printf("OK\n");
+			exec(cpy, env);
+		}
 		freelist(&cpy);
 		freelist(&stack);
-		//exec(cpy, env);
+		free_env(env);
 		free(str);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/22 15:08:52 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:53:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_token
 {
 	t_token_type		type;
 	char				*str;
+	int					guillemet;
 	struct s_token		*next;
 	struct s_token		*prev;
 }				t_token;
@@ -65,6 +66,7 @@ int			prompt(t_env **env);
 void		freelist(t_token **head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
+void		ft_free_two(t_token **head);
 // states
 void		state_error(t_token **head, t_token **buffer);
 int			state_0(t_token **buffer, t_token **stack);
@@ -101,5 +103,6 @@ t_assoc		*get_tab(int state);
 t_token		*add_to_stack(t_token **buffer, t_token **stack);
 void		ft_del_token(t_token **lst, void (*del)(void*));
 void		ft_del_token_test(t_token **head, void (*del)(void*));
+void		free_env(t_env **head);
 
 #endif

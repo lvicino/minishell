@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/27 14:22:44 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 15:11:53 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	state_0(t_token **buffer, t_token **stack)
 	int				i;
 
 	printf("state 0\n");
+	print_tokens(*stack, 1);
+	print_tokens(*buffer, 2);
 	tab = get_tab(0);
 	ret_to_start(stack);
 	i = -1;

@@ -6,24 +6,27 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/27 14:22:31 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 15:11:48 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_del_token_test(t_token **head, void (*del)(void*))
+void	ft_free_two(t_token **head)
 {
-	t_token	*tmp;
+	t_token	*last_node;
+	t_token	*prev_last;
 
-	(void)(*del);
-	while (*head)
-	{
-		tmp = (*head)->next;
-		free((*head)->str);
-		free(head);
-		*head = tmp;
-	}
+	last_node = (*head);
+	prev_last = (*head)->prev;
+	if (prev_last->prev)
+		prev_last->prev->next = NULL;
+	else
+		*head = NULL;
+	free(last_node->str);
+	free(last_node);
+	free(prev_last->str);
+	free(prev_last);
 }
 
 void	ft_del_token(t_token **lst, void (*del)(void*))
