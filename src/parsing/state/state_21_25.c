@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:30:48 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 10:52:01 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:29:03 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	state_22(t_token	**buffer, t_token **head)
 			return (tab[i].func(buffer, head));
 		}
 	}
-	(ft_del_token(head, &free), insert_token(head, SIMPLE_COMMAND, NULL));
+	(ft_free_two(head), insert_token(head, SIMPLE_COMMAND, NULL));
 	state_0(buffer, head);
 }
 
@@ -71,6 +71,7 @@ void	state_24(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
+	printf("state 24\n");
 	tab = get_tab(24);
 	i = -1;
 	while (++i < 9)

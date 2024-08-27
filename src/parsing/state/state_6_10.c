@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 10:51:28 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:43:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	state_6(t_token **buffer, t_token **head)
 {
-	printf("state 6, type = %d\n", (*head)->type);
+	printf("state 6\n");
 	if (!(*head)->next)
 		*head = add_to_stack(buffer, head);
 	if ((*head)->type == END)
@@ -58,7 +58,11 @@ void	state_8(t_token **buffer, t_token **head)
 	while (head && i < 9)
 	{
 		if ((*head)->type == tab[i].type)
+		{
+			if ((*head)->next)
+				*head = (*head)->next;
 			return (tab[i].func(buffer, head));
+		}
 		i++;
 	}
 	i = 0;
@@ -81,6 +85,7 @@ void	state_9(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
+	printf("state 9\n");
 	tab = get_tab(9);
 	i = -1;
 	while (++i < 9)

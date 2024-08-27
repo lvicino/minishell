@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:13:30 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 16:03:14 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:57:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ typedef struct s_env
 {
 	char			*var;
 	char			*value;
-	struct s_env	*next;
+	struct	s_env	*prev;
+	struct	s_env	*next;
 }				t_env;
 
 #endif

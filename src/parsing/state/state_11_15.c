@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:54:24 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 15:40:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:29:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	state_12(t_token	**buffer, t_token **head)
 void	state_13(t_token	**buffer, t_token **head)
 {
 	printf("state 13\n");
-	print_tokens(*head, 1);
-	print_tokens(*buffer, 2);
 	if ((*head)->type == WORD)
 		(*head)->type = FILENAME;
 	else
@@ -55,10 +53,14 @@ void	state_13(t_token	**buffer, t_token **head)
 
 void	state_14(t_token	**buffer, t_token **head)
 {
+	int		i;
+
+	i = 0;
 	printf("state 14\n");
 	if ((*head)->type == OUT && (*head)->next->type == FILENAME)
 	{
-		ft_del_token(head, &free);
+		*head = (*head)->next;
+		ft_free_two(head);
 		insert_token(head, IO_FILE, NULL);
 	}
 	else

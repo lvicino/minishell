@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 10:49:58 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:26:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,23 @@ void	print_tokens(t_token *head, int whois)
 	printf("\n");
 }
 
-void	insert_token(t_token **head, t_token_type type, char *str)
+void insert_token(t_token **head, t_token_type type, char *str)
 {
-	t_token	*token;
-	t_token	*current;
+	t_token *token;
+	t_token *current;
 
+	ret_to_start(head);
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return ;
+		return;
 	token->str = ft_strdup(str);
-	if (!token->str)
-		free(token);
 	token->type = type;
 	token->next = NULL;
 	token->prev = NULL;
 	if (*head == NULL)
 	{
 		*head = token;
-		return ;
+		return;
 	}
 	current = *head;
 	while (current->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 16:07:04 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:12:15 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	state_19(t_token	**buffer, t_token **head)
 			*head = tmp;
 		}
 		insert_token(head, OK, NULL);
-		printf("OK\n");
+		return ;
 	}
 	else
 		printf("state 19 error\n");
@@ -84,7 +84,7 @@ void	state_20(t_token	**buffer, t_token **head)
 	t_assoc			*tab;
 	int				i;
 
-	printf("state 20, type = %d\n", (*head)->type);
+	printf("state 20\n");
 	i = -1;
 	tab = get_tab(20);
 	while (++i < 11)

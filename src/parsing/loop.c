@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 17:40:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:38:20 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,15 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 	{
 		b = str[c];
 		start = c;
+		c++;
 		while (str[c] && str[c] != b)
 			c++;
 		if (!str[c])
-			exit(c);
+		{
+			c = -1;
+			ft_putstr_fd("Error : Unclosed quotes\n", 2);
+			return (free(str), c);
+		}
 	}
 	else
 	{
@@ -94,7 +99,11 @@ t_token	*tokenize(char *str, t_token **head, int c)
 		if (is_token(str, &c, &i))
 			insert_token(head, i, (char *)list[i]);
 		else
+		{
 			c = tokenize_word(str, head, c, &i);
+			if (c == -1)
+				return (NULL);
+		}
 	}
 	return (*head);
 }
@@ -106,7 +115,6 @@ int	prompt(t_env	**env)
 	t_token	*stack;
 	t_token	*cpy;
 
-	(void)env;
 	while (1)
 	{
 		token = NULL;
@@ -116,17 +124,21 @@ int	prompt(t_env	**env)
 			return (free(str), clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
+		if (!token)
+			return (clear_history(), 0);
 		cpy = tokenize(str, &cpy, 0);
 		tokenize_cpy(cpy, 0);
 		insert_token(&token, END, NULL);
-		print_tokens(token, 2);
-		exit(0);
 		stack = NULL;
 		state_0(&token, &stack);
+		if (stack->type == OK)
+		{
+			ft_printf("OK\n");
+			exec(cpy, env);
+		}
 		freelist(&cpy);
 		freelist(&stack);
-		// if (stack->type == OK && )
-		// 	exec(cpy, env);
+		free_env(env);
 		free(str);
 	}
 }
