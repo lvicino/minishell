@@ -6,12 +6,14 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/22 14:30:59 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:16:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define _XOPEN_SOURCE 700
 
 # include "libft.h"
 

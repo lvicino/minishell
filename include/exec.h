@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/21 17:01:15 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:14:44 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_info
 	pid_t	pid;
 	int		n_pipe;
 	int		n_here;
+	int		cmd_ln;
 	int		**fd;
 	int		**here;
 	int		skip_hd;
@@ -48,5 +49,13 @@ void	make_doc(t_info	*var, t_token *token);
 
 /*pipeline*/
 int		choose_pipe(t_info	*var, t_token **token);
+
+/*cmd*/
+void	get_cmd(t_token *token, t_info *var);
+char	*get_path(char *cmd, t_env *env);
+
+/*error*/
+void	check_cmd_error(char **cmd, char *path, int *r);
+void	w_error(char *cmd, int error);
 
 #endif

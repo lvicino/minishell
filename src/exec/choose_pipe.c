@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/26 15:35:51 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:10:58 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	check_file_perm(t_info *var, t_token *token)
 {
-	if (token->type == END_F)
-		return (0);
 	if (token->type == IN && access(token->next->str, F_OK))
 	{
 		var->r = 1;
@@ -38,8 +36,6 @@ static int	check_file_perm(t_info *var, t_token *token)
 
 static int	choose_infile(t_info *var, t_token *token, int *i)
 {
-	if (check_file_perm(var, token))
-		return (var->r);
 	if (token->type == HERE)
 	{
 		var->cmd.in = var->here[var->skip_hd + *i][0];
@@ -47,25 +43,29 @@ static int	choose_infile(t_info *var, t_token *token, int *i)
 	}
 	else if (token->type == IN)
 		var->cmd.in = open(token->next->str, O_RDONLY);
+	if (check_file_perm(var, token))
+		return (var->r);
 	if (var->cmd.in < 0 || dup2(var->fd[var->id - 1][0], 0))
 		return (1);
+	return (0);
 }
 
 static int	choose_outfile(t_info *var, t_token *token)
 {
-	if (check_file_perm(var, token))
-		return (var->r);
 	if (token->type == APPEND)
 		var->cmd.out = open(token->next->str, \
 		O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else if (token->type == OUT)
 		var->cmd.out = open(token->next->str, \
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (check_file_perm(var, token))
+		return (var->r);
 	if (var->cmd.out < 0 || dup2(var->fd[var->id][1], 1))
 		return (1);
+	return (0);
 }
 
-void	set_token(t_info *var, t_token **token)
+static void	set_token(t_info *var, t_token **token)
 {
 	int	i;
 
@@ -102,7 +102,7 @@ int	choose_pipe(t_info	*var, t_token **token)
 		choose_outfile(var, *token)))
 			return (free_pipeline(&(var->fd), var->n_pipe), \
 			free_pipeline(&(var->here), var->n_here), var->r);
-		token = (*token)->next;
+		*token = (*token)->next;
 	}
 	return (free_pipeline(&(var->fd), var->n_pipe), \
 	free_pipeline(&(var->here), var->n_here), var->r);

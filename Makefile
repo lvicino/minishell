@@ -6,7 +6,7 @@
 #    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/21 17:03:42 by lvicino          ###   ########.fr        #
+#    Updated: 2024/08/27 14:23:06 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,9 @@ EXEC_DIR	=	src/exec
 EXEC		=	exec.c \
 				exec_utils.c \
 				choose_pipe.c \
-				here_doc.c
+				here_doc.c \
+				error.c \
+				get_cmd.c
 
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
@@ -55,7 +57,6 @@ EXEC_DEP			=	$(EXEC_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 PARSING_DIR	=	src/parsing
 
 PARSING		=	state/state.c \
-				utils_other.c \
 				loop.c \
 				utils.c \
 				state/state_utils.c \
@@ -68,12 +69,12 @@ PARSING		=	state/state.c \
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)
-PARSING_DEP			=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
+PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra  -g3 -MMD -MP -I include
+CFLAGS		=	-Wall -Wextra -g3 -MMD -MP -I include
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \
