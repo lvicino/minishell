@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 14:14:44 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/27 14:59:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ typedef struct s_info
 	int		skip_hd;
 	t_cmd	cmd;
 }			t_info;
+
+/*exec*/
+int	exec(t_token *token, t_env **env);
 
 /*utils*/
 void	count_pipe(t_info *input, t_token *token);

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/27 14:38:20 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:30:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int	prompt(t_env	**env)
 		if (stack->type == OK)
 		{
 			ft_printf("OK\n");
-			exec(cpy, env);
+			print_tokens(cpy, 4);
+			printf("$? = %d\n", exec(cpy, env));
 		}
 		freelist(&cpy);
 		freelist(&stack);
