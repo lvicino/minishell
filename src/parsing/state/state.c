@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   state.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 10:52:10 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:22:44 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 void	ret_to_start(t_token **head)
 {

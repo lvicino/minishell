@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   state_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/22 10:51:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:22:31 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 void	ft_del_token_test(t_token **head, void (*del)(void*))
 {

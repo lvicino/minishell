@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   state_16_20.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/21 16:07:04 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:21:54 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 void	state_16(t_token	**buffer, t_token **head)
 {

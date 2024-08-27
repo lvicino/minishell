@@ -6,16 +6,12 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/21 16:25:43 by lvicino          ###   ########.fr       */
-=======
-/*   Updated: 2024/08/22 13:45:16 by rgallien         ###   ########.fr       */
->>>>>>> origin/rgallien
+/*   Updated: 2024/08/22 15:14:30 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
-#include "termios.h"
 
 void	set_signal_action(void)
 {
