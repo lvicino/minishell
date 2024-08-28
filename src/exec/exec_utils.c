@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/16 16:56:07 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/28 11:47:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_free(char ***str)
 
 void	free_pipeline(int ***fd, int i)
 {
-	while (--i >= 0)
+	while (--i >= 0 && *fd)
 	{
 		close((*fd)[i][0]);
 		close((*fd)[i][1]);
@@ -68,7 +68,10 @@ int	pipeline(int ***tab, int n)
 
 	i = 0;
 	if (n <= 0)
-		return (0);
+	{
+		*tab = NULL;
+		return (1);
+	}
 	*tab = (int **)malloc(sizeof(int *) * (n));
 	if (!*tab)
 		return (0);
