@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/27 14:23:06 by lvicino          ###   ########.fr        #
+#    Updated: 2024/08/28 15:02:00 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ PARSING		=	state/state.c \
 				state/state_11_15.c \
 				state/state_16_20.c \
 				state/state_21_25.c \
-				state/state_26_29.c
+				state/state_26_29.c \
+				tokenize.c \
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)

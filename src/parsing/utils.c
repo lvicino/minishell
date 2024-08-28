@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/27 12:26:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:33:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_tokens(t_token *head, int whois)
 	{
 		if (head->type >= 0 && head->type < NUMBER_OF_TOKENS \
 		&& whois == 3)
-			printf("%s=%s ", tab[head->type], head->str);
+			printf("%s=%s$ ", tab[head->type], head->str);
 		else if (head->type >= 0 && head->type < NUMBER_OF_TOKENS \
 		&& whois == 4)
 			printf("%s ", tab2[head->type]);
