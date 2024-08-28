@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   state_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:43 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/28 15:53:17 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void insert_token(t_token **head, t_token_type type, char *str)
+{
+	t_token *token;
+	t_token *current;
+
+	ret_to_start(head);
+	token = malloc(sizeof(t_token));
+	if (!token)
+		return;
+	token->str = ft_strdup(str);
+	token->type = type;
+	token->next = NULL;
+	token->prev = NULL;
+	if (*head == NULL)
+	{
+		*head = token;
+		return;
+	}
+	current = *head;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = token;
+	token->prev = current;
+}
 
 void	ft_free_two(t_token **head)
 {

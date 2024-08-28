@@ -6,27 +6,36 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 15:20:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:48:04 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_token(char *str, int *c, int *i)
+int	unclosed_quotes(t_token *token)
 {
-	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
+	int		i;
+	char	q;
 
-	*i = 0;
-	while (*i < END)
+	while (token)
 	{
-		if (!ft_strncmp(str + *c, list[*i], ft_strlen(list[*i])))
+		i = 0;
+		while (token->str && token->str[i])
 		{
-			*c += ft_strlen(list[*i]);
-			return (1);
+			if (token->str[i] == '"' || token->str[i] == 39)
+			{
+				q = token->str[i];
+				i++;
+				while (token->str[i] && token->str[i] != q)
+					i++;
+				if (!token->str[i])
+					return (ft_putstr_fd("Error, Unclosed quotes\n", 2), 0);
+			}
+			i++;
 		}
-		(*i)++;
+		token = token->next;
 	}
-	return (0);
+	return (1);
 }
 
 void	tokenize_cpy(t_token *tmp, int i)
@@ -67,12 +76,6 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 		c++;
 		while (str[c] && str[c] != b)
 			c++;
-		if (!str[c])
-		{
-			c = -1;
-			ft_putstr_fd("Error : Unclosed quotes\n", 2);
-			return (free(str), c);
-		}
 	}
 	else
 	{
@@ -115,10 +118,13 @@ int	make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str)
 {
 	*token = NULL;
 	*cpy = NULL;
-	*token = tokenize(str, token, 0);
-	if (!*token)
+	if (!ft_strlen(str))
 		return (0);
-		// return (free_env(env), clear_history(), 0);
+	*token = tokenize(str, token, 0);
+	if (!(*token))
+		return (0);
+	if (!unclosed_quotes(*token))
+		return (freelist(token), 0);
 	*cpy = tokenize(str, cpy, 0);
 	tokenize_cpy(*cpy, 0);
 	*stack = NULL;
