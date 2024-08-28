@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 14:53:14 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:58:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "builtin.h"
 # include "parsing.h"
 # include "exec.h"
-
 # include <stdio.h>
 # include <stdbool.h>
 
