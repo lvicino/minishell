@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 11:47:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/28 13:40:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	free_pipeline(int ***fd, int i)
 		close((*fd)[i][1]);
 		free((*fd)[i]);
 	}
-	free(*fd);
+	if (*fd)
+		free(*fd);
 	*fd = NULL;
 }
 

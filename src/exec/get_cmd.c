@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 14:24:59 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/28 14:39:07 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	get_cmd(t_token *token, t_info *var)
 	int		i;
 
 	i = -1;
+	var->cmd_ln = 0;
 	tmp = token;
 	while (tmp && tmp->type != PIPE)
 	{
@@ -79,8 +80,7 @@ void	get_cmd(t_token *token, t_info *var)
 	while (token && token->type != PIPE)
 	{
 		if (token->type == CMD || token->type == CMD_SUFFIX)
-		{
 			var->cmd.cmd[++i] = token->str;
-		}
+		token = token->next;
 	}
 }
