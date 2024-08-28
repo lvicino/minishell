@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 14:59:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:51:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	make_doc(t_info	*var, t_token *token);
 /*pipeline*/
 int		choose_pipe(t_info	*var, t_token **token);
 
-/*cmd*/
+/*get cmd*/
 void	get_cmd(t_token *token, t_info *var);
 char	*get_path(char *cmd, t_env *env);
 

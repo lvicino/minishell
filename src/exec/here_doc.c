@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/20 14:38:20 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/28 13:46:10 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	make_doc(t_info	*var, t_token *token)
 	i = -1;
 	while (++i < var->n_here)
 	{
-		get_eof(&token);
+		(get_eof(&token), write(1, "> ", 2));
 		s = get_next_line(0);
 		while (s && ft_strncmp(token->str, s, choose_ln(token->str, s)))
 		{
 			write(var->here[i][1], s, ft_strlen(s));
-			free(s);
+			(free(s), write(1, "> ", 2));
 			s = get_next_line(0);
 		}
 		if (s)

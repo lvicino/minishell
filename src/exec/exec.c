@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 15:32:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:36:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	exec_cmd(t_info *var, t_token *token, t_env **env)
 		var->cmd.path = ft_strdup(var->cmd.cmd[0]);
 	check_cmd_error(var->cmd.cmd, var->cmd.path, &(var->r));
 	if (var->cmd.path && var->cmd.cmd && !access(var->cmd.path, F_OK | X_OK))
-		execve(var->cmd.path, var->cmd.cmd, NULL); //! env?
+		execve(var->cmd.path, var->cmd.cmd, NULL);
 	if (var->cmd.cmd)
 		free(var->cmd.cmd);
 	if (var->cmd.path)
@@ -69,7 +69,7 @@ int	exec(t_token *token, t_env **env)
 		wait_process(var.pid, var.id, &(var.r));
 	}
 	if (!var.pid)
-		var.r = choose_pipe(&var, &token);
+		var.r = choose_pipe(&var, &token); //! not working
 	if (!var.pid && !var.r)
 		exit(exec_cmd(&var, token, env));
 	return (var.r);

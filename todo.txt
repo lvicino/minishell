@@ -1,5 +1,0 @@
-L.70 loop.c, gerer erreur quand guillemet pas fermer au lieu de juste exit()
-modifier les valeurs de t_env (var et value, avant et apres egal. EX:-> export test=bonjour=hello, var = test et value = bonjour=hello)
-regarder les signaux et faire un truc potable
-
-!!!! remplacer dans cpy, tout les valeurs des variables a expand
