@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 12:56:12 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:31:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,11 @@ int	prompt(t_env	**env)
 		cpy = NULL;
 		str = readline(">> ");
 		if (!str || !ft_strncmp(str, "exit", bigger(str, "exit")))
-			return (free(str), clear_history(), ft_printf("exit\n"), 0);
+			return (free_env(env), free(str), clear_history(), ft_printf("exit\n"), 0);
 		add_history(str);
 		token = tokenize(str, &token, 0);
 		if (!token)
-			return (clear_history(), 0);
+			return (clear_history(), free_env(env), 0);
 		cpy = tokenize(str, &cpy, 0);
 		tokenize_cpy(cpy, 0);
 		insert_token(&token, END, NULL);
@@ -141,7 +141,6 @@ int	prompt(t_env	**env)
 		}
 		freelist(&cpy);
 		freelist(&stack);
-		free_env(env);
 		free(str);
 	}
 }
