@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 16:40:18 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:28:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ int	prompt(t_env	**env)
 		{
 			state_0(&token, &stack);
 			if (stack && stack->type == OK)
-				exec(cpy, env);
+			{
+				printf("OK\n");
+				ft_expand(&cpy, env);
+				//exec(ft_expand(&cpy, env), env);
+			}
 			free(stack);
 		}
 		freelist(&cpy);

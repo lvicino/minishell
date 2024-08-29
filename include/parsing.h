@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 15:12:34 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:25:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,25 @@ typedef struct s_assoc
 	void			(*func)(t_token **, t_token **);
 }t_assoc;
 
+// others
 void		ret_to_start(t_token **head);
 int			ft_isspace(int c);
 int			is_word(char c);
-int			bigger(char *s1, char *s2);
 int			prompt(t_env **env);
 void		freelist(t_token **head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
 void		ft_free_two(t_token **head);
 
+// expand
+t_token		*ft_expand(t_token **cpy, t_env **env);
+
 // tokenize
-t_token	*tokenize(char *str, t_token **head, int c);
-int		tokenize_word(char *str, t_token **head, int c, int *i);
-void	tokenize_cpy(t_token *tmp, int i);
-int		is_token(char *str, int *c, int *i);
-int		make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str);
+t_token		*tokenize(char *str, t_token **head, int c);
+int			tokenize_word(char *str, t_token **head, int c, int *i);
+void		tokenize_cpy(t_token *tmp, int i);
+int			is_token(char *str, int *c, int *i);
+int			make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str);
 
 // states
 void		state_error(t_token **head, t_token **buffer);
