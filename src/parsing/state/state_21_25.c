@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_21_25.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:30:48 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:38 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 14:50:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	state_22(t_token	**buffer, t_token **head)
 	while (i < 8)
 	{
 		if ((*head)->type == tab[i].type)
+		{
+			if ((*head)->next)
+				*head = (*head)->next;
 			return (tab[i].func(buffer, head));
+		}
 		i++;
 	}
 	i = -1;

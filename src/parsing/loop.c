@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 13:38:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 15:22:14 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	prompt(t_env	**env)
 			if (stack && stack->type == OK)
 			{
 				printf("OK\n");
-				exec(cpy, env);
 				//ft_expand(&cpy, env);
+				exec(cpy, env);
 				//exec(ft_expand(&cpy, env), env);
 			}
 			free(stack);

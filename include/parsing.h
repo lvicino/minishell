@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/30 12:54:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:19:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
 void		ft_free_two(t_token **head);
 
-//void		ft_expand(t_token **cpy, t_env **env);
-//int			ft_count_expand(char *str, t_env **env);
-//int			bigger(char *s1, char *s2);
+void		ft_expand(t_token **cpy, t_env **env);
+int			ft_count_expand(char *str, t_env **env);
+int			bigger(char *s1, char *s2);
 
 // tokenize
 t_token		*tokenize(char *str, t_token **head, int c);

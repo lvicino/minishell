@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_26_29.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:36:59 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:40 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 14:52:57 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	state_27(t_token	**buffer, t_token **head)
 void	state_28(t_token	**buffer, t_token **head)
 {
 	printf("state 28\n");
-	ft_del_token(head, &free);
+	ft_free_two(head);
 	insert_token(head, CMD_SUFFIX, NULL);
 	state_0(buffer, head);
 }
