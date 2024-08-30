@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 17:48:04 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:57:55 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	tokenize_cpy(t_token *tmp, int i)
 	while (tmp)
 	{
 		if (!i && tmp->type == WORD && (!tmp->prev || tmp->prev->type == PIPE \
-		|| tmp->prev->type == FILENAME))
+		|| tmp->prev->type == FILENAME || tmp->prev->type == END_F))
 		{
 			i = 1;
 			tmp->type = CMD;

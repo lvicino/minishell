@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   count.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/29 15:43:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:54:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	bigger(char *s1, char *s2)
+/*
+int	expand_doll(char *str, int *i, t_env **env)
 {
-	int	a;
-	int	b;
-
-	a = ft_strlen(s1);
-	b = ft_strlen(s2);
-	if (a > b)
-		return (a);
-	return (b);
+	int		start;
+	int		end;
+	t_env	*current;
+	(*i)++;
 }
 
-int	found_variable(char *str, int *i, t_env **env)
+int	count_found_variable(char *str, int *i, t_env **env)
 {
 	int		start;
 	int		end;
@@ -41,13 +38,14 @@ int	found_variable(char *str, int *i, t_env **env)
 	while (current)
 	{
 		if (!ft_strncmp(current->var, var2, bigger(current->var, var2)))
-			return (ft_printf("%s\n", current->value), free(var2), ft_strlen(current->value));
+			return (free(var2), ft_strlen(current->value));
 		current = current->next;
 	}
 	return (0);
 }
 
-int	expand_double(char *str, int *i, t_env **env)
+
+int	count_expand_double(char *str, int *i, t_env **env)
 {
 	int	c;
 
@@ -57,12 +55,14 @@ int	expand_double(char *str, int *i, t_env **env)
 	{
 		if (str[*i] == '$')
 			c += found_variable(str, i, env);
+		else
+			c++;
 		(*i)++;
 	}
 	return (c);
 }
 
-int	expand_simple(char *str, int	*i)
+int	count_expand_simple(char *str, int	*i)
 {
 	int	c;
 
@@ -77,30 +77,25 @@ int	expand_simple(char *str, int	*i)
 	return (c);
 }
 
-t_token	*ft_expand(t_token **cpy, t_env **env)
+int	ft_count_expand(char *str, t_env **env)
 {
-	t_token	*current;
 	int		i;
 	int		c;
 
-	current = *cpy;
-	while (current->type != END)
+	c = 0;
+	i = 0;
+	while (str[i])
 	{
-		c = 0;
-		i = 0;
-		printf("%s=", current->str);
-		while (current->str[i])
-		{
-			if (current->str[i] == 39)
-				c += expand_simple(current->str, &i);
-			else if (current->str[i] == '"')
-				c += expand_double(current->str, &i, env);
-			else
-				c++;
-			i++;
-		}
-		printf("%d\n", c);
-		current = current->next;
+		if (str[i] == 39)
+			c += count_expand_simple(str, &i);
+		else if (str[i] == '"')
+			c += count_expand_double(str, &i, env);
+		else if (str[i] == '$')
+			c += count_found_variable(str, &i, env);
+		else
+			c++;
+		i++;
 	}
-	return (*cpy);
+	return (c);
 }
+*/
