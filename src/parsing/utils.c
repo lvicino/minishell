@@ -6,11 +6,28 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 12:33:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:56:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_token(char *str, int *c, int *i)
+{
+	const char	*list[] = {"<<", ">>", "<", ">", "|", "&", "#"};
+
+	*i = 0;
+	while (*i < END)
+	{
+		if (!ft_strncmp(str + *c, list[*i], ft_strlen(list[*i])))
+		{
+			*c += ft_strlen(list[*i]);
+			return (1);
+		}
+		(*i)++;
+	}
+	return (0);
+}
 
 int	ft_isspace(int c)
 {
@@ -29,25 +46,13 @@ int	is_word(char c)
 	return (0);
 }
 
-int	bigger(char *s1, char *s2)
-{
-	int	len_s1;
-	int	len_s2;
-
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	if (len_s1 > len_s2)
-		return (len_s1);
-	return (len_s2);
-}
-
 void	freelist(t_token **head)
 {
 	t_token	*tmp;
 
-	ret_to_start(head);
 	if (head == NULL || *head == NULL)
 		return ;
+	ret_to_start(head);
 	while (*head)
 	{
 		tmp = *head;
@@ -89,27 +94,3 @@ void	print_tokens(t_token *head, int whois)
 	printf("\n");
 }
 
-void insert_token(t_token **head, t_token_type type, char *str)
-{
-	t_token *token;
-	t_token *current;
-
-	ret_to_start(head);
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return;
-	token->str = ft_strdup(str);
-	token->type = type;
-	token->next = NULL;
-	token->prev = NULL;
-	if (*head == NULL)
-	{
-		*head = token;
-		return;
-	}
-	current = *head;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = token;
-	token->prev = current;
-}

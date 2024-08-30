@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 14:39:07 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 13:02:37 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	get_cmd(t_token *token, t_info *var)
 			var->cmd_ln++;
 		tmp = tmp->next;
 	}
-	if (!var->cmd_ln)
+		if (!var->cmd_ln)
 		var->cmd.cmd = NULL;
 	else
 		var->cmd.cmd = malloc(sizeof(char *) * (var->cmd_ln + 1));

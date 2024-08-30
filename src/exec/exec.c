@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 14:36:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 13:04:20 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	exec(t_token *token, t_env **env)
 		wait_process(var.pid, var.id, &(var.r));
 	}
 	if (!var.pid)
-		var.r = choose_pipe(&var, &token); //! not working
+		var.r = choose_pipe(&var, &token);
 	if (!var.pid && !var.r)
 		exit(exec_cmd(&var, token, env));
 	return (var.r);

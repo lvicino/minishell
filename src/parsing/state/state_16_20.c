@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_16_20.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:35 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:02:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	state_17(t_token	**buffer, t_token **head)
 void	state_18(t_token	**buffer, t_token **head)
 {
 	printf("state 18\n");
-	if ((*head)->type == APPEND && (*head)->next->type == FILENAME)
+	if ((*head)->type == FILENAME)
 	{
-		ft_del_token(head, &free);
+		ft_free_two(head);
 		insert_token(head, IO_FILE, NULL);
 	}
 	else

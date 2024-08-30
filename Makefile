@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/28 15:02:00 by rgallien         ###   ########.fr        #
+#    Updated: 2024/08/30 11:26:32 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,9 @@ PARSING		=	state/state.c \
 				state/state_21_25.c \
 				state/state_26_29.c \
 				tokenize.c \
+				expand/count.c \
+				expand/expand.c \
+				expand/expand_utils.c \
 
 PARSING		:=	$(PARSING:%=$(PARSING_DIR)/%)
 PARSING_OBJ	=	$(PARSING:$(PARSING_DIR)/%.c=$(BUILD_DIR)/%.o)

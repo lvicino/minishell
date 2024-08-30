@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_1_5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:22 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/29 13:25:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	state_5(t_token **buffer, t_token **head)
 {
 	printf("state 5\n");
 	if ((*head)->type == FILENAME)
-		state_18(buffer, &((*head)->next));
+		state_18(buffer, head);
 	else if ((*head)->type == WORD)
-		state_13(buffer, &((*head)->next));
+		state_13(buffer, &(*head)->next);
 	else if (!(*head)->next && (*buffer)->type == WORD)
 	{
-		add_to_stack(buffer, head);
-		state_13(buffer, &((*head)->next));
+		*head = add_to_stack(buffer, head);
+		state_13(buffer, head);
 	}
 	else
 	{

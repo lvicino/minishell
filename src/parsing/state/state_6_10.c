@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_6_10.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:04:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	state_8(t_token **buffer, t_token **head)
 	int				i;
 
 	printf("state 8\n");
-	i = 0;
+	i = -1;
 	tab = get_tab(8);
-	while (head && i < 9)
+	while (head && ++i < 9)
 	{
 		if ((*head)->type == tab[i].type)
 		{
@@ -63,17 +63,15 @@ void	state_8(t_token **buffer, t_token **head)
 				*head = (*head)->next;
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
-	i = 0;
-	while (i < 5)
+	i = -1;
+	while (++i < 5)
 	{
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
 			*head = add_to_stack(buffer, head);
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
 	ft_del_token(head, &free);
 	insert_token(head, SIMPLE_COMMAND, NULL);
