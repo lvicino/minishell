@@ -6,20 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 12:54:58 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:29:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-int	expand_doll(char *str, int *i, t_env **env)
-{
-	int		start;
-	int		end;
-	t_env	*current;
-	(*i)++;
-}
 
 int	count_found_variable(char *str, int *i, t_env **env)
 {
@@ -54,7 +45,7 @@ int	count_expand_double(char *str, int *i, t_env **env)
 	while (str[*i] && str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			c += found_variable(str, i, env);
+			c += count_found_variable(str, i, env);
 		else
 			c++;
 		(*i)++;
@@ -98,4 +89,3 @@ int	ft_count_expand(char *str, t_env **env)
 	}
 	return (c);
 }
-*/
