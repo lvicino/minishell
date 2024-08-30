@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 13:48:49 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 15:16:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	w_error(char *cmd, int error)
 
 void	check_cmd_error(char **cmd, char *path, int *r)
 {
-	printf("path = %s$\n", path);
 	if (!path || access(path, F_OK))
 	{
 		*r = 127;
