@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/01 19:53:00 by rgallien         ###   ########.fr       */
+/*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
+/*   Updated: 2024/09/01 20:31:04 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# define _XOPEN_SOURCE 700
+void sigint_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
 
-# include "libft.h"
+void	set_signal_action(void)
+{
+	struct sigaction act;
 
-# include "builtin.h"
-# include "parsing.h"
-# include "exec.h"
-# include <stdio.h>
-# include <stdbool.h>
-
-
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-// # include <string.h>
-// # include <error.h>
-
-void	set_signal_action(void);
-
-#endif
+	ft_bzero(&act, sizeof(act));
+	act.sa_handler = &sigint_handler;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}

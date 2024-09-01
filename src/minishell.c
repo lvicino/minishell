@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/27 15:10:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/01 21:03:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ void	free_env(t_env **head)
 		free(tmp->value);
 		free(tmp);
 	}
-}
-
-void	set_signal_action(void)
-{
-	struct sigaction act;
-
-	ft_bzero(&act, sizeof(act));
 }
 
 void	add_node(char *str, t_env **env, char *envp)
@@ -85,8 +78,8 @@ int	main(int ac, char **ar, char **envp)
 	(void)ar;
 	if (ac != 1)
 		return (-1);
+	set_signal_action();
 	make_env(&env, envp);
 	prompt(&env);
-	// check expand
 	return (0);
 }

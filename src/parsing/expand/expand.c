@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 17:04:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:33:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	found_variable(char *str, char *new, int *tab, t_env **env)
 			}
 			new[tab[1]] = 0;
 			free(var);
-			printf("tab[1] = %d\n", tab[1]);
 			return ;
 		}
 		current = current->next;
@@ -91,6 +90,7 @@ void	ft_expand(t_token **cpy, t_env **env)
 			return ;
 		while (current->str[tab[0]])
 		{
+			printf("%c\n", current->str[tab[0]]);
 			if (current->str[tab[0]] == 39)
 				expand_simple(current->str, new, tab);
 			else if (current->str[tab[0]] == '"')
@@ -105,7 +105,7 @@ void	ft_expand(t_token **cpy, t_env **env)
 			}
 
 		}
-		printf("tab[1] = %d\n", tab[1]);
+		new[tab[1]] = 0;
 		free(current->str);
 		current->str = new;
 		printf("%s$\n", current->str);
