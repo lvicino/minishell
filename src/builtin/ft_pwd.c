@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 15:51:21 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 00:08:49 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 int	ft_pwd(t_env **env, char **cmd, int cmd_ln)
 {
-	(void)cmd_ln;
+	char	path[4096];
+
+	(void)cmd;
 	(void)env;
-	printf("pwd cmd = %s$\n", cmd[0]);
+	(void)cmd_ln;
+	if (!getcwd(path, 4096))
+		printf("getcwd() error\n");
+	else
+		printf("%s\n", path);
 	return (0);
 }
