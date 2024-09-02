@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/08/30 14:20:57 by rgallien         ###   ########.fr        #
+#    Updated: 2024/09/02 15:27:48 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,13 @@ MAIN_DEP	=	$(MAIN_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 BUILTIN_DIR	=	src/builtin
 
-BUILTIN		=
+BUILTIN		=	ft_cd.c \
+				ft_echo.c \
+				ft_env.c \
+				ft_exit.c \
+				ft_export.c \
+				ft_pwd.c \
+				ft_unset.c
 
 BUILTIN		:=	$(BUILTIN:%=$(BUILTIN_DIR)/%)
 BUILTIN_OBJ	=	$(BUILTIN:$(BUILTIN_DIR)/%.c=$(BUILD_DIR)/%.o)
@@ -78,7 +84,7 @@ PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -g3 -MMD -MP -I include
+CFLAGS		=	-Wall -Wextra -MMD -MP -I include -g3
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \

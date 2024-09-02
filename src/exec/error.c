@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/30 15:21:45 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/02 14:13:08 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	w_error(char *cmd, int error)
 {
 	if (error == 127 && (!cmd || !ft_strchr(cmd, '/')))
 	{
-		write(2, "Command '", 9);
 		if (cmd)
 			write(2, cmd, ft_strlen(cmd));
-		write(2, "' not found", 11);
+		else
+			write(2, "''", 2);
+		write(2, ": command not found", 19);
 	}
 	else if (error == 127)
 	{
@@ -36,7 +37,7 @@ void	w_error(char *cmd, int error)
 	write(2, "\n", 1);
 }
 
-void	check_cmd_error(char **cmd, char *path, int *r)
+void	check_cmd_error(char **cmd, char *path, int *r) //! check if cmd is a directory ex : ../ ./ ./src src/ (maybe .)
 {
 	if (!path || access(path, F_OK))
 	{

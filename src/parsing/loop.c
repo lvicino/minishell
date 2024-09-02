@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 15:22:14 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/02 13:24:52 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ int	prompt(t_env	**env)
 		if (!str)
 			return (free_env(env), free(str), clear_history(), \
 			ft_printf("exit\n"), 0);
-		add_history(str);
 		if (make_tokenize(&token, &stack, &cpy, str))
 		{
+			add_history(str);
 			state_0(&token, &stack);
 			if (stack && stack->type == OK)
 			{
 				printf("OK\n");
+				freelist(&stack);
 				//ft_expand(&cpy, env);
+				print_tokens(cpy, 4);
 				exec(cpy, env);
 				//exec(ft_expand(&cpy, env), env);
 			}
-			free(stack);
 		}
 		freelist(&cpy);
 		free(str);
