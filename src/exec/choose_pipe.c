@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 15:04:29 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/30 13:07:06 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static int	choose_infile(t_info *var, t_token *token, int *i)
 		var->cmd.in = open(token->next->str, O_RDONLY);
 	if (check_file_perm(var, token))
 		return (var->r);
-	// if (var->cmd.in < 0 || dup2(var->fd[var->id - 1][0], 0))
-	// 	return (1);
 	if (var->cmd.in < 0 || dup2(var->cmd.in, 0))
 		return (1);
 	return (0);
@@ -62,8 +60,6 @@ static int	choose_outfile(t_info *var, t_token *token)
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (check_file_perm(var, token))
 		return (var->r);
-	// if (var->cmd.out < 0 || dup2(var->fd[var->id][1], 1))
-	// 	return (1);
 	if (var->cmd.out < 0 || dup2(var->cmd.out, 1))
 		return (1);
 	return (0);
@@ -74,6 +70,7 @@ static void	set_token(t_info *var, t_token **token)
 	int	i;
 
 	i = 0;
+	var->skip_hd = 0;
 	while (i != var->id)
 	{
 		*token = (*token)->next;
