@@ -6,26 +6,23 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/01 19:33:01 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:18:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	found_variable(char *str, char *new, int *tab, t_env **env)
+void	found_variable(char *str, char *new, int *tab, t_env *current)
 {
 	int		start;
 	int		end;
-	t_env	*current;
 	char	*var;
 	int		i;
 
-	current = *env;
 	tab[0]++;
 	start = tab[0];
-	while (str[tab[0]] && str[tab[0]] != '"')
+	while (str[tab[0]] && str[tab[0]] != '"' && str[tab[0]] != 39 && str[tab[0]] != '$')
 		tab[0]++;
-	printf("tab[0] = %d\n", tab[0]);
 	end = tab[0] - start;
 	var = ft_substr(str, start, end);
 	while (current)
@@ -39,12 +36,12 @@ void	found_variable(char *str, char *new, int *tab, t_env **env)
 				i++;
 				tab[1]++;
 			}
-			new[tab[1]] = 0;
 			free(var);
 			return ;
 		}
 		current = current->next;
 	}
+	free(var);
 }
 
 void	expand_simple(char *str, char *new, int *tab)
@@ -64,11 +61,16 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 	while (str[tab[0]] && str[tab[0]] != '"')
 	{
 		if (str[tab[0]] == '$')
-			found_variable(str, new, tab, env);
+		{
+			found_variable(str, new, tab, *env);
+			if (str[tab[0]] == 39)
+				tab[0]--;
+		}
 		else
+		{
 			new[tab[1]] = str[tab[0]];
-		tab[0]++;
-		tab[1]++;
+			tab[1]++;
+		}
 	}
 }
 
@@ -83,32 +85,29 @@ void	ft_expand(t_token **cpy, t_env **env)
 	{
 		tab[0] = 0;
 		tab[1] = 0;
-		printf("current str = %s\n", current->str);
 		new = malloc((ft_count_expand(current->str, env) + 1) * sizeof(char));
 		printf("malloc de %d\n", ft_count_expand(current->str, env) + 1);
 		if (!new)
 			return ;
 		while (current->str[tab[0]])
 		{
-			printf("%c\n", current->str[tab[0]]);
 			if (current->str[tab[0]] == 39)
 				expand_simple(current->str, new, tab);
 			else if (current->str[tab[0]] == '"')
 				expand_double(current->str, new, tab, env);
 			else if (current->str[tab[0]] == '$')
-				found_variable(current->str, new, tab, env);
+				found_variable(current->str, new, tab, *env);
 			else
 			{
 				new[tab[1]] = current->str[tab[0]];
 				tab[0]++;
 				tab[1]++;
 			}
-
 		}
 		new[tab[1]] = 0;
 		free(current->str);
+		printf("new str = %s$\n", new);
 		current->str = new;
-		printf("%s$\n", current->str);
 		current = current->next;
 	}
 }

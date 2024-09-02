@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 12:57:55 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:53:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,23 @@ int	tokenize_word(char *str, t_token **head, int c, int *i)
 	char	*word;
 	char	b;
 
-	if (str[c] == '"' || str[c] == 39)
+	start = c;
+	while (str[c] && !ft_isspace(str[c]) && !is_token(str, &c, i))
 	{
-		b = str[c];
-		start = c;
-		c++;
-		while (str[c] && str[c] != b)
+		if (str[c] == '"' || str[c] == 39)
+		{
+			b = str[c];
 			c++;
-	}
-	else
-	{
-		start = c;
-		while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c + 1]))
-			c++;
+			while (str[c] && (str[c] != b))
+				c++;
+			if (str[c])
+				c++;
+		}
+		else
+		{
+			while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c + 1]))
+				c++;
+		}
 	}
 	word = ft_substr(str, start, (c - start) + 1);
 	if (str[c] && ft_isspace(str[c + 1]))

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/30 14:29:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:16:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,15 @@ int	count_expand_double(char *str, int *i, t_env **env)
 	while (str[*i] && str[*i] != '"')
 	{
 		if (str[*i] == '$')
+		{
 			c += count_found_variable(str, i, env);
+			printf("i = %d\n", *i);
+		}
 		else
+		{
 			c++;
-		(*i)++;
+			(*i)++;
+		}
 	}
 	return (c);
 }
