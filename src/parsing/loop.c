@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/02 16:02:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:08:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	prompt(t_env	**env)
 				print_tokens(cpy, 4);
 				// exec(cpy, env);
 			}
-			free(stack);
 		}
 		freelist(&cpy);
 		free(str);
