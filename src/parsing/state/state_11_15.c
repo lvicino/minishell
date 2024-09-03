@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state_11_15.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:54:24 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 13:03:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/08/31 02:49:25 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ void	state_13(t_token	**buffer, t_token **head)
 
 void	state_14(t_token	**buffer, t_token **head)
 {
-	int		i;
-
-	i = 0;
 	printf("state 14\n");
 	if ((*head)->type == OUT && (*head)->next->type == FILENAME)
 	{
