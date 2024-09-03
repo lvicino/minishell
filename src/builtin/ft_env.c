@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 23:43:58 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:55:20 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_env(t_env **env, char **cmd, int cmd_ln)
 	(void)cmd;
 	current = *env;
 	if (cmd_ln > 1)
-		return (0);
+		return (125);
 	while (current)
 	{
 		printf("%s=%s\n", current->var, current->value);
