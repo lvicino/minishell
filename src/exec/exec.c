@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 17:24:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 21:52:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	is_builtin(t_info *var, t_token *token)
 	{
 		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
 		bigger(var->cmd.cmd[0], tab[i].fun)))
-			return (free(var->cmd.cmd), 1);
+			return (1);
 	}
 	return (0);
 }
@@ -124,5 +124,6 @@ int	exec(t_token *token, t_env **env)
 		exit(exec_cmd(&var, token, env)); //! tokens need to be freed when error occurs
 	}
 	exec_builtin(&var, env);
+	free(var.cmd.cmd);
 	return (var.r);
 }
