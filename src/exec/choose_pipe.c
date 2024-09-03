@@ -6,33 +6,11 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 13:42:37 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 16:35:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	check_file_perm(t_info *var, t_token *token)
-{
-	if (token->type == IN && access(token->next->str, F_OK))
-	{
-		var->r = 1;
-		if (token->next->str)
-			write(2, token->next->str, ft_strlen(token->next->str));
-		write(2, ": No such file or directory\n", 28);
-	}
-	else if (token->type == IN && access(token->next->str, R_OK))
-	{
-		var->r = 1;
-		w_error(token->next->str, 1);
-	}
-	else if (token->type == OUT && access(token->next->str, W_OK))
-	{
-		var->r = 1;
-		w_error(token->next->str, 1);
-	}
-	return (var->r);
-}
 
 static int	choose_infile(t_info *var, t_token *token, int *i)
 {
@@ -69,6 +47,24 @@ static int	choose_outfile(t_info *var, t_token *token)
 	return (0);
 }
 
+int	choose_in_out(t_info *var, t_token *token)
+{
+	int		i;
+
+	i = 0;
+	while (token && token->type != PIPE)
+	{
+		if (((token->type == IN || token->type == HERE) && \
+		choose_infile(var, token, &i)) || \
+		((token->type == OUT || token->type == APPEND) && \
+		choose_outfile(var, token)))
+			return (free_pipeline(&(var->fd), var->n_pipe), \
+			free_pipeline(&(var->here), var->n_here), var->r);
+		token = token->next;
+	}
+	return (var->r);
+}
+
 static void	set_token(t_info *var, t_token **token)
 {
 	int	i;
@@ -90,9 +86,7 @@ static void	set_token(t_info *var, t_token **token)
 int	choose_pipe(t_info	*var, t_token **token)
 {
 	t_token	*tmp;
-	int		i;
 
-	i = 0;
 	if (var->fd && ((!var->id && dup2(var->fd[var->id][1], 1) < 0) || \
 	(var->id == var->n_pipe && dup2(var->fd[var->id - 1][0], 0) < 0) || \
 	(var->id && var->id != var->n_pipe && \
@@ -102,16 +96,8 @@ int	choose_pipe(t_info	*var, t_token **token)
 		free_pipeline(&(var->here), var->n_here), 1);
 	set_token(var, token);
 	tmp = *token;
-	while (tmp && tmp->type != PIPE)
-	{
-		if (((tmp->type == IN || tmp->type == HERE) && \
-		choose_infile(var, tmp, &i)) || \
-		((tmp->type == OUT || tmp->type == APPEND) && \
-		choose_outfile(var, tmp)))
-			return (free_pipeline(&(var->fd), var->n_pipe), \
-			free_pipeline(&(var->here), var->n_here), var->r);
-		tmp = tmp->next;
-	}
+	if (choose_in_out(var, *token))
+		return (var->r);
 	return (free_pipeline(&(var->fd), var->n_pipe), \
 	free_pipeline(&(var->here), var->n_here), var->r);
 }

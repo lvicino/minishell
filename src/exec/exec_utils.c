@@ -6,27 +6,30 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/30 13:04:56 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 17:05:54 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	count_pipe(t_info *input, t_token *token)
+void	count_pipe(t_info *var, t_token *token)
 {
-	input->n_pipe = 0;
-	input->n_here = 0;
+	var->n_pipe = 0;
+	var->n_here = 0;
+	var->pid = 1;
+	var->id = -1;
+	var->r = 0;
 	while (token)
 	{
 		if (token->type == PIPE)
-			input->n_pipe++;
+			var->n_pipe++;
 		else if (token->type == HERE)
-			input->n_here++;
+			var->n_here++;
 		token = token->next;
 	}
 }
 
-void	wait_process(pid_t pid, int id, int *r)
+int	wait_process(pid_t pid, int id, int *r)
 {
 	while (id >= 0)
 	{
@@ -34,6 +37,7 @@ void	wait_process(pid_t pid, int id, int *r)
 			*r = WEXITSTATUS(*r);
 		id--;
 	}
+	return (*r);
 }
 
 void	ft_free(char ***str)

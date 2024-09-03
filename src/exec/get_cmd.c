@@ -6,11 +6,28 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/30 17:53:21 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 17:21:18 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	exec_builtin(t_info *var, t_env **env)
+{
+	int				i;
+	const t_builtin tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
+	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
+	{"pwd", ft_pwd}, {"unset", ft_unset}};
+
+	i = -1;
+	while (++i < 7)
+	{
+		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
+		bigger(var->cmd.cmd[0], tab[i].fun)))
+			return (tab[i].fun_ptr(env, var->cmd.cmd, var->cmd_ln), 1);
+	}
+	return (0);
+}
 
 static char	*find_path(char ***str, char *cmd)
 {

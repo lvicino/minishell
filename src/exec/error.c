@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 14:13:08 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 16:19:29 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ void	w_error(char *cmd, int error)
 		write(2, ": Permission denied", 19);
 	}
 	write(2, "\n", 1);
+}
+
+int	check_file_perm(t_info *var, t_token *token)
+{
+	if (token->type == IN && access(token->next->str, F_OK))
+	{
+		var->r = 1;
+		if (token->next->str)
+			write(2, token->next->str, ft_strlen(token->next->str));
+		write(2, ": No such file or directory\n", 28);
+	}
+	else if (token->type == IN && access(token->next->str, R_OK))
+	{
+		var->r = 1;
+		w_error(token->next->str, 1);
+	}
+	else if (token->type == OUT && access(token->next->str, W_OK))
+	{
+		var->r = 1;
+		w_error(token->next->str, 1);
+	}
+	return (var->r);
 }
 
 void	check_cmd_error(char **cmd, char *path, int *r) //! check if cmd is a directory ex : ../ ./ ./src src/ (maybe .)

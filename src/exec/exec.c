@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 15:54:15 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/03 17:24:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ static void	get_process(t_info	*var)
 	int	p;
 
 	p = 0;
-	var->id = -1;
-	var->pid = 1;
-	var->r = 0;
 	while (var->pid && var->id < var->n_pipe)
 	{
 		var->pid = fork();
@@ -58,18 +55,20 @@ static char	**convert_env(t_env *env)
 	return (tab);
 }
 
-int	is_builtin(char **cmd, t_env **env, int n)
+int	is_builtin(t_info *var, t_token *token)
 {
 	int				i;
 	const t_builtin tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
 	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
 	{"pwd", ft_pwd}, {"unset", ft_unset}};
 
+	get_cmd(token, var);
 	i = -1;
 	while (++i < 7)
 	{
-		if (!ft_strncmp(cmd[0], tab[i].fun, bigger(cmd[0], tab[i].fun)))
-			return (tab[i].fun_ptr(env, cmd, n), 1);
+		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
+		bigger(var->cmd.cmd[0], tab[i].fun)))
+			return (free(var->cmd.cmd), 1);
 	}
 	return (0);
 }
@@ -77,8 +76,8 @@ int	is_builtin(char **cmd, t_env **env, int n)
 static int	exec_cmd(t_info *var, t_token *token, t_env **env)
 {
 	get_cmd(token, var);
-	if (is_builtin(var->cmd.cmd, env, var->cmd_ln))
-		return(free(var->cmd.cmd), var->r);
+	if (exec_builtin(var, env)) //! exec builtin here
+		return(free(var->cmd.cmd), freelist(&token), free_env(env), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
 		var->cmd.path = get_path(var->cmd.cmd[0], *env);
@@ -92,6 +91,7 @@ static int	exec_cmd(t_info *var, t_token *token, t_env **env)
 			execve(var->cmd.path, var->cmd.cmd, convert_env(*env));
 	}
 	freelist(&token);
+	free_env(env);
 	if (var->cmd.cmd)
 		free(var->cmd.cmd);
 	if (var->cmd.path)
@@ -109,17 +109,20 @@ int	exec(t_token *token, t_env **env)
 	if (!pipeline(&(var.here), var.n_here))
 		return (free_pipeline(&(var.fd), var.n_pipe), 0);
 	make_doc(&var, token);
-	get_process(&var);
-	if (var.pid)
+	var.builtin = is_builtin(&var, token);
+	if (var.n_pipe || !var.builtin)
+		get_process(&var);
+	if (var.pid && (var.n_pipe || !var.builtin))
 	{
 		free_pipeline(&(var.fd), var.n_pipe);
 		free_pipeline(&(var.here), var.n_here);
-		wait_process(var.pid, var.id, &(var.r));
+		return (wait_process(var.pid, var.id, &(var.r)));
 	}
 	if (!var.pid)
 	{
 		var.r = choose_pipe(&var, &token);
 		exit(exec_cmd(&var, token, env)); //! tokens need to be freed when error occurs
 	}
+	exec_builtin(&var, env);
 	return (var.r);
 }
