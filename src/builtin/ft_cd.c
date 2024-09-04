@@ -6,13 +6,13 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 11:31:29 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:04:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*return_allocate()
+char	*return_allocate(void)
 {
 	char	*pwd;
 
@@ -66,11 +66,11 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln)
 				return (ft_putstr_fd("not a directory : ", 2), \
 				ft_putstr_fd(cmd[1], 2), ft_putstr_fd("\n", 2), 1);
 			else
-				return(chdir(cmd[1]), getcwd(n_pwd, 4096), \
+				return (chdir(cmd[1]), getcwd(n_pwd, 4096), \
 				replace_pwd(n_pwd, o_pwd, env), 0);
 		}
 		else
-			return(perror(cmd[0]), 1);
+			return (perror(cmd[0]), 1);
 	}
 	return (1);
 }

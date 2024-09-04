@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/02 12:18:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:54:20 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 		{
 			new[tab[1]] = str[tab[0]];
 			tab[1]++;
+			tab[0]++;
 		}
 	}
 }
