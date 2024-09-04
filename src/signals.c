@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 15:37:48 by rgallien         ###   ########.fr       */
+/*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
+/*   Updated: 2024/09/02 10:58:12 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-int	main(int ac, char **ar, char **envp)
+void sigint_handler(int signal)
 {
-	t_env	*env;
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
 
-	env = NULL;
-	(void)ar;
-	if (ac != 1)
-		return (-1);
-	set_signal_action();
-	make_env(&env, envp);
-	prompt(&env);
-	return (0);
+void	set_signal_action(void)
+{
+	struct sigaction act;
+
+	ft_bzero(&act, sizeof(act));
+	act.sa_handler = &sigint_handler;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }

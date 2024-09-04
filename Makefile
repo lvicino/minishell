@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/09/02 15:27:48 by lvicino          ###   ########.fr        #
+#    Updated: 2024/09/02 16:09:02 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ BUILD_DIR	=	build
 
 SRC_DIR		=	src
 
-MAIN		=	minishell.c
+MAIN		=	minishell.c \
+				signals.c
 
 MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
 MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

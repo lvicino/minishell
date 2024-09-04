@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/02 13:24:52 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/02 16:38:37 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ int	prompt(t_env	**env)
 			state_0(&token, &stack);
 			if (stack && stack->type == OK)
 			{
-				printf("OK\n");
 				freelist(&stack);
-				//ft_expand(&cpy, env);
-				print_tokens(cpy, 4);
+				ft_expand(&cpy, env);
 				exec(cpy, env);
-				//exec(ft_expand(&cpy, env), env);
 			}
 		}
 		freelist(&cpy);
