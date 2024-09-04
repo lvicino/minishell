@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 17:21:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:31:07 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_info
 }			t_info;
 
 /*exec*/
-int	exec(t_token *token, t_env **env);
+int	exec(t_token **token, t_env **env);
 int	exec_builtin(t_info *var, t_env **env);
 
 /*utils*/

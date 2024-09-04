@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 14:34:30 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:37:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "builtin.h"
 # include "parsing.h"
 # include "exec.h"
+
 # include <stdio.h>
 # include <stdbool.h>
-
 
 # include <readline/readline.h>
 # include <readline/history.h>
