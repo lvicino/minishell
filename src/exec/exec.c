@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 17:24:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/04 14:36:37 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,22 @@ int	is_builtin(t_info *var, t_token *token)
 	{
 		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
 		bigger(var->cmd.cmd[0], tab[i].fun)))
-			return (free(var->cmd.cmd), 1);
+			return (1);
 	}
 	return (0);
 }
 
 static int	exec_cmd(t_info *var, t_token *token, t_env **env)
 {
-	get_cmd(token, var);
-	if (exec_builtin(var, env)) //! exec builtin here
-		return(free(var->cmd.cmd), freelist(&token), free_env(env), var->r);
+	// get_cmd(token, var);
+	if (is_builtin(var, token) && exec_builtin(var, env))
+		return(free(var->cmd.cmd), freelist(&token), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
 		var->cmd.path = get_path(var->cmd.cmd[0], *env);
 	else if (var->cmd.cmd && var->cmd.cmd[0])
 		var->cmd.path = ft_strdup(var->cmd.cmd[0]);
-	if (!var->r)
+	if (!var->r && !var->builtin)
 	{
 		check_cmd_error(var->cmd.cmd, var->cmd.path, &(var->r));
 		if (var->cmd.path && var->cmd.cmd && \
@@ -109,10 +109,10 @@ int	exec(t_token *token, t_env **env)
 	if (!pipeline(&(var.here), var.n_here))
 		return (free_pipeline(&(var.fd), var.n_pipe), 0);
 	make_doc(&var, token);
-	var.builtin = is_builtin(&var, token);
-	if (var.n_pipe || !var.builtin)
-		get_process(&var);
-	if (var.pid && (var.n_pipe || !var.builtin))
+	var.builtin = is_builtin(&var, token) & !var.n_pipe;
+	if (!var.builtin)
+		(free(var.cmd.cmd), get_process(&var));
+	if (var.pid && !var.builtin)
 	{
 		free_pipeline(&(var.fd), var.n_pipe);
 		free_pipeline(&(var.here), var.n_here);
@@ -124,5 +124,5 @@ int	exec(t_token *token, t_env **env)
 		exit(exec_cmd(&var, token, env)); //! tokens need to be freed when error occurs
 	}
 	exec_builtin(&var, env);
-	return (var.r);
+	return (free(var.cmd.cmd), var.r);
 }
