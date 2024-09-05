@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 16:42:49 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:55:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ void	add_before_last(char *var, char *value, t_env **env)
 	node->value = value;
 	node->next = NULL;
 	node->prev = NULL;
-	while (before_last->next->next)
-		before_last = before_last->next;
-	node->next = before_last->next;
-	node->prev = before_last;
-	before_last->next = node;
-	node->next->prev = node;
+	if (before_last)
+	{
+		while (before_last->next->next)
+			before_last = before_last->next;
+		node->next = before_last->next;
+		node->prev = before_last;
+		before_last->next = node;
+		node->next->prev = node;
+	}
 }
 
 int	export_env(char *var, char *value, t_env **env)
