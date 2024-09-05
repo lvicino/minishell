@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 19:32:11 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/05 16:33:18 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	exec_builtin(t_info *var, t_env **env)
 	{
 		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
 		bigger(var->cmd.cmd[0], tab[i].fun)))
-			return (tab[i].fun_ptr(env, var->cmd.cmd, var->cmd_ln), 1);
+		{
+			var->r = tab[i].fun_ptr(env, var->cmd.cmd, var->cmd_ln);
+			return (1);
+		}
 	}
 	return (0);
 }
