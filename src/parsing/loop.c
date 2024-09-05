@@ -6,11 +6,25 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/05 18:13:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:51:26 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	get_exit_value(int value, t_env **env)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current && ft_strncmp(current->var, "?", bigger(current->var, "?")))
+		current = current->next;
+	if (current)
+	{
+		free(current->value);
+		current->value = ft_itoa(value);
+	}
+}
 
 int	prompt(t_env	**env)
 {
@@ -31,8 +45,9 @@ int	prompt(t_env	**env)
 			state_0(&token, &stack);
 			if (stack && stack->type == OK)
 			{
-				(freelist(&stack), ft_expand(&cpy, env), free((*env)->value));
-				(*env)->value = ft_itoa(exec(&cpy, env));
+				freelist(&stack);
+				ft_expand(&cpy, env);
+				get_exit_value(exec(&cpy, env), env);
 			}
 		}
 		freelist(&cpy);

@@ -1,3 +1,7 @@
 ls | cat -e | cat -e | cat -e > /dev/stdout
 ls | cat -e > /dev/stdout
 $/
+
+secure export if -> "export ?="
+delete node if $hihi existe pas
+laisser node avec str vide si "$hihi" existe pas

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/05 18:30:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/05 19:29:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	add_node(char *str, t_env **env, char *envp)
 	node->next = NULL;
 	while (envp[len] != '=')
 		len++;
-	// printf("len = %zu\n", ft_strlen(envp) - (len + 1));
 	node->value = ft_substr(envp, len + 1, ft_strlen(envp) - (len + 1));
-	// printf("%s%%\n", node->value);
-	// printf("len value = %zu\n", ft_strlen(node->value));
 	if (*env == NULL)
 		*env = node;
 	else
@@ -83,8 +80,8 @@ int	ft_env(t_env **env, char **cmd, int cmd_ln)
 		return (125);
 	while (current)
 	{
-		// if (ft_strncmp(current->var, "?", bigger(current->var, "?")))
-		printf("%s=%s\n", current->var, current->value);
+		if (ft_strncmp(current->var, "?", bigger(current->var, "?")))
+			printf("%s=%s\n", current->var, current->value);
 		current = current->next;
 	}
 	return (0);
