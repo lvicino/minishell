@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/02 16:38:37 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/04 16:30:57 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	prompt(t_env	**env)
 			{
 				freelist(&stack);
 				ft_expand(&cpy, env);
-				exec(cpy, env);
+				exec(&cpy, env);
 			}
 		}
 		freelist(&cpy);

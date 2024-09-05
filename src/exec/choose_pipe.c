@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 16:35:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/04 16:22:26 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ static void	set_token(t_info *var, t_token **token)
 
 int	choose_pipe(t_info	*var, t_token **token)
 {
-	t_token	*tmp;
-
 	if (var->fd && ((!var->id && dup2(var->fd[var->id][1], 1) < 0) || \
 	(var->id == var->n_pipe && dup2(var->fd[var->id - 1][0], 0) < 0) || \
 	(var->id && var->id != var->n_pipe && \
@@ -95,9 +93,9 @@ int	choose_pipe(t_info	*var, t_token **token)
 		return (free_pipeline(&(var->fd), var->n_pipe), \
 		free_pipeline(&(var->here), var->n_here), 1);
 	set_token(var, token);
-	tmp = *token;
 	if (choose_in_out(var, *token))
-		return (var->r);
+		return (free_pipeline(&(var->fd), var->n_pipe), \
+		free_pipeline(&(var->here), var->n_here), var->r);
 	return (free_pipeline(&(var->fd), var->n_pipe), \
 	free_pipeline(&(var->here), var->n_here), var->r);
 }
