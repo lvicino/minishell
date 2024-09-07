@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 22:01:36 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:07:52 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,16 @@ int	check_file_perm(t_info *var, t_token *token)
 	return (var->r);
 }
 
-void	check_cmd_error(char **cmd, char *path, int *r) //! check if cmd is a directory ex : ../ ./ ./src src/ (maybe .)
+void	check_cmd_error(char **cmd, char *path, int *r)
 {
-	if (!path || access(path, F_OK))
+	struct stat	dir;//! check if cmd is a directory ex : ../ ./ ./src src/ (maybe .)
+
+	if (!stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
+	{
+		*r = 126;
+		(ft_putstr_fd(cmd[0] ,2), ft_putstr_fd(": Is a directory\n" ,2));
+	}
+	else if (!path || access(path, F_OK))
 	{
 		*r = 127;
 		if (cmd && cmd[0])

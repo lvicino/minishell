@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 12:41:56 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/07 17:04:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	count_pipe(t_info *var, t_token *token)
 
 int	wait_process(pid_t pid, int id, int *r)
 {
+	int	status;
+
 	while (id >= 0)
 	{
-		if (pid == wait(r))
-			*r = WEXITSTATUS(*r);
+		if (pid == wait(&status))
+			*r = WEXITSTATUS(status);
 		id--;
 	}
 	return (*r);
