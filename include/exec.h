@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 16:31:07 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/07 18:31:07 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	make_doc(t_info	*var, t_token *token);
 
 /*pipeline*/
 int		choose_pipe(t_info	*var, t_token **token);
+int		choose_in_out(t_info *var, t_token *token);
 
 /*get cmd*/
 void	get_cmd(t_token *token, t_info *var);

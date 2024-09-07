@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/05 16:33:18 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/07 18:38:20 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exec_builtin(t_info *var, t_env **env)
 	int				i;
 	const t_builtin tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
 	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
-	{"pwd", ft_pwd}, {"unset", ft_unset}};
+	{"pwd", ft_pwd}, {"unset", ft_unset}, {"exit", ft_exit0}};
 
 	i = -1;
 	while (++i < 7)
@@ -25,7 +25,10 @@ int	exec_builtin(t_info *var, t_env **env)
 		if (!ft_strncmp(var->cmd.cmd[0], tab[i].fun, \
 		bigger(var->cmd.cmd[0], tab[i].fun)))
 		{
-			var->r = tab[i].fun_ptr(env, var->cmd.cmd, var->cmd_ln);
+			if (!var->n_pipe && i == 3)
+				var->r = tab[7].fun_ptr(env, var->cmd.cmd, var->cmd_ln);
+			else
+				var->r = tab[i].fun_ptr(env, var->cmd.cmd, var->cmd_ln);
 			return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:02 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/05 16:09:42 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/07 17:40:41 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,55 @@
 
 int	ft_exit(t_env **env, char **cmd, int cmd_ln)
 {
+	int	i;
+
 	(void)env;
-	if (cmd_ln > 1)
+	i = -1;
+	while (cmd[1] && cmd[1][++i])
 	{
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd(": unrecognized option '", 2);
-		ft_putstr_fd(cmd[1], 2);
-		ft_putstr_fd("' \n", 2);
-		exit(2);
+		if ((!ft_isdigit(cmd[1][i]) && cmd[1][0] != '-') || \
+		(!i && ((cmd[1][0] == '-' && ft_strlen(cmd[1]) > 21) || \
+		ft_strlen(cmd[1]) > 20)))
+		{
+			(ft_putstr_fd("exit: ", 2), ft_putstr_fd(cmd[1], 2));
+			(ft_putstr_fd(": numeric argument required\n", 2), exit(2));
+		}
 	}
+	if (cmd_ln > 2)
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		exit(1);
+	}
+	else if (cmd_ln > 1)
+		exit((unsigned char)ft_atoi(cmd[1]));
+	exit(0);
+	return (0);
+}
+
+int	ft_exit0(t_env **env, char **cmd, int cmd_ln)
+{
+	int	i;
+
+	(void)env;
+	printf("exit\n");
+	i = -1;
+	while (cmd[1] && cmd[1][++i])
+	{
+		if ((!ft_isdigit(cmd[1][i]) && cmd[1][0] != '-') || \
+		(!i && ((cmd[1][0] == '-' && ft_strlen(cmd[1]) > 21) || \
+		ft_strlen(cmd[1]) > 20)))
+		{
+			(ft_putstr_fd("exit: ", 2), ft_putstr_fd(cmd[1], 2));
+			(ft_putstr_fd(": numeric argument required\n", 2), exit(2));
+		}
+	}
+	if (cmd_ln > 2)
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		exit(1);
+	}
+	else if (cmd_ln > 1)
+		exit((unsigned char)ft_atoi(cmd[1]));
 	exit(0);
 	return (0);
 }

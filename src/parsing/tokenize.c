@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/06 11:44:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:58:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ int	unclosed_quotes(t_token *token)
 			if (token->str[i] == '"' || token->str[i] == 39)
 			{
 				q = token->str[i];
-				i++;
+					i++;
 				while (token->str[i] && token->str[i] != q)
 					i++;
 				if (!token->str[i])
-				{
-
 					return (ft_putstr_fd("Error, Unclosed quotes\n", 2), 0);
-				}
 			}
 			i++;
 		}
@@ -139,6 +136,7 @@ int	make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str)
 	*token = tokenize(str, token, 0);
 	if (!(*token))
 		return (0);
+	// print_tokens(*token, 3);
 	if (!unclosed_quotes(*token))
 		return (freelist(token), 0);
 	*cpy = tokenize(str, cpy, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 12:04:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:02:22 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln)
 		if (!stat(cmd[1], &path_stat))
 		{
 			if (!S_ISDIR(path_stat.st_mode))
-				return (ft_putstr_fd("not a directory : ", 2), \
-				ft_putstr_fd(cmd[1], 2), ft_putstr_fd("\n", 2), 1);
+				return (ft_putstr_fd(cmd[1], 2), \
+				ft_putstr_fd(": not a directory", 2), ft_putstr_fd("\n", 2), 1);
 			else
 				return (chdir(cmd[1]), getcwd(n_pwd, 4096), \
 				replace_pwd(n_pwd, o_pwd, env), 0);
