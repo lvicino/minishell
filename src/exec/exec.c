@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/07 18:09:15 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/07 18:38:28 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	is_builtin(t_info *var, t_token *token)
 
 static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 {
-	if (is_builtin(var, *token) && exec_builtin(var, env))
+	if (is_builtin(var, *token) && exec_builtin(var, env)) //!add redirections in builtins
 		return(free(var->cmd.cmd), freelist(token), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
@@ -119,8 +119,9 @@ int	exec(t_token **token, t_env **env)
 	if (!var.pid)
 	{
 		var.r = choose_pipe(&var, token);
-		exit(exec_cmd(&var, token, env)); //! tokens need to be freed when error occurs
+		exit(exec_cmd(&var, token, env));
 	}
+	// choose_in_out(&var, *token); //! need to redirect for builtins solo
 	exec_builtin(&var, env);
 	return (free(var.cmd.cmd), var.r);
 }
