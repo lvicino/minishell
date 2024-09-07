@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/05 20:00:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:44:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ int	unclosed_quotes(t_token *token)
 			if (token->str[i] == '"' || token->str[i] == 39)
 			{
 				q = token->str[i];
-				printf("q = %c\n", q);
 				i++;
 				while (token->str[i] && token->str[i] != q)
 					i++;
-				printf("str[%d] = %c\n", i, token->str[i]);
 				if (!token->str[i])
 				{
 
@@ -141,7 +139,6 @@ int	make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str)
 	*token = tokenize(str, token, 0);
 	if (!(*token))
 		return (0);
-	print_tokens(*token, 3);
 	if (!unclosed_quotes(*token))
 		return (freelist(token), 0);
 	*cpy = tokenize(str, cpy, 0);

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:10:24 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/03 15:37:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:59:17 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int ac, char **ar, char **envp)
 	(void)ar;
 	if (ac != 1)
 		return (-1);
-	set_signal_action();
 	make_env(&env, envp);
+	set_signal_action();
 	prompt(&env);
 	return (0);
 }
