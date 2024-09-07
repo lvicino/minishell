@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/04 14:54:20 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:39:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	found_variable(char *str, char *new, int *tab, t_env *current)
 
 	tab[0]++;
 	start = tab[0];
-	while (str[tab[0]] && str[tab[0]] != '"' && str[tab[0]] != 39 && str[tab[0]] != '$')
+	while (str[tab[0]] && str[tab[0]] != '"' && str[tab[0]] != 39 && str[tab[0]] != '$' && str[tab[0]] != '?' && !ft_isspace
+	(str[tab[0]]))
+		tab[0]++;
+	if (str[tab[0]] == '?' && tab[0] && str[tab[0] - 1] == '$')
 		tab[0]++;
 	end = tab[0] - start;
 	var = ft_substr(str, start, end);
@@ -53,6 +56,8 @@ void	expand_simple(char *str, char *new, int *tab)
 		tab[0]++;
 		tab[1]++;
 	}
+	if (str[tab[0]] == 39)
+		tab[0]++;
 }
 
 void	expand_double(char *str, char *new, int *tab, t_env **env)
@@ -62,9 +67,15 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 	{
 		if (str[tab[0]] == '$')
 		{
-			found_variable(str, new, tab, *env);
-			if (str[tab[0]] == 39)
-				tab[0]--;
+			if (!str[tab[0] + 1] || ft_isspace(str[tab[0] + 1]) \
+			|| str[tab[0] + 1] == '"' || str[tab[0] + 1] == 39)
+			{
+				new[tab[1]] = '$';
+				tab[1]++;
+				tab[0]++;
+			}
+			else
+				found_variable(str, new, tab, *env);
 		}
 		else
 		{
@@ -87,7 +98,7 @@ void	ft_expand(t_token **cpy, t_env **env)
 		tab[0] = 0;
 		tab[1] = 0;
 		new = malloc((ft_count_expand(current->str, env) + 1) * sizeof(char));
-		printf("malloc de %d\n", ft_count_expand(current->str, env) + 1);
+		// printf("malloc size  = %d\n", ft_count_expand(current->str, env) + 1);
 		if (!new)
 			return ;
 		while (current->str[tab[0]])
@@ -96,6 +107,12 @@ void	ft_expand(t_token **cpy, t_env **env)
 				expand_simple(current->str, new, tab);
 			else if (current->str[tab[0]] == '"')
 				expand_double(current->str, new, tab, env);
+			else if (current->str[tab[0]] == '$' && (!current->str[tab[0] + 1] || ft_isspace(current->str[tab[0] + 1])))
+			{
+				new[tab[1]] = '$';
+				tab[0]++;
+				tab[1]++;
+			}
 			else if (current->str[tab[0]] == '$')
 				found_variable(current->str, new, tab, *env);
 			else
@@ -107,7 +124,6 @@ void	ft_expand(t_token **cpy, t_env **env)
 		}
 		new[tab[1]] = 0;
 		free(current->str);
-		printf("new str = %s$\n", new);
 		current->str = new;
 		current = current->next;
 	}
