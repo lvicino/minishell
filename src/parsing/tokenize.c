@@ -6,37 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/07 18:58:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:04:05 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	unclosed_quotes(t_token *token)
-{
-	int		i;
-	char	q;
-
-	while (token)
-	{
-		i = 0;
-		while (token->str && token->str[i])
-		{
-			if (token->str[i] == '"' || token->str[i] == 39)
-			{
-				q = token->str[i];
-					i++;
-				while (token->str[i] && token->str[i] != q)
-					i++;
-				if (!token->str[i])
-					return (ft_putstr_fd("Error, Unclosed quotes\n", 2), 0);
-			}
-			i++;
-		}
-		token = token->next;
-	}
-	return (1);
-}
 
 void	tokenize_cpy(t_token *tmp, int i)
 {
@@ -63,38 +37,36 @@ void	tokenize_cpy(t_token *tmp, int i)
 	}
 }
 
+int	tokenize_word_extra(int c, char *str)
+{
+	char	b;
+
+	b = str[c];
+	c++;
+	while (str[c] && (str[c] != b))
+		c++;
+	if (str[c])
+		c++;
+	return (c);
+}
+
 int	tokenize_word(char *str, t_token **head, int c, int *i)
 {
 	int		start;
 	char	*word;
-	char	b;
 
 	start = c;
 	while (str[c] && !ft_isspace(str[c]) && !is_token(str, &c, i))
 	{
 		if (str[c] == '"' || str[c] == 39)
-		{
-			b = str[c];
-			c++;
-			while (str[c] && (str[c] != b))
-				c++;
-			if (str[c])
-				c++;
-		}
+			c += tokenize_word_extra(c, str);
 		else
 		{
 			while (str[c] && !is_token(str, &c, i) && !ft_isspace(str[c + 1]))
 				c++;
 			if (str[c] == '"' || str[c] == 39)
-			{
-				b = str[c];
-				c++;
-				while (str[c] && (str[c] != b))
-					c++;
-				if (str[c])
-					c++;
-			}
-			if (str[c] && (ft_isspace(str[c + 1] )))
+				c += tokenize_word_extra(c, str);
+			if (str[c] && (ft_isspace(str[c + 1])))
 				c++;
 		}
 	}
@@ -136,7 +108,6 @@ int	make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str)
 	*token = tokenize(str, token, 0);
 	if (!(*token))
 		return (0);
-	// print_tokens(*token, 3);
 	if (!unclosed_quotes(*token))
 		return (freelist(token), 0);
 	*cpy = tokenize(str, cpy, 0);

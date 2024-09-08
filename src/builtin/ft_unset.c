@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/07 14:56:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/08 15:29:48 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_unset(t_env **env, char **cmd, int cmd_ln)
 	while (node)
 	{
 		i = 0;
-		while(cmd[++i])
+		while (cmd[++i])
 		{
 			if (!ft_strncmp(node->var, cmd[i], bigger(node->var, cmd[i])) && \
 			ft_strncmp(node->var, "?", bigger(node->var, "?")))

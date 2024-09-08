@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:08 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:57:44 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	count_found_variable(char *str, int *i, t_env **env)
 	}
 	return (0);
 }
-
 
 int	count_expand_double(char *str, int *i, t_env **env)
 {

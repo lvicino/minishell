@@ -6,21 +6,21 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/08/28 15:53:17 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:20:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void insert_token(t_token **head, t_token_type type, char *str)
+void	insert_token(t_token **head, t_token_type type, char *str)
 {
-	t_token *token;
-	t_token *current;
+	t_token	*token;
+	t_token	*current;
 
 	ret_to_start(head);
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return;
+		return ;
 	token->str = ft_strdup(str);
 	token->type = type;
 	token->next = NULL;
@@ -28,7 +28,7 @@ void insert_token(t_token **head, t_token_type type, char *str)
 	if (*head == NULL)
 	{
 		*head = token;
-		return;
+		return ;
 	}
 	current = *head;
 	while (current->next != NULL)

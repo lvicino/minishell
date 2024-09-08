@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 14:20:32 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/05 12:59:50 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 15:15:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	state_6(t_token **buffer, t_token **head)
 {
-	// printf("state 6\n");
 	if (!(*head)->next)
 		*head = add_to_stack(buffer, head);
 	if ((*head)->type == END)
@@ -34,7 +33,6 @@ void	state_6(t_token **buffer, t_token **head)
 
 void	state_7(t_token	**buffer, t_token **head)
 {
-	// printf("state 7\n");
 	if ((*head)->type == SIMPLE_COMMAND)
 	{
 		(*head)->type = PIPE_SEQUENCE;
@@ -52,7 +50,6 @@ void	state_8(t_token **buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
-	// printf("state 8\n");
 	i = -1;
 	tab = get_tab(8);
 	while (head && ++i < 9)
@@ -73,8 +70,7 @@ void	state_8(t_token **buffer, t_token **head)
 			return (tab[i].func(buffer, head));
 		}
 	}
-	ft_del_token(head, &free);
-	insert_token(head, SIMPLE_COMMAND, NULL);
+	(ft_del_token(head, &free), insert_token(head, SIMPLE_COMMAND, NULL));
 	state_0(buffer, head);
 }
 
@@ -83,7 +79,6 @@ void	state_9(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
-	// printf("state 9\n");
 	tab = get_tab(9);
 	i = -1;
 	while (++i < 9)
@@ -110,13 +105,9 @@ void	state_9(t_token	**buffer, t_token **head)
 
 void	state_10(t_token	**buffer, t_token **head)
 {
-	// printf("state 10\n");
 	if ((*head)->type == IO_REDIRECT)
 		(*head)->type = CMD_PREFIX;
 	else
-	{
-		// printf("state 10 error\n");
 		exit(0);
-	}
 	state_0(buffer, head);
 }

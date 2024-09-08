@@ -6,11 +6,37 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/02 22:04:41 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:20:16 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	unclosed_quotes(t_token *token)
+{
+	int		i;
+	char	q;
+
+	while (token)
+	{
+		i = 0;
+		while (token->str && token->str[i])
+		{
+			if (token->str[i] == '"' || token->str[i] == 39)
+			{
+				q = token->str[i];
+				i++;
+				while (token->str[i] && token->str[i] != q)
+					i++;
+				if (!token->str[i])
+					return (ft_putstr_fd("Error, Unclosed quotes\n", 2), 0);
+			}
+			i++;
+		}
+		token = token->next;
+	}
+	return (1);
+}
 
 int	is_token(char *str, int *c, int *i)
 {
@@ -62,7 +88,9 @@ void	freelist(t_token **head)
 	}
 }
 
-void	print_tokens(t_token *head, int whois)
+/*
+void
+print_tokens(t_token *head, int whois)
 {
 	const char		*str[5] = {"RIEN", "STACK = ", "BUFFER = ", "START = ", \
 	"CPY = "};
@@ -93,4 +121,4 @@ void	print_tokens(t_token *head, int whois)
 	}
 	printf("\n");
 }
-
+*/

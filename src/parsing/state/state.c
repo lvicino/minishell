@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/05 13:00:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:19:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ int	state_0(t_token **buffer, t_token **stack)
 	t_assoc			*tab;
 	int				i;
 
-	// printf("state 0\n");
-	// print_tokens(*stack, 1);
-	// print_tokens(*buffer, 2);
 	tab = get_tab(0);
 	ret_to_start(stack);
 	i = -1;
