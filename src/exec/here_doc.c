@@ -6,11 +6,13 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/08/28 13:46:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/09 13:21:43 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_sig;
 
 static int	choose_ln(char *eof, char *str)
 {
@@ -57,12 +59,13 @@ void	make_doc(t_info	*var, t_token *token)
 		}
 		if (s)
 			free(s);
-		else
+		else if (!g_sig)
 		{
 			write(2, "warning: here-document delimited", 32);
 			write(2, "by end-of-file (wanted `", 24);
 			write(2, token->str, ft_strlen(token->str));
 			write(2, "')\n", 3);
 		}
+		var->r = g_sig;
 	}
 }

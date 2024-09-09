@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/07 17:04:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/09 18:59:21 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	count_pipe(t_info *var, t_token *token)
 	var->pid = 1;
 	var->id = -1;
 	var->r = 0;
+	var->cmd.in = -1;
+	var->cmd.out = -1;
 	while (token)
 	{
 		if (token->type == PIPE)

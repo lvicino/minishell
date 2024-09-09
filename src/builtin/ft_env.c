@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/06 11:43:57 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:04:33 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	make_env(t_env **env, char **envp)
 	}
 }
 
-int	ft_env(t_env **env, char **cmd, int cmd_ln)
+int	ft_env(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	t_env	*current;
 
@@ -81,7 +81,11 @@ int	ft_env(t_env **env, char **cmd, int cmd_ln)
 	while (current)
 	{
 		if (ft_strncmp(current->var, "?", bigger(current->var, "?")))
-			printf("%s=%s\n", current->var, current->value);
+		{
+			ft_putstr_fd(current->var, fd);
+			ft_putstr_fd("=", fd);
+			ft_putstr_fd(current->value, fd);
+		}
 		current = current->next;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/08 15:44:06 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:19:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	export_env(char *var, char *value, t_env **env)
 	return (0);
 }
 
-int	ft_export(t_env **env, char **cmd, int cmd_ln)
+int	ft_export(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	int	r;
 	int	i;
@@ -76,7 +76,7 @@ int	ft_export(t_env **env, char **cmd, int cmd_ln)
 	i = 0;
 	while (cmd[++i] && cmd_ln)
 	{
-		j = -1;
+		j = -1 + (fd - fd);
 		while (cmd[i][++j])
 		{
 			if (cmd[i][j] == '"' || cmd[i][j] == 39 || !ft_isalpha(cmd[i][0]))

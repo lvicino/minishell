@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/08 15:29:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:23:52 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static t_env	*unset_var(t_env **env)
 	return (next);
 }
 
-int	ft_unset(t_env **env, char **cmd, int cmd_ln)
+int	ft_unset(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	t_env	*node;
 	int		i;
 
+	(void)fd;
 	if (cmd_ln == 1)
 		return (0);
 	node = *env;

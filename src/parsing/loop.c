@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/09 12:10:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:53:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	prompt(t_env	**env)
 
 	while (1)
 	{
+		set_signal_action(1);
 		str = readline("Minishell: ");
 		if (!str)
 			return (free_env(env), free(str), clear_history(), \

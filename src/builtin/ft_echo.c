@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:51 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/02 23:36:37 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:01:39 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(t_env **env, char **cmd, int cmd_ln)
+int	ft_echo(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	int	i;
 	int	active;
@@ -27,12 +27,12 @@ int	ft_echo(t_env **env, char **cmd, int cmd_ln)
 	}
 	while (cmd[i])
 	{
-		printf("%s", cmd[i]);
+		ft_putstr_fd(cmd[i], fd);
 		if (i + 1 < cmd_ln)
-			printf(" ");
+			ft_putstr_fd(" ", fd);
 		i++;
 	}
 	if (!active)
-		printf("\n");
+		ft_putstr_fd("\n", fd);
 	return (0);
 }

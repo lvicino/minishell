@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/07 18:27:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/09 17:34:00 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_file_perm(t_info *var, t_token *token)
 
 void	check_cmd_error(char **cmd, char *path, int *r)
 {
-	struct stat	dir;//! check if cmd is a directory ex : ../ ./ ./src src/ (maybe .)
+	struct stat	dir;
 
 	if (!path || access(path, F_OK))
 	{

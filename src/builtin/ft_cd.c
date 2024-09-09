@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/07 18:02:22 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/09 18:39:46 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 	}
 }
 
-int	ft_cd(t_env **env, char **cmd, int cmd_ln)
+int	ft_cd(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	char		*o_pwd;
 	char		*n_pwd;
 	struct stat	path_stat;
 
-	(void)env;
+	(void)fd;
 	if (cmd_ln > 2)
-		return (ft_putstr_fd("Minishell : cd: Too many arguments\n", 2), 1);
+		return (ft_putstr_fd("Minishell : cd: too many arguments\n", 2), 1);
 	o_pwd = return_allocate();
 	n_pwd = return_allocate();
 	getcwd(o_pwd, 4096);
@@ -64,7 +64,7 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln)
 		{
 			if (!S_ISDIR(path_stat.st_mode))
 				return (ft_putstr_fd(cmd[1], 2), \
-				ft_putstr_fd(": not a directory", 2), ft_putstr_fd("\n", 2), 1);
+				ft_putstr_fd(": not a directory\n", 2), 1);
 			else
 				return (chdir(cmd[1]), getcwd(n_pwd, 4096), \
 				replace_pwd(n_pwd, o_pwd, env), 0);
