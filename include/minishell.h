@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/04 18:37:13 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/09 11:59:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@
 // # include <error.h>
 
 void	set_signal_action(void);
+void	get_exit_value(int value, t_env **env);
 
 #endif
