@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 16:10:24 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:57:23 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_expand(t_token **cpy, t_env **env)
 			}
 		}
 		new[tab[1]] = 0;
-		if (!(ft_strlen(new) && (ft_strchr(current->str, 39) || ft_strchr(current->str, '"'))))
+		if (!ft_strlen(new) && !int_str_chr(current->str, 39) && !int_str_chr(current->str, '"'))
 			free_node(&current, new);
 		else if (current && current->str)
 		{

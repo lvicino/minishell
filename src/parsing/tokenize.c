@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 15:01:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 16:06:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:52:35 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,9 @@ int	make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str)
 	*token = tokenize(str, token, 0);
 	if (!(*token))
 		return (0);
-	// print_tokens(*token, 3);
 	if (!unclosed_quotes(*token))
 		return (freelist(token), 0);
 	*cpy = tokenize(str, cpy, 0);
-	// tokenize_cpy(*cpy, 0);
 	*stack = NULL;
 	return (1);
 }

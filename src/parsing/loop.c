@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 16:06:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:38:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	prompt(t_env	**env)
 			{
 				get_g_sig(env);
 				(freelist(&stack), ft_expand(&cpy, env), tokenize_cpy(cpy, 0));
-				print_tokens(cpy, 3);
 				get_exit_value(exec(&cpy, env), env);
 			}
 		}

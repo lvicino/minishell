@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 15:57:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:44:00 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int			is_token(char *str, int *c, int *i);
 int			make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str);
 int			unclosed_quotes(t_token *token);
 int			is_token_two(char *str, int *c, int *i);
+int			int_str_chr(const char *s, int c);
 // states
 void		state_error(t_token **head, t_token **buffer);
 int			state_0(t_token **buffer, t_token **stack);
