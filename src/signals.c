@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/09 16:53:31 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 12:59:11 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,9 @@ void	set_signal_action(int a)
 
 	ft_bzero(&act, sizeof(act));
 	if (a)
-	{
 		act.sa_handler = &sigint_handler;
-		sigaction(SIGINT, &act, NULL);
-	}
 	else
-	{
 		act.sa_handler = &sigint_handler_exec;
-		sigaction(SIGINT, &act, NULL);
-	}
+	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
