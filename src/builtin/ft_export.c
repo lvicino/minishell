@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 17:19:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:28:48 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,29 @@ int	export_env(char *var, char *value, t_env **env)
 
 int	ft_export(t_env **env, char **cmd, int cmd_ln, int fd)
 {
-	int	r;
 	int	i;
 	int	j;
 
-	r = 0;
+	fd = 0;
 	i = 0;
 	while (cmd[++i] && cmd_ln)
 	{
-		j = -1 + (fd - fd);
+		j = -1;
 		while (cmd[i][++j])
 		{
-			if (cmd[i][j] == '"' || cmd[i][j] == 39 || !ft_isalpha(cmd[i][0]))
+			if (cmd[i][j] == '"' || cmd[i][j] == 39 || !ft_isalpha(cmd[i][0]) \
+			|| cmd[i][j] == '-')
 			{
-				write_erro_id(cmd[i], &r);
+				write_erro_id(cmd[i], &fd);
 				break ;
 			}
 			if (cmd[i][j] == '=')
 			{
-				r = export_env(ft_substr(cmd[i], 0, j), \
+				fd = export_env(ft_substr(cmd[i], 0, j), \
 				ft_substr(cmd[i], j + 1, ft_strlen(cmd[i]) - (j + 1)), env);
 				break ;
 			}
 		}
 	}
-	return (r);
+	return (fd);
 }
