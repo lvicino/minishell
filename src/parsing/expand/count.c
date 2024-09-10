@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 15:04:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/11 00:50:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	count_found_variable(char *str, int *i, t_env **env)
 	|| str[*i + 1] == '"')
 		return (1);
 	start = *i;
-	while (str[*i] && str[*i] != '$' && str[*i] != '"')
+	while (str[*i] && str[*i] != '$' && str[*i] != '"' && !ft_isspace(str[*i]))
 		(*i)++;
 	end = *i - start;
 	var2 = ft_substr(str, start, end);
@@ -35,6 +35,7 @@ int	count_found_variable(char *str, int *i, t_env **env)
 			return (free(var2), ft_strlen(current->value));
 		current = current->next;
 	}
+	free(var2);
 	return (0);
 }
 
@@ -55,7 +56,11 @@ int	count_expand_double(char *str, int *i, t_env **env)
 				c++;
 			}
 			else
+			{
+				// printf("c before = %d\n", c);
 				c += count_found_variable(str, i, env);
+				// printf("c after = %d\n", c);
+			}
 		}
 		else
 		{
