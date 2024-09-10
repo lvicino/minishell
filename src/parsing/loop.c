@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/09 13:53:25 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 02:57:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	prompt(t_env	**env)
 			ft_printf("exit\n"), 0);
 		if (make_tokenize(&token, &stack, &cpy, str))
 		{
-			add_history(str);
-			state_0(&token, &stack);
+			(add_history(str), state_0(&token, &stack));
 			if (stack && stack->type == OK)
 			{
 				get_g_sig(env);

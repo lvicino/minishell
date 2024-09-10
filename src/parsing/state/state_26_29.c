@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:36:59 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/08 15:19:07 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 01:57:43 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,26 @@ void	state_29(t_token	**buffer, t_token **head)
 	t_assoc			*tab;
 	int				i;
 
-	i = 0;
+	i = -1;
 	tab = get_tab(29);
-	while (i < 8)
+	while (++i < 8)
 	{
 		if ((*head)->type == tab[i].type)
+		{
+			if ((*head)->next)
+				*head = (*head)->next;
 			return (tab[i].func(buffer, head));
-		i++;
+		}
 	}
-	i = 0;
-	while (i < 5)
+	i = -1;
+	while (++i < 5)
 	{
 		if (*buffer && (*buffer)->type == tab[i].type)
 		{
 			*head = add_to_stack(buffer, head);
 			return (tab[i].func(buffer, head));
 		}
-		i++;
 	}
-	ft_del_token(head, &free);
-	insert_token(head, SIMPLE_COMMAND, NULL);
+	(ft_del_token(head, &free), insert_token(head, SIMPLE_COMMAND, NULL));
 	state_0(buffer, head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 17:04:33 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 02:35:10 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	ft_env(t_env **env, char **cmd, int cmd_ln, int fd)
 			ft_putstr_fd(current->var, fd);
 			ft_putstr_fd("=", fd);
 			ft_putstr_fd(current->value, fd);
+			ft_putstr_fd("\n", fd);
 		}
 		current = current->next;
 	}

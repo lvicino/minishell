@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/08 15:14:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 01:58:42 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ void	state_2(t_token **buffer, t_token **head)
 		return (state_14(buffer, head));
 	}
 	else if ((*head)->type == WORD)
-		return (state_13(buffer, &((*head)->next)));
+	{
+		if ((*head)->next)
+			*head = (*head)->next;
+		return (state_13(buffer, head));
+	}
 	else if (!(*head)->next && (*buffer)->type == WORD)
 	{
 		add_to_stack(buffer, head);
