@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 17:01:32 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:56:47 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	w_error(char *cmd, int error)
 	{
 		if (cmd)
 			write(2, cmd, ft_strlen(cmd));
-		else
-			write(2, "''", 2);
-		write(2, ": command not found", 19);
+		ft_putstr_fd(" : command not found", 2);
 	}
 	else if (error == 127)
 	{
@@ -64,7 +62,7 @@ void	check_cmd_error(char **cmd, char *path, int *r)
 {
 	struct stat	dir;
 
-	if (!path || access(path, F_OK) || (cmd && !ft_strlen(cmd[0])))
+	if (cmd && (!path || access(path, F_OK)))
 	{
 		*r = 127;
 		if (cmd && cmd[0])

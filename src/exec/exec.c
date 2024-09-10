@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 18:21:20 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:56:22 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 	if (!var->r && !var->builtin)
 	{
 		check_cmd_error(var->cmd.cmd, var->cmd.path, &(var->r));
-		if (!var->r && var->cmd.path && var->cmd.cmd && \
+		if (!var->r && var->cmd.path && var->cmd.cmd && var->cmd.cmd[0] &&\
 		!access(var->cmd.path, F_OK | X_OK))
 			execve(var->cmd.path, var->cmd.cmd, convert_env(*env));
 	}

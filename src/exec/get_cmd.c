@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 12:51:43 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/10 17:40:41 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char	*get_path(char *cmd, t_env *env)
 	char	**str;
 	char	*path;
 
+	if (!cmd || !ft_strlen(cmd))
+		return (NULL);
 	path = NULL;
 	while (env && ft_strncmp(env->var, "PATH", 5))
 		env = env->next;
