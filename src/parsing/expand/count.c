@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/08 15:57:44 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:04:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	count_expand_simple(char *str, int	*i)
 		(*i)++;
 		c++;
 	}
-	c--;
 	return (c);
 }
 
