@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:58:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/11 17:22:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	state_4(t_token **buffer, t_token **head)
 		state_16(buffer, head);
 	}
 	else
-	{
-		printf("Error state_4\n");
-		exit(0);
-	}
+		state_error(head, buffer);
 }
 
 void	state_3(t_token **buffer, t_token **head)
