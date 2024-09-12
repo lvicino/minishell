@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 03:36:16 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:57:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	state_3(t_token **buffer, t_token **head)
 		*head = (*head)->next;
 		state_13(buffer, head);
 	}
+	else
+		state_error(head, buffer);
 }
 
 void	state_2(t_token **buffer, t_token **head)

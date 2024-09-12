@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 16:44:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:01:30 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void		ft_expand(t_token **cpy, t_env **env);
 int			ft_count_expand(char *str, t_env **env);
 int			bigger(char *s1, char *s2);
 void		free_node(t_token **current, char *str);
+void		ft_expand_aux(t_token **current, int *tab, t_env **env, char *new);
+void		found_variable(char *str, char *new, int *tab, t_env *current);
 
 // tokenize
 t_token		*tokenize(char *str, t_token **head, int c);
