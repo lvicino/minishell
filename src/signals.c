@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 12:59:11 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/12 12:08:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int	g_sig = 0;
 
-void	sigint_handler_exec(int signal)
+void	sigint_handler_hd(int signal)
 {
 	if (signal == SIGINT)
 	{
 		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		close(0); //! need to dup 0 and re open
 		g_sig = 130;
 	}
 }
@@ -45,7 +44,7 @@ void	set_signal_action(int a)
 	if (a)
 		act.sa_handler = &sigint_handler;
 	else
-		act.sa_handler = &sigint_handler_exec;
+		act.sa_handler = &sigint_handler_hd;
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

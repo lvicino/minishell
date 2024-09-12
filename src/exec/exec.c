@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 17:56:22 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/11 21:29:42 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	exec(t_token **token, t_env **env)
 {
 	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
 
-	(set_signal_action(0), count_pipe(&var, *token));
+	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe))
 		return (0);
 	if (!pipeline(&(var.here), var.n_here))
@@ -119,7 +119,7 @@ int	exec(t_token **token, t_env **env)
 	if (!var.r && !var.pid)
 	{
 		var.r = choose_pipe(&var, token);
-		exit(exec_cmd(&var, token, env));
+		exit(exec_cmd(&var, token, env)); //! ctrl c does not work during cat try: cat + ctrl c + cat
 	}
 	exec_builtin(&var, env, *token);
 	freelist(token);
