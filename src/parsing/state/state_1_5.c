@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:58:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/12 03:36:16 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	state_5(t_token **buffer, t_token **head)
 		state_13(buffer, head);
 	}
 	else
-	{
-		printf("Error state_5\n");
-		exit(0);
-	}
+		state_error(head, buffer);
 }
 
 void	state_4(t_token **buffer, t_token **head)
@@ -43,10 +40,7 @@ void	state_4(t_token **buffer, t_token **head)
 		state_16(buffer, head);
 	}
 	else
-	{
-		printf("Error state_4\n");
-		exit(0);
-	}
+		state_error(head, buffer);
 }
 
 void	state_3(t_token **buffer, t_token **head)
@@ -91,10 +85,7 @@ void	state_2(t_token **buffer, t_token **head)
 		return (state_13(buffer, head));
 	}
 	else
-	{
-		printf("Error state_2\n");
-		exit(0);
-	}
+		state_error(head, buffer);
 }
 
 void	state_1(t_token **buffer, t_token **head)
