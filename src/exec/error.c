@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 17:56:47 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/11 15:35:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	check_cmd_error(char **cmd, char *path, int *r)
 		else
 			w_error(NULL, 127);
 	}
-	else if (!access(path, F_OK) && access(path, X_OK))
+	else if (path && !access(path, F_OK) && access(path, X_OK))
 	{
 		*r = 126;
 		if (cmd && cmd[0])
@@ -78,9 +78,9 @@ void	check_cmd_error(char **cmd, char *path, int *r)
 		else
 			w_error(NULL, 126);
 	}
-	else if (!stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
+	else if (cmd && !stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
 	{
 		*r = 126;
-		(ft_putstr_fd(cmd[0] ,2), ft_putstr_fd(": Is a directory\n" ,2));
+		(ft_putstr_fd(cmd[0], 2), ft_putstr_fd(": Is a directory\n", 2));
 	}
 }

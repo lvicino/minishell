@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 17:40:41 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:38:39 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	get_fd(t_info *var, t_token *token)
 int	exec_builtin(t_info *var, t_env **env, t_token *token)
 {
 	int				i;
-	const t_builtin tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
+	const t_builtin	tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
 	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
 	{"pwd", ft_pwd}, {"unset", ft_unset}, {"exit", ft_exit0}};
 
 	var->cmd.out = 1;
 	if (get_fd(var, token))
-		return(var->r);
+		return (var->r);
 	i = -1;
 	while (++i < 7)
 	{

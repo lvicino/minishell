@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 17:56:22 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/12 19:37:12 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	is_builtin(t_info *var, t_token *token)
 
 static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 {
+	set_signal_action(2);
 	if (is_builtin(var, *token) && exec_builtin(var, env, *token))
 		return(free(var->cmd.cmd), freelist(token), var->r);
 	var->cmd.path = NULL;
@@ -101,7 +102,7 @@ int	exec(t_token **token, t_env **env)
 {
 	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
 
-	(set_signal_action(0), count_pipe(&var, *token));
+	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe))
 		return (0);
 	if (!pipeline(&(var.here), var.n_here))
@@ -114,12 +115,12 @@ int	exec(t_token **token, t_env **env)
 	{
 		free_pipeline(&(var.fd), var.n_pipe);
 		free_pipeline(&(var.here), var.n_here);
-		return (wait_process(var.pid, var.id, &(var.r)));
+		return (set_signal_action(3), wait_process(var.pid, var.id, &(var.r)));
 	}
 	if (!var.r && !var.pid)
 	{
 		var.r = choose_pipe(&var, token);
-		exit(exec_cmd(&var, token, env));
+		exit(exec_cmd(&var, token, env)); //! ctrl c does not work during cat, try: cat + ctrl c + cat
 	}
 	exec_builtin(&var, env, *token);
 	freelist(token);
