@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:51:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 16:01:06 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/13 01:34:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,23 @@ void	ft_expand_aux(t_token **current, int *tab, t_env **env, char *new)
 		tab[0]++;
 		tab[1]++;
 	}
+}
+
+int	found_variable_aux(t_env **current, char *new, int *tab, char *var)
+{
+	int	i;
+
+	if (!ft_strncmp((*current)->var, var, bigger((*current)->var, var)))
+	{
+		i = 0;
+		while ((*current)->value[i])
+		{
+			new[tab[1]] = (*current)->value[i];
+			i++;
+			tab[1]++;
+		}
+		free(var);
+		return (1);
+	}
+	return (0);
 }

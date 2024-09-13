@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 16:13:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/13 01:36:27 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	found_variable(char *str, char *new, int *tab, t_env *current)
 	int		start;
 	int		end;
 	char	*var;
-	int		i;
 
 	tab[0]++;
 	start = tab[0];
@@ -30,18 +29,8 @@ void	found_variable(char *str, char *new, int *tab, t_env *current)
 	var = ft_substr(str, start, end);
 	while (current)
 	{
-		if (!ft_strncmp(current->var, var, bigger(current->var, var)))
-		{
-			i = 0;
-			while (current->value[i])
-			{
-				new[tab[1]] = current->value[i];
-				i++;
-				tab[1]++;
-			}
-			free(var);
+		if (found_variable_aux(&current, new, tab, var))
 			return ;
-		}
 		current = current->next;
 	}
 	free(var);
@@ -89,7 +78,8 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 t_token	*end_and_next(t_token *current, char *new, int *tab)
 {
 	new[tab[1]] = 0;
-	if (!ft_strlen(new) && !int_str_chr(current->str, 39) && !int_str_chr(current->str, '"'))
+	if (!ft_strlen(new) && !int_str_chr(current->str, 39) && \
+	!int_str_chr(current->str, '"'))
 		free_node(&current, new);
 	else if (current && current->str)
 	{
