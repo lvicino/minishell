@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/11 15:35:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/13 17:01:14 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	check_file_perm(t_info *var, t_token *token)
 {
 	if (token->type == IN && access(token->next->str, F_OK))
 	{
+		ft_putstr_fd("1\n", 2);
 		var->r = 1;
 		if (token->next->str)
 			write(2, token->next->str, ft_strlen(token->next->str));
@@ -52,6 +53,7 @@ int	check_file_perm(t_info *var, t_token *token)
 	else if ((token->type == OUT || token->type == APPEND) && \
 	access(token->next->str, W_OK))
 	{
+		ft_putstr_fd("3\n", 2);
 		var->r = 1;
 		w_error(token->next->str, 1);
 	}

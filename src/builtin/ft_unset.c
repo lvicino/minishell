@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 17:23:52 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/13 19:30:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	ft_unset(t_env **env, char **cmd, int cmd_ln, int fd)
 		while (cmd[++i])
 		{
 			if (!ft_strncmp(node->var, cmd[i], bigger(node->var, cmd[i])) && \
-			ft_strncmp(node->var, "?", bigger(node->var, "?")))
+			ft_strncmp(node->var, "?", bigger(node->var, "?")) && \
+			ft_strncmp(node->var, "_", bigger(node->var, "_")))
 			{
 				node = unset_var(&node);
 				break ;
