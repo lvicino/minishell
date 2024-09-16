@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/12 19:37:12 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/13 19:10:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,8 @@ static int	is_builtin(t_info *var, t_token *token)
 
 static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 {
-	set_signal_action(2);
 	if (is_builtin(var, *token) && exec_builtin(var, env, *token))
-		return(free(var->cmd.cmd), freelist(token), var->r);
+		return(free(var->cmd.cmd), freelist(token), free_env(env), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
 		var->cmd.path = get_path(var->cmd.cmd[0], *env);
@@ -103,24 +102,24 @@ int	exec(t_token **token, t_env **env)
 	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
 
 	count_pipe(&var, *token);
-	if (!pipeline(&(var.fd), var.n_pipe))
-		return (0);
-	if (!pipeline(&(var.here), var.n_here))
-		return (free_pipeline(&(var.fd), var.n_pipe), 0);
+	if (!pipeline(&(var.fd), var.n_pipe) || !pipeline(&(var.here), var.n_here))
+		return (free_pipeline(&(var.fd), var.n_pipe), \
+		free_pipeline(&(var.here), var.n_here), 0);
 	make_doc(&var, *token);
 	var.builtin = is_builtin(&var, *token) & !var.n_pipe;
+	change_var_(var.cmd.cmd, *env);
 	if (!var.r && !var.builtin)
 		(free(var.cmd.cmd), get_process(&var));
 	if (!var.r && var.pid && !var.builtin)
 	{
 		free_pipeline(&(var.fd), var.n_pipe);
 		free_pipeline(&(var.here), var.n_here);
-		return (set_signal_action(3), wait_process(var.pid, var.id, &(var.r)));
+		return (wait_process(var.pid, var.id, &(var.r)));
 	}
 	if (!var.r && !var.pid)
-	{
+	{//! ctrl c does not work during cat, try: cat + ctrl c + cat
 		var.r = choose_pipe(&var, token);
-		exit(exec_cmd(&var, token, env)); //! ctrl c does not work during cat, try: cat + ctrl c + cat
+		exit(exec_cmd(&var, token, env));
 	}
 	exec_builtin(&var, env, *token);
 	freelist(token);
