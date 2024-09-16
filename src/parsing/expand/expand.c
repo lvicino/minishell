@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/13 01:36:27 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:16:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 			tab[0]++;
 		}
 	}
+	if (str[tab[0] == '"'])
+		tab[0]++;
 }
 
 t_token	*end_and_next(t_token *current, char *new, int *tab)

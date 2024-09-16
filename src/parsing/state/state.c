@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:26 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:37:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ret_to_start(t_token **head)
 {
-	if (head == NULL || *head == NULL)
+	if (*head == NULL)
 		return ;
 	while (*head && (*head)->prev)
 		*head = (*head)->prev;

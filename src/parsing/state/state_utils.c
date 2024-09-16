@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 00:57:56 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:35:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,27 @@ void	ft_free_two(t_token **head)
 {
 	t_token	*last_node;
 	t_token	*prev_last;
+	t_token	*second_node;
 
+	if (!head || !(*head) || !(*head)->prev)
+		return;
 	last_node = (*head);
-	prev_last = (*head)->prev;
+	prev_last = last_node->prev;
 	if (prev_last->prev)
-		prev_last->prev->next = NULL;
+		second_node = prev_last->prev;
 	else
-		*head = NULL;
-	free(last_node->str);
+		second_node = NULL;
+	if (second_node)
+		second_node->next = NULL;
+	*head = second_node;
+	if (last_node->str)
+		free(last_node->str);
 	free(last_node);
-	free(prev_last->str);
+	if (prev_last->str)
+		free(prev_last->str);
 	free(prev_last);
 }
+
 
 void	ft_del_token(t_token **lst, void (*del)(void*))
 {

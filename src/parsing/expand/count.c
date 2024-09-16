@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 14:48:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:11:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	count_expand_double(char *str, int *i, t_env **env)
 			(*i)++;
 		}
 	}
+	if (str[*i] == '"')
+		(*i)++;
 	return (c);
 }
 
@@ -78,6 +80,8 @@ int	count_expand_simple(char *str, int	*i)
 		(*i)++;
 		c++;
 	}
+	if (str[*i] == 39)
+		(*i)++;
 	return (c);
 }
 
