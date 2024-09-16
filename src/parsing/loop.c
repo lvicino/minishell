@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/16 17:17:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:38:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	prompt(t_env	**env)
 	t_token	*stack;
 	t_token	*cpy;
 
+	initial_signal();
 	while (1)
 	{
-		set_signal_action(0);
 		str = readline("Minishell: ");
 		if (!str)
 			return (free_env(env), free(str), clear_history(), \

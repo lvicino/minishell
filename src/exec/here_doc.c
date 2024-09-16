@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/13 15:47:46 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/16 19:09:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	make_doc(t_info	*var, t_token *token)
 
 	i = -1;
 	fd = dup(0);
+	signal_hd();
 	while (++i < var->n_here && !g_sig)
 	{
 		get_eof(&token);
@@ -70,5 +71,6 @@ void	make_doc(t_info	*var, t_token *token)
 			free_pipeline(&(var->here), var->n_here);
 		var->r = g_sig;
 	}
+	signal_parent();
 	(dup2(fd, 0), close(fd));
 }
