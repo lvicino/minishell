@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/16 19:05:13 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:55:42 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	wait_process(pid_t pid, int id, int *r)
 		}
 		id--;
 	}
-
 	initial_signal();
 	return (*r);
 }

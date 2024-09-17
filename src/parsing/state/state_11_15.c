@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 15:54:24 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:58:21 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:10:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	state_11(t_token	**buffer, t_token **head)
 {
+	// printf("state 11\n");
 	if ((*head)->type == IO_FILE)
 		(*head)->type = IO_REDIRECT;
 	else
@@ -23,6 +24,7 @@ void	state_11(t_token	**buffer, t_token **head)
 
 void	state_12(t_token	**buffer, t_token **head)
 {
+	// printf("state 12\n");
 	if ((*head)->type == IO_HERE)
 		(*head)->type = IO_REDIRECT;
 	else
@@ -32,6 +34,7 @@ void	state_12(t_token	**buffer, t_token **head)
 
 void	state_13(t_token	**buffer, t_token **head)
 {
+	// printf("state 13\n");
 	if ((*head)->type == WORD)
 		(*head)->type = FILENAME;
 	else
@@ -41,9 +44,9 @@ void	state_13(t_token	**buffer, t_token **head)
 
 void	state_14(t_token	**buffer, t_token **head)
 {
-	if ((*head)->type == OUT && (*head)->next->type == FILENAME)
+	// printf("state 14\n");
+	if ((*head)->type == FILENAME)
 	{
-		*head = (*head)->next;
 		ft_free_two(head);
 		insert_token(head, IO_FILE, NULL);
 	}
@@ -54,7 +57,9 @@ void	state_14(t_token	**buffer, t_token **head)
 
 void	state_15(t_token	**buffer, t_token **head)
 {
-	if ((*head)->type == IN && (*head)->next->type == FILENAME)
+	// printf("state 15\n");
+	if ((*head)->type == FILENAME && (*head)->prev && \
+	(*head)->prev->type == IN)
 	{
 		ft_del_token(head, &free);
 		insert_token(head, IO_FILE, NULL);

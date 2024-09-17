@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/17 14:26:27 by lvicino          ###   ########.fr       */
+=======
+/*   Updated: 2024/09/17 14:22:51 by rgallien         ###   ########.fr       */
+>>>>>>> origin/rgallien
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +45,7 @@ int	check_file_perm(t_info *var, t_token *token)
 
 	if (token->type == IN && access(token->next->str, F_OK))
 	{
-			var->r = 1;
+		var->r = 1;
 		if (token->next->str)
 			write(2, token->next->str, ft_strlen(token->next->str));
 		write(2, ": No such file or directory\n", 28);

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:30:48 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/16 16:37:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:11:01 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	state_21(t_token	**buffer, t_token **head)
 {
+	// printf("state 21\n");
 	if ((*head)->type == WORD)
 		(*head)->type = CMD_SUFFIX;
 	else
@@ -29,6 +30,7 @@ void	state_22(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
+	// printf("state 22\n");
 	i = -1;
 	tab = get_tab(22);
 	while (++i < 8)
@@ -54,6 +56,7 @@ void	state_22(t_token	**buffer, t_token **head)
 
 void	state_23(t_token	**buffer, t_token **head)
 {
+	// printf("state 23\n");
 	if ((*head)->type == IO_REDIRECT)
 		(*head)->type = CMD_SUFFIX;
 	else
@@ -69,6 +72,7 @@ void	state_24(t_token	**buffer, t_token **head)
 	const t_assoc	*tab;
 	int				i;
 
+	// printf("state 24\n");
 	tab = get_tab(24);
 	i = -1;
 	while (++i < 9)
@@ -95,6 +99,7 @@ void	state_24(t_token	**buffer, t_token **head)
 
 void	state_25(t_token	**buffer, t_token **head)
 {
+	// printf("state 25\n");
 	if ((*head)->type == IO_REDIRECT)
 	{
 		ft_del_token(head, &free);

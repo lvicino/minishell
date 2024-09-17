@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:36:59 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:57:43 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:11:09 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	state_26(t_token	**buffer, t_token **head)
 {
+	// printf("state 26\n");
 	ft_del_token(head, &free);
 	insert_token(head, PIPE_SEQUENCE, NULL);
 	state_0(buffer, head);
@@ -24,6 +25,7 @@ void	state_27(t_token	**buffer, t_token **head)
 	int		i;
 	t_token	*tmp;
 
+	// printf("state 27\n");
 	tmp = *head;
 	i = 0;
 	while (i < 2 && head)
@@ -43,6 +45,7 @@ void	state_27(t_token	**buffer, t_token **head)
 
 void	state_28(t_token	**buffer, t_token **head)
 {
+	// printf("state 28\n");
 	ft_free_two(head);
 	insert_token(head, CMD_SUFFIX, NULL);
 	state_0(buffer, head);
@@ -53,6 +56,7 @@ void	state_29(t_token	**buffer, t_token **head)
 	t_assoc			*tab;
 	int				i;
 
+	// printf("state 29\n");
 	i = -1;
 	tab = get_tab(29);
 	while (++i < 8)
