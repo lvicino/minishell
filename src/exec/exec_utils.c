@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 18:59:21 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/16 19:05:13 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,26 @@ void	count_pipe(t_info *var, t_token *token)
 int	wait_process(pid_t pid, int id, int *r)
 {
 	int	status;
+	int	n;
 
+	n = id;
+	signal_parent();
 	while (id >= 0)
 	{
 		if (pid == wait(&status))
+		{
 			*r = WEXITSTATUS(status);
+		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			write(1, "\n", 1);
+			if (id == n)
+				*r = 130;
+		}
 		id--;
 	}
+
+	initial_signal();
 	return (*r);
 }
 

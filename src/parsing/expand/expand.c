@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/11 01:24:54 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:16:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	found_variable(char *str, char *new, int *tab, t_env *current)
 	int		start;
 	int		end;
 	char	*var;
-	int		i;
 
 	tab[0]++;
 	start = tab[0];
@@ -30,18 +29,8 @@ void	found_variable(char *str, char *new, int *tab, t_env *current)
 	var = ft_substr(str, start, end);
 	while (current)
 	{
-		if (!ft_strncmp(current->var, var, bigger(current->var, var)))
-		{
-			i = 0;
-			while (current->value[i])
-			{
-				new[tab[1]] = current->value[i];
-				i++;
-				tab[1]++;
-			}
-			free(var);
+		if (found_variable_aux(&current, new, tab, var))
 			return ;
-		}
 		current = current->next;
 	}
 	free(var);
@@ -84,6 +73,25 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 			tab[0]++;
 		}
 	}
+	if (str[tab[0] == '"'])
+		tab[0]++;
+}
+
+t_token	*end_and_next(t_token *current, char *new, int *tab)
+{
+	new[tab[1]] = 0;
+	if (!ft_strlen(new) && !int_str_chr(current->str, 39) && \
+	!int_str_chr(current->str, '"'))
+		free_node(&current, new);
+	else if (current && current->str)
+	{
+		free(current->str);
+		current->str = new;
+		if (current->type == HERE)
+			current = current->next;
+		current = current->next;
+	}
+	return (current);
 }
 
 void	ft_expand(t_token **cpy, t_env **env)
@@ -106,31 +114,10 @@ void	ft_expand(t_token **cpy, t_env **env)
 				expand_simple(current->str, new, tab);
 			else if (current->str[tab[0]] == '"')
 				expand_double(current->str, new, tab, env);
-			else if (current->str[tab[0]] == '$' && (!current->str[tab[0] + 1] \
-			|| ft_isspace(current->str[tab[0] + 1])))
-			{
-				new[tab[1]] = '$';
-				tab[0]++;
-				tab[1]++;
-			}
-			else if (current->str[tab[0]] == '$')
-				found_variable(current->str, new, tab, *env);
 			else
-			{
-				new[tab[1]] = current->str[tab[0]];
-				tab[0]++;
-				tab[1]++;
-			}
+				ft_expand_aux(&current, tab, env, new);
 		}
-		new[tab[1]] = 0;
-		if (!ft_strlen(new) && !int_str_chr(current->str, 39) && !int_str_chr(current->str, '"'))
-			free_node(&current, new);
-		else if (current && current->str)
-		{
-			free(current->str);
-			current->str = new;
-			current = current->next;
-		}
+		current = end_and_next(current, new, tab);
 	}
 	ret_to_start(&current);
 	*cpy = current;

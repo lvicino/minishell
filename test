@@ -5,3 +5,27 @@ $/
 secure export if -> "export ?="
 delete node if $hihi existe pas
 laisser node avec str vide si "$hihi" existe pas
+
+echo -nnnnn -nnn ok
+
+{
+	mkdir ok
+	cd ok
+	mkdir lo
+	cd lo
+	rm -fr ../../ok
+	{
+		pwd => old pwd
+	}
+	{
+		cd ../../ => ou se trouvais le dossier ok
+	}
+}
+
+echo "'"'ok'"ok"
+
+echo "$'$HOME'"
+
+<< $HOME
+
+>>$test

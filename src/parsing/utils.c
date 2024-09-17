@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 00:29:24 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:08:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,4 @@ void	print_tokens(t_token *head, int whois)
 	}
 	printf("\n");
 }
+

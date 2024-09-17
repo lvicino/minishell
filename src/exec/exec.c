@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/16 15:42:26 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:38:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	exec(t_token **token, t_env **env)
 {
 	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
 
+
 	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe) || !pipeline(&(var.here), var.n_here))
 		return (free_pipeline(&(var.fd), var.n_pipe), \
@@ -117,7 +118,8 @@ int	exec(t_token **token, t_env **env)
 		return (wait_process(var.pid, var.id, &(var.r)));
 	}
 	if (!var.r && !var.pid)
-	{//! ctrl c does not work during cat, try: cat + ctrl c + cat
+	{
+		signal_child();
 		var.r = choose_pipe(&var, token);
 		exit(exec_cmd(&var, token, env));
 	}

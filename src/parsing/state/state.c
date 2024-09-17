@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:59:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:37:33 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ret_to_start(t_token **head)
 {
-	if (head == NULL || *head == NULL)
+	if (*head == NULL)
 		return ;
 	while (*head && (*head)->prev)
 		*head = (*head)->prev;
@@ -24,7 +24,10 @@ void	state_error(t_token **head, t_token **buffer)
 {
 	write(2, "minishell : syntax error near unexpected token ", 48);
 	write(2, "` ", 1);
-	ft_putstr_fd((*head)->str, 2);
+	if ((*buffer) && (*buffer)->type != END)
+		ft_putstr_fd((*buffer)->str, 2);
+	else
+		ft_putstr_fd("newline", 2);
 	write(2, "'\n", 2);
 	freelist(head);
 	freelist(buffer);
