@@ -29,3 +29,67 @@ echo "$'$HOME'"
 << $HOME
 
 >>$test
+
+
+new tests:
+
+ls | cat -e | cat -e | cat -e > /dev/stdout
+ls | cat -e > /dev/stdout
+$/
+
+secure export if -> "export ?="
+delete node if $hihi existe pas
+laisser node avec str vide si "$hihi" existe pas
+
+ls | cat -e | cat -e | cat -e > /dev/stdout
+ls | cat -e > /dev/stdout
+echo | exit | cat -e
+env | grep SHELL
+
+need to test with env = NULL
+need to write exit when exiting
+
+fix cmd not found message when exiting here doc and cmd NULL ex: "<<1"
+echo bonjour >hihi
+
+env | sort | grep -v SHLVL | grep -v ^_
+
+cat <"./test_files/file name with spaces" segfault
+
+<<
+
+ls | cat -e (leaks first time using option on the second cmd)
+
+// test chiant
+
+{
+	mkdir ok
+	cd ok
+	mkdir lo
+	cd lo
+	rm -fr ../../ok
+	{
+		pwd => old pwd
+	}
+	{
+	cd ../../ => ou se trouvais le dossier ok
+	}
+}
+
+echo "'"'ok'"ok"
+
+echo "$'$HOME'"
+echo '$"$HOME"'
+
+<< $HOME
+
+< $HOME
+
+>>$test ($test = NULL) => $test: ambiguous redirect
+
+leak get return value
+
+export with no arg
+
+export _=
+

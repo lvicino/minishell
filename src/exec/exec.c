@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 14:38:13 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:54:31 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	is_builtin(t_info *var, t_token *token)
 
 static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 {
+	signal_child();
 	if (is_builtin(var, *token) && exec_builtin(var, env, *token))
 		return(free(var->cmd.cmd), freelist(token), free_env(env), var->r);
 	var->cmd.path = NULL;
@@ -101,7 +102,6 @@ int	exec(t_token **token, t_env **env)
 {
 	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
 
-
 	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe) || !pipeline(&(var.here), var.n_here))
 		return (free_pipeline(&(var.fd), var.n_pipe), \
@@ -119,7 +119,6 @@ int	exec(t_token **token, t_env **env)
 	}
 	if (!var.r && !var.pid)
 	{
-		signal_child();
 		var.r = choose_pipe(&var, token);
 		exit(exec_cmd(&var, token, env));
 	}
