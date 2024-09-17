@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/13 17:01:14 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 14:26:27 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void	w_error(char *cmd, int error)
 
 int	check_file_perm(t_info *var, t_token *token)
 {
+	struct stat	dir;
+
 	if (token->type == IN && access(token->next->str, F_OK))
 	{
-		ft_putstr_fd("1\n", 2);
-		var->r = 1;
+			var->r = 1;
 		if (token->next->str)
 			write(2, token->next->str, ft_strlen(token->next->str));
 		write(2, ": No such file or directory\n", 28);
@@ -53,9 +54,14 @@ int	check_file_perm(t_info *var, t_token *token)
 	else if ((token->type == OUT || token->type == APPEND) && \
 	access(token->next->str, W_OK))
 	{
-		ft_putstr_fd("3\n", 2);
 		var->r = 1;
 		w_error(token->next->str, 1);
+	}
+	else if ((token->type == IN || token->type == OUT || token->type == APPEND) \
+	&& token->next->str && !stat(token->next->str, &dir) && S_ISDIR(dir.st_mode))
+	{
+		var->r = 126;
+		(ft_putstr_fd(token->next->str, 2), ft_putstr_fd(": Is a directory\n", 2));
 	}
 	return (var->r);
 }
