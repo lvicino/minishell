@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/16 17:01:34 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 17:42:38 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_info
 
 /*exec*/
 int		exec(t_token **token, t_env **env);
-int		exec_builtin(t_info *var, t_env **env, t_token *token);
+int		exec_builtin(t_info *var, t_env **env, t_token **token);
 
 /*utils*/
 void	count_pipe(t_info *input, t_token *token);

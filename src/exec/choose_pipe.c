@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 18:59:08 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 18:06:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	choose_infile(t_info *var, t_token *token, int *i)
 	}
 	else if (token->type == IN)
 		var->cmd.in = open(token->next->str, O_RDONLY);
-	if (check_file_perm(var, token))
+	if (token->type != HERE && check_file_perm(var, token))
 		return (var->r);
 	if (var->cmd.in <= 0 || dup2(var->cmd.in, 0) < 0)
 		return (1);

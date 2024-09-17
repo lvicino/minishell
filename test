@@ -93,3 +93,4 @@ export with no arg
 
 export _=
 
+exit might leak

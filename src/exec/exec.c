@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 16:24:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 18:59:09 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	is_builtin(t_info *var, t_token *token)
 static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 {
 	signal_child();
-	if (is_builtin(var, *token) && exec_builtin(var, env, *token))
+	if (is_builtin(var, *token) && exec_builtin(var, env, token))
 		return(free(var->cmd.cmd), freelist(token), free_env(env), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
@@ -100,7 +100,7 @@ static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 
 int	exec(t_token **token, t_env **env)
 {
-	t_info	var; //! set var _= last cmd arg in env when n_pipe = 0
+	t_info	var;
 
 	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe) || !pipeline(&(var.here), var.n_here))
@@ -122,7 +122,7 @@ int	exec(t_token **token, t_env **env)
 		var.r = choose_pipe(&var, token);
 		exit(exec_cmd(&var, token, env));
 	}
-	exec_builtin(&var, env, *token);
+	exec_builtin(&var, env, token);
 	freelist(token);
 	return (free(var.cmd.cmd), var.r);
 }

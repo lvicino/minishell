@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:02 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/09 18:47:32 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/17 18:33:51 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_exit(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	int	i;
 
-	((void)env, (void)fd);
+	(free_env(env), (void)fd);
 	i = -1;
 	while (cmd[1] && cmd[1][++i])
 	{
@@ -31,8 +31,7 @@ int	ft_exit(t_env **env, char **cmd, int cmd_ln, int fd)
 	if (cmd_ln > 2)
 		(ft_putstr_fd("exit: too many arguments\n", 2), exit(1));
 	else if (cmd_ln > 1)
-		exit((unsigned char)ft_atoi(cmd[1]));
-	exit(0);
+		return ((unsigned char)ft_atoi(cmd[1]));
 	return (0);
 }
 
@@ -40,10 +39,10 @@ int	ft_exit0(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	int	i;
 
-	(void)env;
+	free_env(env);
 	ft_putstr_fd("exit\n", fd);
 	i = -1;
-	while (cmd[1] && cmd[1][++i])
+	while (cmd && cmd[1] && cmd[1][++i])
 	{
 		if ((!ft_isdigit(cmd[1][i]) && (cmd[1][0] != '-' && cmd[1][0] != '+')) || \
 		(!i && (((cmd[1][0] == '-' || cmd[1][0] == '+') && ft_strlen(cmd[1]) > 21) || \
@@ -56,7 +55,6 @@ int	ft_exit0(t_env **env, char **cmd, int cmd_ln, int fd)
 	if (cmd_ln > 2)
 		(ft_putstr_fd("exit: too many arguments\n", 2), exit(1));
 	else if (cmd_ln > 1)
-		exit((unsigned char)ft_atoi(cmd[1]));
-	exit(0);
+		return ((unsigned char)ft_atoi(cmd[1]));
 	return (0);
 }
