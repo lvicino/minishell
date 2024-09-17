@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 16:15:05 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/10 01:58:12 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:10:50 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	state_16(t_token	**buffer, t_token **head)
 {
+	// printf("state 16\n");
 	if ((*head)->type == WORD)
 		(*head)->type = END_F;
 	else
@@ -26,6 +27,7 @@ void	state_16(t_token	**buffer, t_token **head)
 
 void	state_17(t_token	**buffer, t_token **head)
 {
+	// printf("state 17\n");
 	if ((*head)->type == END_F)
 	{
 		ft_del_token(head, &free);
@@ -41,6 +43,7 @@ void	state_17(t_token	**buffer, t_token **head)
 
 void	state_18(t_token	**buffer, t_token **head)
 {
+	// printf("state 18\n");
 	if ((*head)->type == FILENAME)
 	{
 		ft_free_two(head);
@@ -58,6 +61,7 @@ void	state_19(t_token	**buffer, t_token **head)
 {
 	t_token	*tmp;
 
+	// printf("state 19\n");
 	*buffer = NULL;
 	if ((*head)->type == END)
 	{
@@ -80,6 +84,7 @@ void	state_20(t_token	**buffer, t_token **head)
 	t_assoc			*tab;
 	int				i;
 
+	// printf("state 20\n");
 	i = -1;
 	tab = get_tab(20);
 	while (++i < 11)
