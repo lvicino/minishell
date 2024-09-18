@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/17 12:51:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:35:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_free_two(t_token **head)
 	t_token	*second_node;
 
 	if (!head || !(*head) || !(*head)->prev)
-		return;
+		return ;
 	last_node = (*head);
 	prev_last = last_node->prev;
 	if (prev_last->prev)
@@ -61,7 +61,6 @@ void	ft_free_two(t_token **head)
 		free(prev_last->str);
 	free(prev_last);
 }
-
 
 void	ft_del_token(t_token **lst, void (*del)(void*))
 {

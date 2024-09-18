@@ -6,7 +6,7 @@
 #    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/09/12 15:56:39 by rgallien         ###   ########.fr        #
+#    Updated: 2024/09/18 17:01:15 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ BUILD_DIR	=	build
 SRC_DIR		=	src
 
 MAIN		=	minishell.c \
-				signals.c
+				signals.c \
+				signal_handler.c
 
 MAIN		:=	$(MAIN:%=$(SRC_DIR)/%)
 MAIN_OBJ	=	$(MAIN:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)

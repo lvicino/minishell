@@ -6,12 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 17:34:17 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:51:16 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	*return_allocate(void)
 {
@@ -22,7 +21,6 @@ char	*return_allocate(void)
 		return (NULL);
 	return (pwd);
 }
-
 
 void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 {
@@ -36,6 +34,7 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 	{
 		free(current->value);
 		current->value = n_pwd;
+		
 	}
 	current = *env;
 	while (current && ft_strncmp(current->var, "OLDPWD", \
@@ -85,7 +84,7 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln, int fd)
 	if (cmd_ln > 2)
 		return (ft_putstr_fd("Minishell : cd: too many arguments\n", 2), 1);
 	else if (cmd_ln == 1)
-		 return (ft_cd_without_args(*env));
+		return (ft_cd_without_args(*env));
 	o_pwd = return_allocate();
 	n_pwd = return_allocate();
 	getcwd(o_pwd, 4096);

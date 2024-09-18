@@ -1,42 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 15:01:51 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:39:17 by rgallien         ###   ########.fr       */
+/*   Created: 2024/09/18 16:30:46 by rgallien          #+#    #+#             */
+/*   Updated: 2024/09/18 16:39:00 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(t_env **env, char **cmd, int cmd_ln, int fd)
-{
-	int	i;
-	int	j;
-	int	active;
+extern int	g_sig;
 
-	i = 0;
-	active = 0;
-	while (cmd[++i] && cmd[i][0] == '-')
+void	sigint_handler_hd(int signal)
+{
+	if (signal == SIGINT)
 	{
-		j = 1;
-		while (cmd[i][j] == 'n')
-			j++;
-		if (!cmd[i][j])
-			active = 1;
-		else
-			break ;
+		write(0, "\n", 1);
+		close(0);
+		g_sig = 130;
 	}
-	while (cmd[i])
+}
+
+void	sigint_handler_parent(int signal)
+{
+	if (signal == SIGINT)
 	{
-		ft_putstr_fd(cmd[i], fd);
-		if (i++ + 1 < cmd_ln)
-			ft_putstr_fd(" ", fd);
+		write(1, "\n", 1);
+		g_sig = 130;
 	}
-	if (!active)
-		ft_putstr_fd("\n", fd);
-	return ((void)env, 0);
+}
+
+void	sigint_handler_prompt(int signal)
+{
+	if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		g_sig = 130;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:24:26 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/17 16:10:19 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:24:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	state_5(t_token **buffer, t_token **head)
 {
-	// printf("state 5\n");
 	if ((*head)->type == FILENAME)
 		state_18(buffer, head);
 	else if ((*head)->type == WORD)
@@ -30,7 +29,6 @@ void	state_5(t_token **buffer, t_token **head)
 
 void	state_4(t_token **buffer, t_token **head)
 {
-	// printf("state 4\n");
 	if ((*head)->type == END_F)
 		state_17(buffer, head);
 	else if ((*head)->type == WORD)
@@ -47,7 +45,6 @@ void	state_4(t_token **buffer, t_token **head)
 
 void	state_3(t_token **buffer, t_token **head)
 {
-	// printf("state 3\n");
 	if ((*head)->type == FILENAME)
 		state_15(buffer, head);
 	else if ((*head)->type == WORD)
@@ -68,7 +65,6 @@ void	state_3(t_token **buffer, t_token **head)
 
 void	state_2(t_token **buffer, t_token **head)
 {
-	// printf("state 2\n");
 	if ((*head)->type == FILENAME)
 		return (state_14(buffer, head));
 	else if ((*head)->type == WORD)
@@ -89,7 +85,6 @@ void	state_2(t_token **buffer, t_token **head)
 
 void	state_1(t_token **buffer, t_token **head)
 {
-	// printf("state 1\n");
 	(void)buffer;
 	if (head)
 		(*head)->type = CMD_NAME;

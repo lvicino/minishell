@@ -6,10 +6,9 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/13 01:37:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:36:53 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PARSING_H
 # define PARSING_H
@@ -81,7 +80,8 @@ t_token		*tokenize(char *str, t_token **head, int c);
 int			tokenize_word(char *str, t_token **head, int c, int *i);
 void		tokenize_cpy(t_token *tmp, int i);
 int			is_token(char *str, int *c, int *i);
-int			make_tokenize(t_token **token, t_token **stack, t_token **cpy, char *str);
+int			make_tokenize(t_token **token, t_token **stack, \
+t_token **cpy, char *str);
 int			unclosed_quotes(t_token *token);
 int			is_token_two(char *str, int *c, int *i);
 int			int_str_chr(const char *s, int c);

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 10:49:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/17 15:09:38 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:33:25 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	freelist(t_token **head)
 	}
 }
 
-
+/*
 void	print_tokens(t_token *head, int whois)
 {
 	const char		*str[5] = {"RIEN", "STACK = ", "BUFFER = ", "START = ", \
@@ -120,4 +120,4 @@ void	print_tokens(t_token *head, int whois)
 	}
 	printf("\n");
 }
-
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 18:59:09 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/18 11:41:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	exec(t_token **token, t_env **env)
 		free_pipeline(&(var.here), var.n_here), 0);
 	make_doc(&var, *token);
 	var.builtin = is_builtin(&var, *token) & !var.n_pipe;
-	change_var_(var, *env, *token);
+	// change_var_(var, *env, *token);
 	if (!var.r && !var.builtin)
 		(free(var.cmd.cmd), get_process(&var));
 	if (!var.r && var.pid && !var.builtin)
