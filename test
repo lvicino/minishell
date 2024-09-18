@@ -93,4 +93,6 @@ export with no arg
 
 export _=
 
-exit might leak
+echo ls && ls => error_state 6 => error parsing
+
+<< ""

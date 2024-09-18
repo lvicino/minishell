@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 18:06:13 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:28:37 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	choose_infile(t_info *var, t_token *token, int *i)
 		var->cmd.in = var->here[var->skip_hd + *i][0];
 		(*i)++;
 	}
-	else if (token->type == IN)
+	else if (token->type == IN && \
+	token->next && token->next->type == FILENAME)
 		var->cmd.in = open(token->next->str, O_RDONLY);
 	if (token->type != HERE && check_file_perm(var, token))
 		return (var->r);
@@ -32,10 +33,12 @@ static int	choose_infile(t_info *var, t_token *token, int *i)
 
 static int	choose_outfile(t_info *var, t_token *token)
 {
-	if (token->type == APPEND)
+	if (token->type == APPEND && \
+	token->next && token->next->type == FILENAME)
 		var->cmd.out = open(token->next->str, \
 		O_WRONLY | O_CREAT | O_APPEND, 0666);
-	else if (token->type == OUT)
+	else if (token->type == OUT && \
+	token->next && token->next->type == FILENAME)
 		var->cmd.out = open(token->next->str, \
 		O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (check_file_perm(var, token))
