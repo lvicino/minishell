@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 14:22:51 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:02:05 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,30 @@ void	w_error(char *cmd, int error)
 
 int	check_file_perm(t_info *var, t_token *token)
 {
-	if (token->type == IN && access(token->next->str, F_OK))
+	struct stat	dir;
+
+	var->r = 1;
+	if (!token->next->str || token->next->type != FILENAME)
+		ft_putstr_fd(": ambiguous redirect\n", 2);
+	else if (token->type == IN && access(token->next->str, F_OK))
 	{
-		var->r = 1;
 		if (token->next->str)
-			write(2, token->next->str, ft_strlen(token->next->str));
-		write(2, ": No such file or directory\n", 28);
+			ft_putstr_fd(token->next->str, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	else if (token->type == IN && access(token->next->str, R_OK))
-	{
-		var->r = 1;
 		w_error(token->next->str, 1);
-	}
 	else if ((token->type == OUT || token->type == APPEND) && \
 	access(token->next->str, W_OK))
-	{
-		var->r = 1;
 		w_error(token->next->str, 1);
+	else if (token->type != IN && token->next->str && \
+	!stat(token->next->str, &dir) && S_ISDIR(dir.st_mode))
+	{
+		var->r = 126;
+		(ft_putstr_fd(token->next->str, 2), ft_putstr_fd(": Is a directory\n", 2));
 	}
+	else
+		var->r = 0;
 	return (var->r);
 }
 

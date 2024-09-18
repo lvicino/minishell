@@ -3,29 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 15:57:52 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:50:54 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_var_(char **cmd, t_env *env)
+void	change_var_(t_info var, t_env *env, t_token *token)
 {
-	int	i;
+	// int	i;
+	// char *tmp;
 
-	i = 0;
-	while (cmd && cmd[i + 1])
-		i++;
-	while (env && ft_strncmp(env->var, "_", bigger(env->var, "_")))
-		env = env->next;
-	if (env && cmd)
-	{
-		free(env->value);
-		env->value = ft_strdup(cmd[i]);
-	}
+	// if (var.n_here)
+	// 	return ;
+	// i = 0;
+	// while (var.cmd.cmd && var.cmd.cmd[i + 1])
+	// 	i++;
+	// if (var.cmd.cmd)
+	// 	free(var.cmd.cmd);
+	// if (!is_builtin(&var, token) && var.cmd.cmd)
+	// {
+	// 	tmp = get_path(var.cmd.cmd[0], env);
+	// 	if (!tmp)
+	// 		return ;
+	// 	free(var.cmd.cmd[0]);
+	// 	var.cmd.cmd[0] = tmp;
+	// }
+	// while (env && ft_strncmp(env->var, "_", bigger(env->var, "_")))
+	// 	env = env->next;
+	// if (env)
+	// {
+	// 	free(env->value);
+	// 	if (var.cmd.cmd)
+	// 		env->value = ft_strdup(var.cmd.cmd[i]);
+	// 	else
+	// 		env->value = NULL;
+	// }
 }
 
 void	free_env(t_env **head)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/16 19:07:45 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:20:25 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	sigint_handler_parent(int signal)
 	{
 		write(1, "\n", 1);
 		g_sig = 130;
-		printf("%d\n", g_sig);
 	}
 }
 

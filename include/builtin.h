@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:13:30 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/13 19:24:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/16 17:01:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ft_env(t_env **env, char **cmd, int cmd_ln, int fd);
 void	make_env(t_env **env, char **envp);
 void	add_node(char *str, t_env **env, char *envp);
 void	free_env(t_env **head);
-void	change_var_(char **cmd, t_env *env);
+// void	change_var_(t_info var, t_env *env, t_token *token);
 
 int		ft_exit(t_env **env, char **cmd, int cmd_ln, int fd);
 int		ft_exit0(t_env **env, char **cmd, int cmd_ln, int fd);

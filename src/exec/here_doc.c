@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/16 19:09:02 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:09:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	make_doc(t_info	*var, t_token *token)
 		while (s && ft_strncmp(token->str, s, choose_ln(token->str, s)))
 		{
 			(write(var->here[i][1], s, ft_strlen(s)), free(s));
+			write(var->here[i][1], "\n", 1);
 			s = readline("> ");
 		}
 		if (s)
