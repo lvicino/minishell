@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 17:50:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:59:31 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	change_s_pwd(t_env **env, char *new)
 	bigger(current->var, "S_PWD")))
 		current = current->next;
 	if (current)
+	{
+		if (current->value)
+			free(current->value);
 		current->value = new;
+	}
 }
 
 char	*return_allocate(void)
@@ -46,7 +50,7 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 	{
 		free(current->value);
 		current->value = n_pwd;
-		change_s_pwd(env, current->value);
+		change_s_pwd(env, ft_strdup(current->value));
 	}
 	current = *env;
 	while (current && ft_strncmp(current->var, "OLDPWD", \
