@@ -6,11 +6,25 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 09:50:23 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:38:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*print_s_pwd(t_env **env)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current && ft_strncmp(current->var, "S_PWD", \
+	bigger(current->var, "S_PWD")))
+		current = current->next;
+	if (current)
+		return (current->value);
+	else
+		return (NULL);
+}
 
 int	ft_pwd(t_env **env, char **cmd, int cmd_ln, int fd)
 {
@@ -20,7 +34,10 @@ int	ft_pwd(t_env **env, char **cmd, int cmd_ln, int fd)
 	(void)cmd;
 	(void)cmd_ln;
 	if (!getcwd(path, 4096))
-		ft_putstr_fd("getcwd() error\n", 2);
+	{
+		ft_putstr_fd(print_s_pwd(env), fd);
+		ft_putstr_fd("\n", fd);
+	}
 	else
 	{
 		ft_putstr_fd(path, fd);

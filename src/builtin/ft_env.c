@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 11:41:13 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:25:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	make_env(t_env **env, char **envp)
 		add_node(ft_substr(envp[i], 0, j), env, envp[i]);
 		i++;
 	}
+	add_node(ft_strdup("S_PWD"), env, "S_PWD=NULL");
 }
 
 int	ft_env(t_env **env, char **cmd, int cmd_ln, int fd)
@@ -112,7 +113,8 @@ int	ft_env(t_env **env, char **cmd, int cmd_ln, int fd)
 		return (125);
 	while (current)
 	{
-		if (ft_strncmp(current->var, "?", bigger(current->var, "?")))
+		if (ft_strncmp(current->var, "?", bigger(current->var, "?")) \
+		&& ft_strncmp(current->var, "S_PWD", bigger(current->var, "S_PWD")))
 		{
 			ft_putstr_fd(current->var, fd);
 			ft_putstr_fd("=", fd);
