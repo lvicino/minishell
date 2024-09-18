@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/17 16:11:23 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:34:37 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ int	state_0(t_token **buffer, t_token **stack)
 
 	tab = get_tab(0);
 	ret_to_start(stack);
-	// print_tokens(*stack, 1);
-	// print_tokens(*buffer, 2);
 	i = -1;
 	while (++i < 12)
 	{

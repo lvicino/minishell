@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:13:30 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/16 17:01:13 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/18 16:37:19 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ typedef struct s_env
 {
 	char			*var;
 	char			*value;
-	struct	s_env	*prev;
-	struct	s_env	*next;
+	struct s_env	*prev;
+	struct s_env	*next;
 }					t_env;
 
 typedef struct s_builtin
