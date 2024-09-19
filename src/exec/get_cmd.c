@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 11:44:26 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 17:24:29 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:32:36 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static char	*find_path(char ***str, char *cmd)
 	int		i;
 
 	path = NULL;
-	i = 0;
-	while (*str && (*str)[i])
+	i = -1;
+	while (*str && (*str)[++i])
 	{
 		tmp = (*str)[i];
 		(*str)[i] = ft_strjoin((*str)[i], "/");
@@ -31,12 +31,11 @@ static char	*find_path(char ***str, char *cmd)
 		if (!access((*str)[i], F_OK))
 		{
 			path = ft_strdup((*str)[i]);
-			break ;
+			return (ft_free(str), path);
 		}
-		i++;
 	}
-	ft_free(str);
-	return (path);
+	(ft_free(str), free(path));
+	return (NULL);
 }
 
 char	*get_path(char *cmd, t_env *env)

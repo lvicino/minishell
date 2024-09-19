@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 15:54:48 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:28:37 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:50:05 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,12 @@ static void	set_token(t_info *var, t_token **token)
 	var->skip_hd = 0;
 	while (i != var->id)
 	{
-		*token = (*token)->next;
 		if ((*token)->type == PIPE)
 			i++;
 		else if ((*token)->type == HERE)
 			var->skip_hd++;
-	}
-	if (i)
 		*token = (*token)->next;
+	}
 }
 
 int	choose_pipe(t_info	*var, t_token **token)

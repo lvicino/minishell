@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 13:50:40 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:38:29 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,8 @@ static void	get_eof(t_token **token)
 	}
 }
 
-void	make_doc(t_info	*var, t_token *token)
+static void	w_doc(t_info *var, t_token *token, char *s, int i)
 {
-	char	*s;
-	int		i;
-	int		fd;
-
-	i = -1;
-	fd = dup(0);
-	signal_hd();
 	while (++i < var->n_here && !g_sig)
 	{
 		get_eof(&token);
@@ -57,8 +50,7 @@ void	make_doc(t_info	*var, t_token *token)
 		while (s && ft_strncmp(token->str, s, choose_ln(token->str, s)))
 		{
 			(write(var->here[i][1], s, ft_strlen(s)), free(s));
-			write(var->here[i][1], "\n", 1);
-			s = readline("> ");
+			(write(var->here[i][1], "\n", 1), s = readline("> "));
 		}
 		if (s)
 			free(s);
@@ -72,6 +64,20 @@ void	make_doc(t_info	*var, t_token *token)
 			free_pipeline(&(var->here), var->n_here);
 		var->r = g_sig;
 	}
+}
+
+void	make_doc(t_info *var, t_token *token)
+{
+	char	*s;
+	int		i;
+	int		fd;
+
+	i = -1;
+	s = NULL;
+	fd = dup(0);
+	signal_hd();
+	w_doc(var, token, s, i);
 	signal_parent();
-	(dup2(fd, 0), close(fd));
+	dup2(fd, 0);
+	close(fd);
 }

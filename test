@@ -96,3 +96,7 @@ export _=
 echo ls && ls => error_state 6 => error parsing
 
 << ""
+
+cmd + ctrl c + cmd + ctrl d
+
+ctrl c + cmd + ctrl d

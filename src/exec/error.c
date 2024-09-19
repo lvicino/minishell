@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 14:50:00 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:36:44 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	check_file_perm(t_info *var, t_token *token)
 	struct stat	dir;
 
 	var->r = 1;
-	if (token->next->ambiguous) //! need to be fixed
-		ft_putstr_fd(": ambiguous redirect\n", 2);
+	if (token->next->ambiguous)
+		(ft_putstr_fd(token->next->str, 2), \
+		ft_putstr_fd(": ambiguous redirect\n", 2));
 	else if (token->type == IN && access(token->next->str, F_OK))
 	{
-		if (token->next->str)
-			ft_putstr_fd(token->next->str, 2);
+		ft_putstr_fd(token->next->str, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	else if (token->type == IN && access(token->next->str, R_OK))
@@ -57,7 +57,7 @@ int	check_file_perm(t_info *var, t_token *token)
 	!stat(token->next->str, &dir) && S_ISDIR(dir.st_mode))
 	{
 		var->r = 126;
-		(ft_putstr_fd(token->next->str, 2), ft_putstr_fd(": Is a directory\n", 2));
+		(ft_putstr_fd(token->next->str, 2), write(2, ": Is a directory\n", 17));
 	}
 	else
 		var->r = 0;
@@ -84,7 +84,7 @@ void	check_cmd_error(char **cmd, char *path, int *r)
 		else
 			w_error(NULL, 126);
 	}
-	else if (!path && cmd && !stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
+	else if (cmd && !stat(path, &dir) && S_ISDIR(dir.st_mode))
 	{
 		*r = 126;
 		(ft_putstr_fd(cmd[0], 2), ft_putstr_fd(": Is a directory\n", 2));

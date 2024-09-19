@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 15:30:20 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:30:35 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 	signal_child();
 	get_cmd(*token, var);
 	if (is_builtin(*var, *token) && exec_builtin(var, env, token))
-		return(free(var->cmd.cmd), freelist(token), free_env(env), var->r);
+		return (free(var->cmd.cmd), freelist(token), free_env(env), var->r);
 	var->cmd.path = NULL;
 	if (var->cmd.cmd && !ft_strchr(var->cmd.cmd[0], '/'))
 		var->cmd.path = get_path(var->cmd.cmd[0], *env);
@@ -71,7 +71,7 @@ static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 	if (!var->r && !var->builtin)
 	{
 		check_cmd_error(var->cmd.cmd, var->cmd.path, &(var->r));
-		if (!var->r && var->cmd.path && var->cmd.cmd && var->cmd.cmd[0] &&\
+		if (!var->r && var->cmd.path && var->cmd.cmd && var->cmd.cmd[0] && \
 		!access(var->cmd.path, F_OK | X_OK))
 			execve(var->cmd.path, var->cmd.cmd, convert_env(*env));
 	}
@@ -88,7 +88,6 @@ int	exec(t_token **token, t_env **env)
 {
 	t_info	var;
 
-	printf("hello\n");
 	count_pipe(&var, *token);
 	if (!pipeline(&(var.fd), var.n_pipe) || !pipeline(&(var.here), var.n_here))
 		return (free_pipeline(&(var.fd), var.n_pipe), \

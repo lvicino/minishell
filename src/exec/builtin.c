@@ -6,13 +6,13 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:22:32 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 14:12:32 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 17:56:13 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_fd(t_info *var, t_token *token)
+static int	get_fd(t_info *var, t_token *token)
 {
 	while (token && token->type != PIPE)
 	{
@@ -42,9 +42,9 @@ int	get_fd(t_info *var, t_token *token)
 
 int	is_builtin(t_info var, t_token *token)
 {
-	int				i;
-	t_info			tmp;
-	const char *tab[] = {"cd", "echo", \
+	int			i;
+	t_info		tmp;
+	const char	*tab[] = {"cd", "echo", \
 	"env", "exit", "export", "pwd", "unset"};
 
 	tmp = var;
@@ -60,16 +60,11 @@ int	is_builtin(t_info var, t_token *token)
 	return (0);
 }
 
-int	exec_builtin(t_info *var, t_env **env, t_token **token)
+static void	exec_builtin_aux(t_info *var, t_env **env, \
+t_token **token, const t_builtin tab[])
 {
-	int				i;
-	const t_builtin	tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
-	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
-	{"pwd", ft_pwd}, {"unset", ft_unset}, {"exit", ft_exit0}};
+	int	i;
 
-	var->cmd.out = 1;
-	if (var->r || get_fd(var, *token))
-		return (var->r);
 	i = -1;
 	while (++i < 7)
 	{
@@ -89,5 +84,17 @@ int	exec_builtin(t_info *var, t_env **env, t_token **token)
 				close(var->cmd.out);
 		}
 	}
+}
+
+int	exec_builtin(t_info *var, t_env **env, t_token **token)
+{
+	const t_builtin	tab[] = {{"cd", ft_cd}, {"echo", ft_echo}, \
+	{"env", ft_env}, {"exit", ft_exit}, {"export", ft_export}, \
+	{"pwd", ft_pwd}, {"unset", ft_unset}, {"exit", ft_exit0}};
+
+	var->cmd.out = 1;
+	if (var->r || get_fd(var, *token))
+		return (var->r);
+	exec_builtin_aux(var, env, token, tab);
 	return (1);
 }
