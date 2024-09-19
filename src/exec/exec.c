@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 18:30:35 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:44:50 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ int	exec(t_token **token, t_env **env)
 		exit(exec_cmd(&var, token, env));
 	}
 	exec_builtin(&var, env, token);
-	(freelist(token), initial_signal());
+	freelist(token);
 	return (free(var.cmd.cmd), var.r);
 }

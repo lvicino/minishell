@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 10:55:58 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 18:43:34 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 		current->value = n_pwd;
 		change_s_pwd(env, ft_strdup(current->value));
 	}
+	else
+		free(n_pwd);
 	current = *env;
 	while (current && ft_strncmp(current->var, "OLDPWD", \
 	bigger(current->var, "OLDPWD")))
@@ -61,6 +63,8 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 		free(current->value);
 		current->value = o_pwd;
 	}
+	else
+		free(o_pwd);
 }
 
 int	ft_cd_without_args(t_env *env)

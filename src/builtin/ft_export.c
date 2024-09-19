@@ -6,19 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 11:11:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:58:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	write_erro_id(char *cmd, int *r)
-{
-	*r = 1;
-	ft_putstr_fd("export: `", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-}
 
 void	add_before_last(char *var, char *value, t_env **env)
 {
@@ -86,32 +78,41 @@ int	export_env(char *var, char *value, t_env **env)
 	return (0);
 }
 
+int	export_aux(int i, int fd, char **cmd, t_env **env)
+{
+	int	j;
+
+	j = -1;
+	while (cmd[i][++j])
+	{
+		if (cmd[i][j] == '"' || cmd[i][j] == 39 || \
+		!ft_isalpha(cmd[i][0]) || cmd[i][j] == '-')
+		{
+			ft_putstr_fd("export: `", 2);
+			ft_putstr_fd(cmd[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			fd = 1;
+			return (fd);
+		}
+		if (cmd[i][j] == '=')
+		{
+			fd = export_env(ft_substr(cmd[i], 0, j), \
+			ft_substr(cmd[i], j + 1, ft_strlen(cmd[i]) - (j + 1)), env);
+			return (fd);
+		}
+	}
+	return (fd);
+}
+
 int	ft_export(t_env **env, char **cmd, int cmd_ln, int fd)
 {
 	int	i;
-	int	j;
 
 	i = 0;
+	fd = 0;
 	if (cmd_ln == 1)
 		fd = print_env_export(env, fd);
 	while (cmd[++i] && cmd_ln)
-	{
-		j = -1;
-		while (cmd[i][++j])
-		{
-			if (cmd[i][j] == '"' || cmd[i][j] == 39 || !ft_isalpha(cmd[i][0]) \
-			|| cmd[i][j] == '-')
-			{
-				write_erro_id(cmd[i], &fd);
-				break ;
-			}
-			if (cmd[i][j] == '=')
-			{
-				fd = export_env(ft_substr(cmd[i], 0, j), \
-				ft_substr(cmd[i], j + 1, ft_strlen(cmd[i]) - (j + 1)), env);
-				break ;
-			}
-		}
-	}
+		fd = export_aux(i, fd, cmd, env);
 	return (fd);
 }
