@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/19 11:39:22 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:55:18 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ t_token	*end_and_next(t_token *current, char *new, int *tab)
 		current->str = new;
 		if (current->type == HERE)
 			current = current->next;
+		current = current->next;
+	}
+	else
+	{
+		free(new);
 		current = current->next;
 	}
 	return (current);
