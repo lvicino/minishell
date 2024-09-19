@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:14:05 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 15:51:18 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:52:41 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int		wait_process(pid_t pid, int id, int *r);
 void	ft_free(char ***str);
 void	free_pipeline(int ***fd, int i);
 int		pipeline(int ***tab, int n);
-void	change_var_(t_info *var, t_env *env);
-int		is_builtin(t_info *var, t_token *token);
+void	change_var_(t_info *var, t_env *env, t_token *token);
+int		is_builtin(t_info var, t_token *token);
 
 /*here_doc*/
 void	make_doc(t_info	*var, t_token *token);

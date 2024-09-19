@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 11:11:54 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:28:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	change_var_(t_info *var, t_env *env, t_token *token)
 			env->value = ft_strdup("");
 	}
 	tmp = get_path(env->value, env);
-	if (tmp && !is_builtin(var, token))
+	if (tmp && !is_builtin(*var, token))
 	{
 		free(env->value);
 		env->value = tmp;
 	}
+	else if (tmp)
+		free(tmp);
 }
 
 void	free_env(t_env **head)

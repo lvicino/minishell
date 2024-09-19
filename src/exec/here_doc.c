@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 18:09:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:50:40 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	choose_ln(char *eof, char *str)
 	int	str_ln;
 
 	eof_ln = ft_strlen(eof);
-	str_ln = ft_strlen(str) - 1;
+	str_ln = ft_strlen(str);
 	if (eof_ln > str_ln)
 		return (eof_ln);
 	else

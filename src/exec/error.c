@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 11:03:21 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:50:00 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_file_perm(t_info *var, t_token *token)
 	struct stat	dir;
 
 	var->r = 1;
-	if (!token->next->str || token->next->type != FILENAME)
+	if (token->next->ambiguous) //! need to be fixed
 		ft_putstr_fd(": ambiguous redirect\n", 2);
 	else if (token->type == IN && access(token->next->str, F_OK))
 	{

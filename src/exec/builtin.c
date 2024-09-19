@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:22:32 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 10:44:16 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:12:32 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ int	get_fd(t_info *var, t_token *token)
 		token = token->next;
 	}
 	return (var->r);
+}
+
+int	is_builtin(t_info var, t_token *token)
+{
+	int				i;
+	t_info			tmp;
+	const char *tab[] = {"cd", "echo", \
+	"env", "exit", "export", "pwd", "unset"};
+
+	tmp = var;
+	get_cmd(token, &tmp);
+	i = -1;
+	while (++i < 7)
+	{
+		if (tmp.cmd.cmd && !ft_strncmp(tmp.cmd.cmd[0], tab[i], \
+		bigger(tmp.cmd.cmd[0], (char *)tab[i])))
+			return (free(tmp.cmd.cmd), 1);
+	}
+	free(tmp.cmd.cmd);
+	return (0);
 }
 
 int	exec_builtin(t_info *var, t_env **env, t_token **token)
