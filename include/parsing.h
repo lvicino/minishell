@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 12:00:38 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:46:37 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_assoc
 {
 	t_token_type	type;
 	void			(*func)(t_token **, t_token **);
-}t_assoc;
+}	t_assoc;
 
 // others
 void		ret_to_start(t_token **head);

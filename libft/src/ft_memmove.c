@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 11:34:19 by lvicino           #+#    #+#             */
-/*   Updated: 2023/11/20 17:41:47 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:47:52 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		i = 0;
 		while (i < n)
 		{
-				tab_d[i] = tab_s[i];
-				i++;
+			tab_d[i] = tab_s[i];
+			i++;
 		}
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 19:23:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:56:32 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	change_var_(t_info *var, t_env *env, t_token *token)
 	if (env)
 	{
 		path = NULL;
-		if (!i)
+		if (!i && var->cmd.cmd)
 			path = get_path(var->cmd.cmd[0], env);
 		free(env->value);
 		if (var->cmd.cmd && (is_builtin(*var, token) || !path))

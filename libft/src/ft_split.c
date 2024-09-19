@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 12:28:34 by lvicino           #+#    #+#             */
-/*   Updated: 2024/01/22 15:41:11 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:47:36 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_spliter(char const *s, char c, char ***str)
 	while (s[i] && *str)
 	{
 		if (s[i] == c && s[i + 1] != c)
-				start = i + 1;
+			start = i + 1;
 		else if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
 		{
 			(*str)[j] = ft_substr(s, start, (i + 1) - start);
