@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/16 17:16:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:01:19 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ void	expand_double(char *str, char *new, int *tab, t_env **env)
 t_token	*end_and_next(t_token *current, char *new, int *tab)
 {
 	new[tab[1]] = 0;
-	if (!ft_strlen(new) && !int_str_chr(current->str, 39) && \
-	!int_str_chr(current->str, '"'))
+	if (!ft_strlen(new) && !ft_strchr(current->str, 39) && \
+	!ft_strchr(current->str, '"') && is_not_filename(current))
 		free_node(&current, new);
-	else if (current && current->str)
+	else if (current && current->str && !current->ambiguous)
 	{
 		free(current->str);
 		current->str = new;

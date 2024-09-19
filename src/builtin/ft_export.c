@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/10 14:28:48 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:11:47 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,26 @@ void	add_before_last(char *var, char *value, t_env **env)
 	}
 }
 
+int	print_env_export(t_env **env, int fd)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current && current->var)
+	{
+		if (ft_strncmp(current->var, "S_PWD", bigger(current->var, "S_PWD")) \
+		&& ft_strncmp(current->var, "?", bigger(current->var, "?")))
+		{
+			ft_putstr_fd("declare -x ", fd);
+			ft_putstr_fd(current->var, fd);
+			ft_putstr_fd("=\"", fd);
+			ft_putstr_fd(current->value, fd);
+			ft_putstr_fd("\"\n", fd);
+		}
+		current = current->next;
+	}
+	return (0);
+}
 int	export_env(char *var, char *value, t_env **env)
 {
 	t_env	*current;
@@ -71,8 +91,9 @@ int	ft_export(t_env **env, char **cmd, int cmd_ln, int fd)
 	int	i;
 	int	j;
 
-	fd = 0;
 	i = 0;
+	if (cmd_ln == 1)
+		fd = print_env_export(env, fd);
 	while (cmd[++i] && cmd_ln)
 	{
 		j = -1;

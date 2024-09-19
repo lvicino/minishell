@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:43:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/12 14:41:31 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:00:58 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	int_str_chr(const char *s, int c)
-{
-	int		i;
-	char	*str;
-
-	str = (char *)s;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == (unsigned char)c)
-			return (1);
-		i++;
-	}
-	if (str[i] == (unsigned char)c)
-		return (1);
-	return (0);
-}
 
 void	free_node(t_token **current, char *str)
 {

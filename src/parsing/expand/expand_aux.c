@@ -6,11 +6,25 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:51:07 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/13 01:34:09 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:38:06 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_not_filename(t_token *current)
+{
+	if (current && current->prev)
+	{
+		if (current->prev->type == IN || current->prev->type == OUT \
+		|| current->prev->type == OUT)
+		{
+			current->ambiguous = 1;
+			return (0);
+		}
+	}
+	return (1);
+}
 
 void	ft_expand_aux(t_token **current, int *tab, t_env **env, char *new)
 {
