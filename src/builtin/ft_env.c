@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 14:28:23 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 19:23:23 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	change_var_(t_info *var, t_env *env, t_token *token)
 {
-	int	i;
-	char *tmp;
+	int		i;
+	char	*path;
 
 	if (var->n_pipe)
 		return ;
@@ -26,20 +26,19 @@ void	change_var_(t_info *var, t_env *env, t_token *token)
 		env = env->next;
 	if (env)
 	{
+		path = NULL;
+		if (!i)
+			path = get_path(var->cmd.cmd[0], env);
 		free(env->value);
-		if (var->cmd.cmd)
+		if (var->cmd.cmd && (is_builtin(*var, token) || !path))
 			env->value = ft_strdup(var->cmd.cmd[i]);
+		else if (var->cmd.cmd && path)
+			env->value = path;
 		else
 			env->value = ft_strdup("");
+		if (path && is_builtin(*var, token))
+			free(path);
 	}
-	tmp = get_path(env->value, env);
-	if (tmp && !is_builtin(*var, token))
-	{
-		free(env->value);
-		env->value = tmp;
-	}
-	else if (tmp)
-		free(tmp);
 }
 
 void	free_env(t_env **head)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:03 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 17:58:54 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:51:32 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	print_env_export(t_env **env, int fd)
 	}
 	return (0);
 }
+
 int	export_env(char *var, char *value, t_env **env)
 {
 	t_env	*current;
