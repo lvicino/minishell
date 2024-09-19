@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:50:11 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:38:36 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:03:21 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_cmd_error(char **cmd, char *path, int *r)
 		else
 			w_error(NULL, 126);
 	}
-	else if (cmd && !stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
+	else if (!path && cmd && !stat(cmd[0], &dir) && S_ISDIR(dir.st_mode))
 	{
 		*r = 126;
 		(ft_putstr_fd(cmd[0], 2), ft_putstr_fd(": Is a directory\n", 2));

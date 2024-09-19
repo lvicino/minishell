@@ -6,13 +6,13 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 10:59:05 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:11:54 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	change_var_(t_info *var, t_env *env)
+void	change_var_(t_info *var, t_env *env, t_token *token)
 {
 	int	i;
 	char *tmp;
@@ -33,7 +33,7 @@ void	change_var_(t_info *var, t_env *env)
 			env->value = ft_strdup("");
 	}
 	tmp = get_path(env->value, env);
-	if (tmp)
+	if (tmp && !is_builtin(var, token))
 	{
 		free(env->value);
 		env->value = tmp;
