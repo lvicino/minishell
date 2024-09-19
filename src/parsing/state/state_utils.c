@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 13:22:40 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/18 16:35:22 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:27:58 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	insert_token(t_token **head, t_token_type type, char *str)
 		return ;
 	token->str = ft_strdup(str);
 	token->type = type;
+	token->ambiguous = 0;
 	token->next = NULL;
 	token->prev = NULL;
 	if (*head == NULL)

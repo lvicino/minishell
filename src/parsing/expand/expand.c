@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/16 17:16:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:39:22 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ t_token	*end_and_next(t_token *current, char *new, int *tab)
 {
 	new[tab[1]] = 0;
 	if (!ft_strlen(new) && !int_str_chr(current->str, 39) && \
-	!int_str_chr(current->str, '"'))
+	!int_str_chr(current->str, '"') && is_not_filename(current))
 		free_node(&current, new);
-	else if (current && current->str)
+	else if (current && current->str && !current->ambiguous)
 	{
 		free(current->str);
 		current->str = new;

@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:36:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:34:54 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_token
 {
 	t_token_type		type;
 	char				*str;
-	int					guillemet;
+	int					ambiguous;
 	struct s_token		*next;
 	struct s_token		*prev;
 }				t_token;
@@ -66,6 +66,7 @@ void		freelist(t_token **head);
 void		print_tokens(t_token *head, int whois);
 void		insert_token(t_token **head, t_token_type type, char *str);
 void		ft_free_two(t_token **head);
+int			is_not_filename(t_token *current);
 
 void		ft_expand(t_token **cpy, t_env **env);
 int			ft_count_expand(char *str, t_env **env);
