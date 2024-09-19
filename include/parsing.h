@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:12:31 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:36:53 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:18:21 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_token **cpy, char *str);
 int			unclosed_quotes(t_token *token);
 int			is_token_two(char *str, int *c, int *i);
 int			int_str_chr(const char *s, int c);
+
 // states
 void		state_error(t_token **head, t_token **buffer);
 int			state_0(t_token **buffer, t_token **stack);

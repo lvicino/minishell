@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:02 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 18:33:51 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:20:37 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	ft_exit(t_env **env, char **cmd, int cmd_ln, int fd)
 	i = -1;
 	while (cmd[1] && cmd[1][++i])
 	{
-		if ((!ft_isdigit(cmd[1][i]) && (cmd[1][0] != '-' && cmd[1][0] != '+')) || \
-		(!i && (((cmd[1][0] == '-' || cmd[1][0] == '+') && ft_strlen(cmd[1]) > 21) || \
+		if ((!ft_isdigit(cmd[1][i]) && (cmd[1][0] != '-' && \
+		cmd[1][0] != '+')) || (!i && (((cmd[1][0] == '-' || \
+		cmd[1][0] == '+') && ft_strlen(cmd[1]) > 21) || \
 		ft_strlen(cmd[1]) > 20)))
 		{
 			(ft_putstr_fd("exit: ", 2), ft_putstr_fd(cmd[1], 2));
@@ -44,8 +45,9 @@ int	ft_exit0(t_env **env, char **cmd, int cmd_ln, int fd)
 	i = -1;
 	while (cmd && cmd[1] && cmd[1][++i])
 	{
-		if ((!ft_isdigit(cmd[1][i]) && (cmd[1][0] != '-' && cmd[1][0] != '+')) || \
-		(!i && (((cmd[1][0] == '-' || cmd[1][0] == '+') && ft_strlen(cmd[1]) > 21) || \
+		if ((!ft_isdigit(cmd[1][i]) && (cmd[1][0] != '-' && \
+		cmd[1][0] != '+')) || (!i && (((cmd[1][0] == '-' || \
+		cmd[1][0] == '+') && ft_strlen(cmd[1]) > 21) || \
 		ft_strlen(cmd[1]) > 20)))
 		{
 			(ft_putstr_fd("exit: ", 2), ft_putstr_fd(cmd[1], 2));

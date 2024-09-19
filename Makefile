@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
+#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/09/18 17:01:15 by rgallien         ###   ########.fr        #
+#    Updated: 2024/09/19 10:39:51 by lvicino          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ EXEC		=	exec.c \
 				choose_pipe.c \
 				here_doc.c \
 				error.c \
-				get_cmd.c
+				get_cmd.c \
+				builtin.c
 
 
 EXEC		:=	$(EXEC:%=$(EXEC_DIR)/%)
