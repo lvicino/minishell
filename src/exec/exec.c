@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 17:16:10 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 10:59:28 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static int	exec_cmd(t_info *var, t_token **token, t_env **env)
 			execve(var->cmd.path, var->cmd.cmd, convert_env(*env));
 	}
 	freelist(token);
-	free_env(env);
 	if (var->cmd.cmd)
 		free(var->cmd.cmd);
 	if (var->cmd.path)

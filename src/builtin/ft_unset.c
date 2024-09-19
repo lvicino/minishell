@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/13 19:30:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/18 17:26:39 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	ft_unset(t_env **env, char **cmd, int cmd_ln, int fd)
 		{
 			if (!ft_strncmp(node->var, cmd[i], bigger(node->var, cmd[i])) && \
 			ft_strncmp(node->var, "?", bigger(node->var, "?")) && \
-			ft_strncmp(node->var, "_", bigger(node->var, "_")))
+			ft_strncmp(node->var, "_", bigger(node->var, "_")) && \
+			ft_strncmp(node->var, "S_PWD", bigger(node->var, "S_PWD")))
 			{
 				node = unset_var(&node);
 				break ;

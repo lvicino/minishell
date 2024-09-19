@@ -6,11 +6,27 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 17:15:15 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 10:55:58 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	change_s_pwd(t_env **env, char *new)
+{
+	t_env	*current;
+
+	current = *env;
+	while (current && ft_strncmp(current->var, "S_PWD", \
+	bigger(current->var, "S_PWD")))
+		current = current->next;
+	if (current)
+	{
+		if (current->value)
+			free(current->value);
+		current->value = new;
+	}
+}
 
 char	*return_allocate(void)
 {
@@ -34,7 +50,7 @@ void	replace_pwd(char *n_pwd, char *o_pwd, t_env **env)
 	{
 		free(current->value);
 		current->value = n_pwd;
-
+		change_s_pwd(env, ft_strdup(current->value));
 	}
 	current = *env;
 	while (current && ft_strncmp(current->var, "OLDPWD", \
