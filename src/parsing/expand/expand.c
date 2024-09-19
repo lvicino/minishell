@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:10:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/19 12:01:19 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:32:03 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ t_token	*end_and_next(t_token *current, char *new, int *tab)
 		current->str = new;
 		if (current->type == HERE)
 			current = current->next;
+		current = current->next;
+	}
+	else
+	{
+		free(new);
 		current = current->next;
 	}
 	return (current);
