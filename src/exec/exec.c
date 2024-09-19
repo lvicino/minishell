@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 13:51:26 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:05:07 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ int	exec(t_token **token, t_env **env)
 		exit(exec_cmd(&var, token, env));
 	}
 	exec_builtin(&var, env, token);
-	(freelist(token), initial_signal());
+	freelist(token);
 	return (free(var.cmd.cmd), var.r);
 }

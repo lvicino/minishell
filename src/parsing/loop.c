@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/18 11:40:14 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:07:13 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ extern int	g_sig;
 void	get_g_sig(t_env **env)
 {
 	if (g_sig)
+	{
+		if ((*env) && (*env)->value)
+			free((*env)->value);
 		(*env)->value = ft_itoa(g_sig);
+	}
 	g_sig = 0;
 }
 
@@ -37,9 +41,9 @@ int	prompt(t_env	**env)
 	t_token	*stack;
 	t_token	*cpy;
 
-	initial_signal();
 	while (1)
 	{
+		initial_signal();
 		str = readline("Minishell: ");
 		if (!str)
 			return (free_env(env), free(str), clear_history(), \

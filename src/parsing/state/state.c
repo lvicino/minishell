@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:54:04 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/19 15:20:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:36:21 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_assoc	*get_tab_2(int state)
 	return (NULL);
 }
 
-t_assoc	*qget_tab(int state)
+t_assoc	*get_tab(int state)
 {
 	static t_assoc	tab_0[] = {{WORD, state_1}, {OUT, state_2}, {IN, \
 	state_3}, {HERE, state_4}, {APPEND, state_5}, {PIPE_SEQUENCE, state_6}, \
