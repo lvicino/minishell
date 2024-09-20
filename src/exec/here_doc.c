@@ -6,13 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 16:15:14 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/20 13:15:47 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:44:41 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	g_sig;
 
 static int	choose_ln(char *eof, char *str)
 {

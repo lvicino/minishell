@@ -6,13 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/20 13:15:05 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:43:40 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int g_sig;
 
 void	get_g_sig(t_env **env)
 {

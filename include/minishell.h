@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/20 13:14:12 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:44:02 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+
+extern int	g_sig;
 
 void	sigint_handler_hd(int signal);
 void	sigint_handler_prompt(int signal);
