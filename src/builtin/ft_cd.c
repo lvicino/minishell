@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:01:46 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 18:43:34 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/20 12:07:39 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	change_s_pwd(t_env **env, char *new)
 		current = current->next;
 	if (current)
 	{
-		if (current->value)
+		if (current->value && new)
+		{
 			free(current->value);
-		current->value = new;
+			current->value = new;
+		}
 	}
 }
 
@@ -100,7 +102,6 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln, int fd)
 	char		*n_pwd;
 	struct stat	path_stat;
 
-	(void)fd;
 	if (cmd_ln > 2)
 		return (ft_putstr_fd("Minishell : cd: too many arguments\n", 2), 1);
 	else if (cmd_ln == 1)
@@ -111,13 +112,15 @@ int	ft_cd(t_env **env, char **cmd, int cmd_ln, int fd)
 	if (!stat(cmd[1], &path_stat))
 	{
 		if (!S_ISDIR(path_stat.st_mode))
-			return (ft_putstr_fd(cmd[1], 2), \
+			return (free(o_pwd), free(n_pwd), ft_putstr_fd(cmd[1], 2), \
 			ft_putstr_fd(": not a directory\n", 2), 1);
-		else
-			return (chdir(cmd[1]), getcwd(n_pwd, 4096), \
-			replace_pwd(n_pwd, o_pwd, env), 0);
+		else if (!chdir(cmd[1]) && getcwd(n_pwd, 4096))
+			return (replace_pwd(n_pwd, o_pwd, env), 0);
+		else if (cmd && cmd[1])
+			return (ft_putstr_fd("cd: error retrieving current directory:", 2), \
+			ft_putstr_fd(" getcwd: cannot access parent directories:", 2), \
+			ft_putstr_fd(" No such file or directory\n", 2), \
+			free(o_pwd), free(n_pwd), 1);
 	}
-	else
-		return (perror(cmd[0]), 1);
-	return (1);
+	return ((void)fd, free(o_pwd), free(n_pwd), perror(cmd[0]), 1);
 }

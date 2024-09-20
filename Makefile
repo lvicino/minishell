@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/21 16:21:52 by lvicino           #+#    #+#              #
-#    Updated: 2024/09/19 10:39:51 by lvicino          ###   ########.fr        #
+#    Updated: 2024/09/20 10:25:36 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,7 @@ PARSING_DEP	=	$(PARSING_OBJ:$(BUILD_DIR)/%.o=$(BUILD_DIR)/%.d)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -MMD -MP -I include -g3
+CFLAGS		=	-Wall -Wextra -Werror -MMD -MP -I include
 INCLUDE		=	-I include \
 				-I libft/include \
 				-I libft/ft_printf/include \

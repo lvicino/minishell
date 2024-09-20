@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:37:04 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/17 11:55:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:09:34 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ int	wait_process(pid_t pid, int id, int *r)
 	while (id >= 0)
 	{
 		if (pid == wait(&status))
-		{
 			*r = WEXITSTATUS(status);
-		}
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		{
-			write(1, "\n", 1);
+			write(2, "\n", 1);
 			if (id == n)
 				*r = 130;
+		}
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
+		{
+			write(2, "Quit (core dumped)\n", 20);
+			if (id == n)
+				*r = 131;
 		}
 		id--;
 	}

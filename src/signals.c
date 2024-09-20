@@ -6,13 +6,11 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 19:52:13 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/18 16:31:20 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:03:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_sig = 0;
 
 void	signal_hd(void)
 {
@@ -53,7 +51,7 @@ void	signal_child(void)
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = 0;
 	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = SIG_IGN;
+	sa_quit.sa_handler = SIG_DFL;
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = 0;
 	sigaction(SIGQUIT, &sa_quit, NULL);

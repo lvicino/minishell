@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:13:06 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/18 16:36:11 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:14:12 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 void	sigint_handler_hd(int signal);
 void	sigint_handler_prompt(int signal);
+void	sigint_handler_child(int signal);
 void	sigint_handler_parent(int signal);
 void	get_exit_value(int value, t_env **env);
 void	initial_signal(void);

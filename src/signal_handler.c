@@ -6,13 +6,13 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:30:46 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/18 16:39:00 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:15:24 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	g_sig;
+extern int g_sig;
 
 void	sigint_handler_hd(int signal)
 {

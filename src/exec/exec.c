@@ -6,7 +6,7 @@
 /*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 12:50:18 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 18:44:50 by lvicino          ###   ########.fr       */
+/*   Updated: 2024/09/20 11:10:17 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ static char	**convert_env(t_env *env)
 	char	*tmp;
 	int		ln;
 
-	ln = 1;
-	while (env->next)
-	{
-		ln++;
+	ln = 0;
+	while (env && env->next && ++ln)
 		env = env->next;
-	}
 	tab = malloc(sizeof(char *) * (ln + 1));
 	if (!tab)
 		return (NULL);

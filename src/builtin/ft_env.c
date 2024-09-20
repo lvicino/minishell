@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 15:02:01 by lvicino           #+#    #+#             */
-/*   Updated: 2024/09/19 21:56:32 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:12:17 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	add_node(char *str, t_env **env, char *envp)
 
 	len = 0;
 	node = malloc(sizeof(t_env));
-	node->var = str;
+	if (str)
+		node->var = str;
+	else
+		node->var = NULL;
 	node->next = NULL;
 	while (envp[len] != '=')
 		len++;

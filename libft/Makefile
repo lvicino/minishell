@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/06 16:19:48 by lvicino           #+#    #+#              #
-#    Updated: 2024/03/28 19:50:53 by lvicino          ###   ########.fr        #
+#    Updated: 2024/09/20 12:17:29 by rgallien         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ BOBJ		=	$(BSRC:$(BSRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g3
+CFLAGS		=	-Wall -Wextra -Werror
 INCLUDE		=	-I include -I ft_printf/include -I get_next_line/include
 
 MAKEFLAGS	+=	--no-print-directory
