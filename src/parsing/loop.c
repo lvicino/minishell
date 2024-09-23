@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lvicino <lvicino@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:33:35 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/20 14:43:40 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:46:52 by lvicino          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,41 @@ void	get_exit_value(int value, t_env **env)
 	}
 }
 
+char	*prompt_pwd(t_env	**env)
+{
+	char	*str;
+	char	*tmp;
+	t_env	*node;
+
+	str = NULL;
+	node = *env;
+	while (node && ft_strncmp(node->var, "PWD", bigger(node->var, "PWD")))
+		node = node->next;
+	if (node)
+		str = node->value;
+	else
+	{
+		node = *env;
+		while (node && ft_strncmp(node->var, \
+		"S_PWD", bigger(node->var, "S_PWD")))
+			node = node->next;
+		if (node)
+			str = node->value;
+	}
+	if (str)
+	{
+		tmp = ft_strjoin("minishell:", str);
+		free(str);
+		if (tmp)
+		{
+			str = ft_strjoin(tmp, "$ ");
+			free(tmp);
+		}
+	}
+	printf("str = %s%%\n", str);
+	return (readline(str));
+}
+
 int	prompt(t_env	**env)
 {
 	char	*str;
@@ -43,6 +78,7 @@ int	prompt(t_env	**env)
 	{
 		initial_signal();
 		str = readline("Minishell: ");
+		// str = prompt_pwd(env);
 		if (!str)
 			return (free_env(env), free(str), clear_history(), \
 			ft_printf("exit\n"), 0);
