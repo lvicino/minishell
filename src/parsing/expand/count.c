@@ -6,7 +6,7 @@
 /*   By: rgallien <rgallien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 16:39:23 by rgallien          #+#    #+#             */
-/*   Updated: 2024/09/20 15:20:42 by rgallien         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:33:08 by rgallien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	count_found_variable(char *str, int *i, t_env **env)
 
 	current = *env;
 	(*i)++;
-	if (!str[*i] || ft_isspace(str[*i]) || str[*i + 1] == 39 \
-	|| str[*i + 1] == '"')
+	if (!str[*i] || ft_isspace(str[*i]) || str[*i] == 39 \
+	|| str[*i] == '"')
 		return (1);
 	start = *i;
 	while (str[*i] && str[*i] != '$' && str[*i] != 39 && str[*i] != '"' \
@@ -104,6 +104,5 @@ int	ft_count_expand(char *str, t_env **env)
 			i++;
 		}
 	}
-	printf("count expand = %d\n", c);
 	return (c);
 }
