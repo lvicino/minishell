@@ -33,22 +33,3 @@ This shell supports the following features:
     * `unset` (remove variables from environment)
     * `env` (print environment variables)
     * `exit` (exit the shell)
-
-## Getting Started
-
-### Prerequisites
-
-* **GCC** or another standard C compiler.
-* **Make** for using the provided Makefile.
-* **Readline** library (usually required for history and prompt management).
-    * *Linux:* `libreadline-dev`
-    * *macOS:* Readline is typically linked via brew or system libraries.
-
-### Installation
-
-Clone the repository and compile the project:
-
-```bash
-git clone [https://github.com/lvicino/minishell.git](https://github.com/lvicino/minishell.git)
-cd minishell
-make
